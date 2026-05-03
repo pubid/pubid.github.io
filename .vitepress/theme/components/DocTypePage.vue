@@ -53,9 +53,9 @@ function enrich(comp: FlavorComponent) {
           <code class="syntax-pattern">{{ s.pattern }}</code>
         </div>
       </div>
-      <div v-else-if="p.syntaxNotes" class="syntax-block">
-        <span class="label">Publisher Syntax</span>
-        {{ p.syntaxNotes }}
+      <div v-else-if="p.syntaxNotes" class="syntax-notes">
+        <h3>Syntax</h3>
+        <p style="color:var(--vp-c-text-2);line-height:1.7;font-size:0.95rem;">{{ p.syntaxNotes }}</p>
       </div>
     </div>
 
@@ -157,7 +157,7 @@ function enrich(comp: FlavorComponent) {
       <h2 id="urn">URN Mapping</h2>
       <div class="syntax-block">
         <span class="label">Pattern</span>
-        {{ p.urnPattern }}
+        <code class="syntax-pattern">{{ p.urnPattern }}</code>
       </div>
     </div>
 

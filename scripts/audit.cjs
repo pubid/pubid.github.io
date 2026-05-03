@@ -6,7 +6,7 @@ const pubTs = fs.readFileSync(path.join(__dirname, "..", ".vitepress", "data", "
 // Extract flavor positions
 const flavors = {};
 let pos = 0;
-const flavorPattern = /flavor:\s*['"](\w+)['"]/g;
+const flavorPattern = /flavor:\s*['"]([\w-]+)['"]/g;
 let match;
 const flavorPositions = [];
 
@@ -19,11 +19,25 @@ for (let i = 0; i < flavorPositions.length; i++) {
   const end = i + 1 < flavorPositions.length ? flavorPositions[i + 1].start : pubTs.length;
   const section = pubTs.substring(start, end);
 
+  // Only extract keys from docTypes array, not from styles/components
   const docTypeKeys = [];
-  const keyPattern = /key:\s*['"]([\w-]+)['"]/g;
-  let km;
-  while ((km = keyPattern.exec(section)) !== null) {
-    docTypeKeys.push(km[1]);
+  const docTypesMatch = section.match(/docTypes:\s*\[/);
+  if (docTypesMatch) {
+    const docTypesStart = section.indexOf(docTypesMatch[0]) + docTypesMatch[0].length;
+    // Find matching closing bracket
+    let depth = 1;
+    let idx = docTypesStart;
+    while (idx < section.length && depth > 0) {
+      if (section[idx] === '[') depth++;
+      else if (section[idx] === ']') depth--;
+      idx++;
+    }
+    const docTypesSection = section.substring(docTypesStart, idx - 1);
+    const keyPattern = /key:\s*['"]([\w-]+)['"]/g;
+    let km;
+    while ((km = keyPattern.exec(docTypesSection)) !== null) {
+      docTypeKeys.push(km[1]);
+    }
   }
   flavors[flavor] = docTypeKeys;
 }
@@ -45,7 +59,8 @@ let totalExtra = 0;
 
 for (const [flavor, genData] of Object.entries(gen)) {
   const genTypes = genData.identifier_types || [];
-  const webKeys = (flavors[flavor] || []).map(normalizeKey);
+  // Try both underscore and hyphenated forms for flavor matching
+  const webKeys = (flavors[flavor] || flavors[flavor.replace(/_/g, '-')] || []).map(normalizeKey);
 
   // Build maps for matching
   const genByKey = new Map(genTypes.map(t => [normalizeKey(t.key), t]));

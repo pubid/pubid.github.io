@@ -1300,6 +1300,8 @@ html.dark .pub-card:hover { background: rgba(255, 255, 255, 0.03); }
 .flavor-hero-top { display: flex; align-items: flex-start; gap: 1.25rem; margin-bottom: 1rem; }
 .flavor-hero-icon { width: 52px; height: 52px; border-radius: 12px; background: var(--bg-dark); color: white; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; font-weight: 800; font-family: var(--vp-font-family-mono); flex-shrink: 0; letter-spacing: -0.02em; }
 .flavor-hero-logo { width: 52px; height: 52px; border-radius: 12px; object-fit: contain; flex-shrink: 0; background: white; padding: 4px; box-sizing: border-box; }
+.flavor-hero-logos { display: flex; gap: 6px; flex-shrink: 0; }
+.flavor-hero-logos .flavor-hero-logo { width: 44px; height: 44px; }
 .flavor-hero-text h1 { font-size: 2rem; margin: 0 0 0.25rem; line-height: 1.2; letter-spacing: -0.02em; }
 .flavor-hero-text .full-name { font-size: 0.95rem; color: var(--text-2); margin: 0; }
 .flavor-hero-desc { font-size: 0.92rem; color: var(--text-2); line-height: 1.6; max-width: 700px; }
@@ -1374,7 +1376,7 @@ html.dark .pub-card:hover { background: rgba(255, 255, 255, 0.03); }
 .related-link:hover { border-color: var(--accent); color: var(--accent); }
 .related-link .link-arrow { color: var(--text-3); font-size: 0.7rem; }
 
-.syntax-block { display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; border-radius: 8px; background: var(--bg-raised); border: 1px solid var(--border); margin: 0.75rem 0; font-family: var(--vp-font-family-mono); font-size: 0.85rem; color: var(--text); }
+.syntax-block { display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; border-radius: 8px; background: var(--bg-raised); border: 1px solid var(--border); margin: 0.75rem 0; font-size: 0.85rem; color: var(--text); line-height: 1.6; }
 .syntax-block .label { font-size: 0.68rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-3); flex-shrink: 0; }
 .syntax-list { margin: 1rem 0; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
 .syntax-row { display: flex; align-items: baseline; gap: 1rem; padding: 0.55rem 1rem; border-bottom: 1px solid var(--border-subtle); transition: background 0.15s; }
@@ -1792,3 +1794,116 @@ html.dark .fmt-note {
   margin-right: 4px;
   margin-bottom: 2px;
 }
+
+/* ── AsciiDoc Content ───────────────────────────────────────────── */
+
+/* Reset Asciidoctor defaults that conflict with VitePress */
+.adoc-content { line-height: 1.7; color: var(--vp-c-text-1); }
+.adoc-content .paragraph,
+.adoc-content .dlist,
+.adoc-content .hdlist,
+.adoc-content .ulist,
+.adoc-content .olist,
+.adoc-content .colist,
+.adoc-content .listingblock,
+.adoc-content .literalblock,
+.adoc-content .tableblock,
+.adoc-content .admonitionblock,
+.adoc-content .exampleblock,
+.adoc-content .imageblock { margin: 0.75rem 0; }
+
+/* Headings */
+.adoc-content h1 { font-size: 2rem; margin: 0 0 1rem; letter-spacing: -0.02em; border-bottom: none; }
+.adoc-content h2 { font-size: 1.5rem; margin: 2.5rem 0 1rem; padding-bottom: 0.3rem; border-bottom: 1px solid var(--border); }
+.adoc-content h3 { font-size: 1.2rem; margin: 2rem 0 0.75rem; }
+.adoc-content h4 { font-size: 1.05rem; margin: 1.5rem 0 0.5rem; }
+.adoc-content h1:first-child { margin-top: 0; }
+
+/* Paragraphs & text */
+.adoc-content .paragraph p { margin: 0.75rem 0; }
+.adoc-content strong { font-weight: 600; }
+
+/* Lists */
+.adoc-content .ulist ul, .adoc-content .olist ol { padding-left: 1.5rem; margin: 0.5rem 0; }
+.adoc-content .ulist li, .adoc-content .olist li { margin: 0.35rem 0; }
+
+/* Inline code */
+.adoc-content code { font-family: var(--vp-font-family-mono); font-size: 0.88em; background: var(--bg-inset); border: 1px solid var(--border-subtle); border-radius: 4px; padding: 2px 6px; }
+.adoc-content pre code { background: none; border: none; padding: 0; }
+
+/* Code blocks (listingblock and literalblock) */
+.adoc-content .listingblock, .adoc-content .literalblock { margin: 1rem 0; }
+.adoc-content .listingblock .content, .adoc-content .literalblock .content { margin: 0; }
+.adoc-content .listingblock pre, .adoc-content .literalblock pre {
+  background: var(--bg-inset); border: 1px solid var(--border); border-radius: 8px;
+  padding: 1rem; overflow-x: auto; margin: 0; font-size: 0.85rem;
+  font-family: var(--vp-font-family-mono); line-height: 1.5; color: var(--vp-c-text-1);
+}
+.adoc-content .listingblock .title, .adoc-content .literalblock .title {
+  font-size: 0.82rem; color: var(--vp-c-text-3); font-weight: 500; margin-bottom: 0.35rem;
+}
+
+/* Tables (Asciidoctor tableblock) */
+.adoc-content table.tableblock { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.9rem; }
+.adoc-content table.tableblock colgroup col { width: auto !important; }
+.adoc-content table.tableblock th.tableblock,
+.adoc-content table.tableblock td.tableblock { padding: 0.6rem 0.8rem; border: 1px solid var(--border); vertical-align: top; }
+.adoc-content table.tableblock thead th.tableblock { background: var(--bg-inset); font-weight: 600; text-align: left; }
+.adoc-content table.tableblock tbody tr:nth-child(even) td { background: var(--bg-raised); }
+.adoc-content table.tableblock .title { font-size: 0.82rem; color: var(--vp-c-text-3); font-weight: 500; margin-bottom: 0.35rem; font-style: italic; }
+.adoc-content table.tableblock.stretch { width: 100%; }
+
+/* Horizontal definition lists (hdlist - [horizontal] tables in AsciiDoc) */
+.adoc-content .hdlist { margin: 0.75rem 0; }
+.adoc-content .hdlist table { border: none; border-collapse: collapse; width: 100%; margin: 0; }
+.adoc-content .hdlist table tr { border-bottom: 1px solid var(--border-subtle); }
+.adoc-content .hdlist table tr:last-child { border-bottom: none; }
+.adoc-content .hdlist td.hdlist1 { font-weight: 600; font-family: var(--vp-font-family-mono); font-size: 0.88em;
+  padding: 0.4rem 0.8rem 0.4rem 0; border: none; white-space: nowrap; vertical-align: top; width: 1%; color: var(--vp-c-brand-1); }
+.adoc-content .hdlist td.hdlist2 { padding: 0.4rem 0; border: none; color: var(--vp-c-text-2); }
+
+/* Regular definition lists */
+.adoc-content .dlist { margin: 0.75rem 0; }
+.adoc-content .dlist dt { font-weight: 600; margin-top: 0.75rem; }
+.adoc-content .dlist dd { margin-left: 1.5rem; margin-top: 0.25rem; color: var(--vp-c-text-2); }
+
+/* TOC */
+.adoc-content .toc { background: var(--bg-raised); border: 1px solid var(--border); border-radius: 8px; padding: 1rem 1.5rem; margin: 1.5rem 0; }
+.adoc-content .toc #toctitle { font-size: 0.78rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--vp-c-text-3); margin: 0 0 0.5rem; }
+.adoc-content .toc ul { list-style: none; padding-left: 0; margin: 0; }
+.adoc-content .toc .sectlevel2 { padding-left: 1.25rem; margin: 0; }
+.adoc-content .toc .sectlevel3 { padding-left: 1.25rem; margin: 0; }
+.adoc-content .toc li { margin: 0.2rem 0; }
+.adoc-content .toc a { color: var(--vp-c-text-2); text-decoration: none; font-size: 0.88rem; line-height: 1.5; }
+.adoc-content .toc a:hover { color: var(--vp-c-brand-1); }
+
+/* Admonition blocks (NOTE, TIP, WARNING, etc.) */
+.adoc-content .admonitionblock { margin: 1.25rem 0; }
+.adoc-content .admonitionblock > table { width: 100%; border: none; border-collapse: collapse; margin: 0; }
+.adoc-content .admonitionblock td.icon { width: 40px; padding: 0.75rem 0.5rem 0.75rem 0.75rem; vertical-align: top;
+  font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--vp-c-brand-1); }
+.adoc-content .admonitionblock td.icon .fa { display: none; }
+.adoc-content .admonitionblock td.content { padding: 0.75rem 1rem; border: none;
+  background: var(--bg-raised); border-radius: 8px; border-left: 4px solid var(--vp-c-brand-1); }
+.adoc-content .admonitionblock .title { font-weight: 600; margin-bottom: 0.35rem; font-size: 0.9rem; }
+.adoc-content .admonitionblock p { margin: 0.35rem 0; font-size: 0.92rem; color: var(--vp-c-text-2); }
+
+/* Example blocks */
+.adoc-content .exampleblock { background: var(--bg-raised); border: 1px solid var(--border); border-radius: 8px; padding: 1rem 1.25rem; margin: 1rem 0; }
+.adoc-content .exampleblock .title { font-weight: 600; font-size: 0.82rem; color: var(--vp-c-text-3); margin-bottom: 0.5rem; }
+
+/* Sections */
+.adoc-content .sect1 { margin-bottom: 2rem; }
+.adoc-content .sect2 { margin-bottom: 1rem; }
+.adoc-content .sect3 { margin-bottom: 0.5rem; }
+.adoc-content .sectionbody { margin: 0; }
+.adoc-content #preamble { margin-bottom: 2rem; }
+.adoc-content .preamble { margin: 0; }
+
+/* Anchors (Asciidoctor sectanchors) */
+.adoc-content .anchor { display: none; }
+
+/* Miscellaneous */
+.adoc-content [id] { scroll-margin-top: 4rem; }
+.adoc-content hr { border: none; border-top: 1px solid var(--border); margin: 2rem 0; }
+.adoc-content .inline-footnotes { font-size: 0.85rem; color: var(--vp-c-text-3); }

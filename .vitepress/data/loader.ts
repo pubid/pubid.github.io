@@ -78,17 +78,49 @@ export function mergePublishers(publishers: Publisher[]): Publisher[] {
 }
 
 function mergePublisher(publisher: Publisher): Publisher {
-  const gen = generated[publisher.flavor]
+  const key = publisher.flavor.replace(/-/g, '_')
+  const gen = generated[key]
   if (!gen) return publisher
 
   return {
     ...publisher,
+    docTypes: mergeDocTypes(publisher.docTypes, gen),
     stages: mergeStages(publisher.stages, gen),
   }
 }
 
+function mergeDocTypes(existing: DocType[], gen: GeneratedFlavorData): DocType[] {
+  const existingKeys = new Set(existing.map(t => t.key))
+  const merged = [...existing]
+
+  for (const gt of gen.identifier_types) {
+    if (!existingKeys.has(gt.key)) {
+      existingKeys.add(gt.key)
+      merged.push({
+        key: gt.key,
+        title: gt.title,
+        abbr: gt.abbr,
+        description: '',
+        examples: (gt.examples || []).map(e => ({ input: e })),
+      })
+    } else {
+      // Merge examples and typed stages from generated into existing
+      const existingType = merged.find(t => t.key === gt.key)!
+      if (!existingType.abbr?.length && gt.abbr?.length) {
+        existingType.abbr = gt.abbr
+      }
+      if (!existingType.examples?.length && gt.examples?.length) {
+        existingType.examples = gt.examples.map(e => ({ input: e }))
+      }
+    }
+  }
+
+  return merged
+}
+
 function mergeStages(existing: Stage[] | undefined, gen: GeneratedFlavorData): Stage[] | undefined {
-  const genStages = getGeneratedStages(Object.keys(generated).find(k => generated[k] === gen) || '')
+  const genKey = Object.keys(generated).find(k => generated[k] === gen) || ''
+  const genStages = getGeneratedStages(genKey)
   if (genStages.length === 0) return existing
   if (!existing || existing.length === 0) return genStages
 
@@ -105,7 +137,8 @@ export function auditAgainstLibrary(publishers: Publisher[]): AuditReport {
   const report: AuditReport = {}
 
   for (const p of publishers) {
-    const gen = generated[p.flavor]
+    const key = p.flavor.replace(/-/g, '_')
+    const gen = generated[key]
     if (!gen) {
       report[p.flavor] = { status: 'no_library_data' }
       continue

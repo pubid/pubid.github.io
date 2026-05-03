@@ -12,7 +12,7 @@ export const publishers: Publisher[] = [
     website: 'https://www.iso.org',
     syntaxNotes: 'ISO identifiers follow the pattern: [Copublisher/]ISO [Type] [Number][-Part]:[Year]. Joint publications use copublishers like ISO/IEC, ISO/ASTM, etc.',
     urnPattern: 'urn:iso:std:iso[:copublisher]:[number]:[edition]:[language]',
-    relatedFlavors: ['iec', 'astm', 'bsi', 'cen', 'ieee'],
+    relatedFlavors: ['iec', 'astm', 'bsi', 'cen-cenelec', 'ieee'],
     docTypes: [
       {
         key: 'international_standard',
@@ -95,9 +95,9 @@ export const publishers: Publisher[] = [
         key: 'supplement',
         title: 'Supplement',
         abbr: ['Suppl'],
-        description: 'A Supplement adds additional content to a base document, such as supplementary requirements or guidelines.',
+        description: 'A Supplement adds additional content to a base standard, such as supplementary requirements or guidelines.',
         examples: [
-          { input: 'ISO/IEC Directives Part 1 Supplement:2023' },
+          { input: 'ISO/IEC 17031-1:2020/Suppl:2021' },
         ]
       },
       {
@@ -152,10 +152,10 @@ export const publishers: Publisher[] = [
       {
         key: 'directives_supplement',
         title: 'Directives Supplement',
-        abbr: ['Suppl'],
-        description: 'Supplements to the ISO/IEC Directives that provide additional procedures specific to ISO or IEC.',
+        abbr: ['DIR SUP'],
+        description: 'Supplements to the ISO/IEC Directives that provide additional procedures specific to ISO, IEC, or JTC.',
         examples: [
-          { input: 'ISO/IEC Directives Part 1 ISO Supplement:2023' },
+          { input: 'ISO/IEC DIR 1 ISO SUP:2023' },
         ]
       },
       {
@@ -247,7 +247,7 @@ export const publishers: Publisher[] = [
     website: 'https://www.iec.ch',
     syntaxNotes: 'IEC identifiers follow the pattern: IEC [Type] [Number]-[Part]:[Year]. Many IEC identifiers include CISPR (Comité International Spécial des Perturbations Radioélectriques) designations. Value-added products (CSV, CMV, RLV, etc.) use suffixes.',
     urnPattern: 'urn:iec:std:iec:[number]:[edition]:[language]',
-    relatedFlavors: ['iso', 'ieee', 'bsi', 'cen', 'csa'],
+    relatedFlavors: ['iso', 'ieee', 'bsi', 'cen-cenelec', 'csa'],
     docTypes: [
       {
         key: 'international_standard',
@@ -713,6 +713,25 @@ export const publishers: Publisher[] = [
           { input: 'ITU-T G.992.1/Cor 1' },
         ]
       },
+      {
+        key: 'special_publication',
+        title: 'Operational Bulletin',
+        abbr: ['OB'],
+        description: 'ITU Operational Bulletin — a cross-bureau periodic publication covering regulatory and administrative information from all three ITU sectors.',
+        examples: [
+          { input: 'ITU OB No. 1283 (01/2024)' },
+          { input: 'ITU OB No. 1000' },
+        ]
+      },
+      {
+        key: 'annex',
+        title: 'Annex',
+        abbr: ['Annex'],
+        description: 'An annex to an ITU Special Publication (Operational Bulletin). Rendered as "Annex to ITU OB No. [Number]".',
+        examples: [
+          { input: 'Annex to ITU OB No. 1000' },
+        ]
+      },
     ],
     components: [
       { name: 'Sector', description: 'ITU sector: R (Radiocommunication), T (Standardization), D (Development)', attribute: 'sector' },
@@ -728,14 +747,15 @@ export const publishers: Publisher[] = [
   },
   // ─── REGIONAL ──────────────────────────────────────────────────
   {
-    flavor: 'cen',
+    flavor: 'cen-cenelec',
     logo: '/logos/cen-logo.svg',
-    name: 'CEN',
-    fullName: 'European Committee for Standardization',
+    logos: ['/logos/cen-logo.svg', '/logos/cenelec-logo.png'],
+    name: 'CEN-CENELEC',
+    fullName: 'CEN and CENELEC — European Standardization Organizations',
     category: 'regional',
-    description: 'CEN (Comité Européen de Normalisation) is a major provider of European Standards and other deliverables. CEN standards are developed through a transparent process involving industry, public authorities, and consumer and environmental organizations.',
-    website: 'https://www.cen.eu',
-    syntaxNotes: 'CEN uses EN (European Norm) designations. Standards follow patterns like: EN [Number]:[Year], CEN/TS [Number]:[Year]. CENELEC standards use CLC prefix.',
+    description: 'CEN (European Committee for Standardization) and CENELEC (European Committee for Electrotechnical Standardization) are two distinct organizations managed by a single body, the CEN-CENELEC Management Centre (CCMC). They share a unified publishing system, identifier grammar, and catalogue. CEN cooperates with ISO (Vienna Agreement) and CENELEC cooperates with IEC (Frankfurt Agreement). Both are recognized by the EU and EFTA.',
+    website: 'https://www.cencenelec.eu',
+    syntaxNotes: 'CEN-CENELEC identifiers use EN (European Norm) designations with CEN or CLC (CENELEC) publisher prefixes. Patterns: EN [Number]:[Year], CEN/TS [Number]:[Year], CLC/TR [Number]:[Year], CEN/CLC [Type] [Number]:[Year].',
     urnPattern: 'urn:cen:std:en:[number]:[year]',
     relatedFlavors: ['iso', 'iec', 'bsi'],
     docTypes: [
@@ -885,7 +905,7 @@ export const publishers: Publisher[] = [
     description: 'ETSI produces globally applicable standards for Information and Communications Technologies (ICT), including fixed, mobile, radio, converged, broadcast, and internet technologies.',
     website: 'https://www.etsi.org',
     syntaxNotes: 'ETSI identifiers follow the pattern: ETSI [Type] [Number] V[Version] ([Date]). Types include EG (Guide), EN (Standard), ES (Specification), ET (Technical Report), GS (Group Specification), TS (Technical Specification), TR (Technical Report).',
-    relatedFlavors: ['cen', 'itu', 'iec'],
+    relatedFlavors: ['cen-cenelec', 'itu', 'iec'],
     docTypes: [
       {
         key: 'etsi_standard',
@@ -1185,7 +1205,7 @@ export const publishers: Publisher[] = [
     description: 'BSI is the UK\'s National Standards Body, producing technical standards for a wide range of products and services. BSI also provides certification and standards-related services.',
     website: 'https://www.bsigroup.com',
     syntaxNotes: 'BSI identifiers use BS prefix with various type indicators. Adoptions of international standards use patterns like BS ISO, BS EN, BS EN ISO.',
-    relatedFlavors: ['iso', 'iec', 'cen'],
+    relatedFlavors: ['iso', 'iec', 'cen-cenelec'],
     docTypes: [
       {
         key: 'british_standard',

@@ -54,7 +54,10 @@ const dataTypeLabel: Record<string, string> = {
     <!-- Hero -->
     <div class="flavor-hero">
       <div class="flavor-hero-top">
-        <img v-if="p.logo" :src="p.logo" :alt="p.name + ' logo'" class="flavor-hero-logo" />
+        <div v-if="p.logos && p.logos.length > 1" class="flavor-hero-logos">
+          <img v-for="(logo, i) in p.logos" :key="i" :src="logo" :alt="p.name + ' logo'" class="flavor-hero-logo" />
+        </div>
+        <img v-else-if="p.logo" :src="p.logo" :alt="p.name + ' logo'" class="flavor-hero-logo" />
         <div v-else class="flavor-hero-icon">{{ p.name.slice(0, 2) }}</div>
         <div class="flavor-hero-text">
           <h1>{{ p.name }}</h1>

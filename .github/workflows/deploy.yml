@@ -4,6 +4,13 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+    inputs:
+      pubid_ref:
+        description: 'PubID library branch/ref to export from'
+        required: false
+        default: 'main'
+  repository_dispatch:
+    types: [pubid-library-update]
 
 permissions:
   contents: read
@@ -19,12 +26,65 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: npm
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.4'
+
+      - name: Determine pubid ref
+        id: pubid-ref
+        run: |
+          if [ -n "${{ github.event.client_payload.ref }}" ]; then
+            echo "ref=${{ github.event.client_payload.ref }}" >> "$GITHUB_OUTPUT"
+          elif [ -n "${{ inputs.pubid_ref }}" ]; then
+            echo "ref=${{ inputs.pubid_ref }}" >> "$GITHUB_OUTPUT"
+          else
+            echo "ref=main" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Checkout pubid library
+        uses: actions/checkout@v4
+        with:
+          repository: metanorma/pubid
+          ref: ${{ steps.pubid-ref.outputs.ref }}
+          path: _pubid
+
+      - name: Install pubid dependencies
+        working-directory: _pubid
+        run: bundle install --jobs 4 --retry 3
+
+      - name: Export library data
+        run: |
+          cd _pubid
+          bundle exec ruby -e '
+            require "pubid"
+            require_relative "lib/pubid/export/exporter"
+
+            data = Pubid::Export::Exporter.export_all
+            metadata = {
+              pubid_version: Pubid::VERSION,
+              git_commit: `git rev-parse HEAD`.strip,
+              git_branch: `git rev-parse --abbrev-ref HEAD`.strip,
+              exported_at: Time.now.utc.iso8601,
+              total_identifier_types: data.values.sum { |f| f[:identifier_types]&.size || 0 },
+              total_flavors: data.size,
+            }
+            output = { "_metadata" => metadata }.merge(data)
+            dest = File.expand_path("../.vitepress/data/generated/website-data.json", __dir__)
+            File.write(dest, JSON.pretty_generate(output))
+            puts "Exported #{metadata[:total_identifier_types]} types across #{metadata[:total_flavors]} flavors"
+            puts "PubID version: #{metadata[:pubid_version]}"
+            puts "Git ref: #{metadata[:git_branch]} @ #{metadata[:git_commit][0..7]}"
+          '
+
       - run: npm ci
       - run: npm run build
+
       - uses: actions/upload-pages-artifact@v3
         with:
           path: .vitepress/dist

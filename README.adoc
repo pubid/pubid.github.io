@@ -1,35 +1,124 @@
-= PubID Open Project Site
+= PubID Website
+:repo-lib: https://github.com/metanorma/pubid
+:repo-site: https://github.com/pubid/pubid.github.io
 
-== Introduction
+The official website for the https://github.com/metanorma/pubid[PubID] project, built with https://vitepress.dev[VitePress] and deployed to GitHub Pages at https://www.pubid.com.
 
-This is the PubID project site, part of Ribose Open Project network, located at
-https://www.pubid.com.
+== Architecture
 
-It is a https://jekyllrb.com[Jekyll]-based site created with the Open Project
-Jekyll theme.
+The site is a https://vitepress.dev[VitePress] static site that merges two data sources:
 
-Refer to their respective docs for details.
+1. **Curated data** (`.vitepress/data/publishers.ts`) — hand-written descriptions, examples, and context for each publisher and document type.
+2. **Generated data** (`.vitepress/data/generated/website-data.json`) — exported from the {repo-lib}[pubid Ruby library] containing all identifier types, typed stages, abbreviations, and fixture examples.
 
+The https://github.com/pubid/pubid.github.io/blob/main/.vitepress/data/loader.ts[data loader] merges both sources at build time: library types not in the curated data are auto-added, and curated descriptions/enrichments are preserved.
 
-== Content management
+== Quick Start
 
+.Prerequisites
+* Node.js 20+
+* Ruby 3.4+ (only needed for local data export)
 
-== Development
+=== Install and run
 
-=== Getting started
+[source,bash]
+----
+npm install
+npm run dev          # dev server at http://localhost:5173
+npm run build        # production build to .vitepress/dist
+npm run preview      # preview production build
+----
 
-* Ensure you have reasonable Ruby version
-* Run `bundle` from within site directory to install Ruby dependencies
+== Exporting Library Data
 
-=== Serving site preview
+The website reads identifier metadata from the pubid Ruby gem. To regenerate the data file:
 
-* Run `jekyll serve` from within site directory
+[source,bash]
+----
+# In the pubid library directory
+cd /path/to/pubid
+bundle install
+bundle exec ruby -e '
+  require "pubid"
+  require_relative "lib/pubid/export/exporter"
+  data = Pubid::Export::Exporter.export_all
+  metadata = {
+    pubid_version: Pubid::VERSION,
+    git_commit: `git rev-parse HEAD`.strip,
+    git_branch: `git rev-parse --abbrev-ref HEAD`.strip,
+    exported_at: Time.now.utc.iso8601,
+    total_identifier_types: data.values.sum { |f| f[:identifier_types]&.size || 0 },
+    total_flavors: data.size,
+  }
+  output = { "_metadata" => metadata }.merge(data)
+  File.write("PATH/TO/pubid.github.io/.vitepress/data/generated/website-data.json", JSON.pretty_generate(output))
+  puts "Exported #{metadata[:total_identifier_types]} types across #{metadata[:total_flavors]} flavors"
+'
+----
 
+== GitHub Actions Deployment
 
-== Workflow
+The `deploy.yml` workflow automatically:
 
-. Ensure tests pass
-. Create your feature branch (`git checkout -b my-new-feature`)
-. Commit your changes (`git commit -am 'Add some feature'`)
-. Push to the branch (`git push origin my-new-feature`)
-. Make a pull request
+. Checks out this website repo
+. Checks out the {repo-lib}[pubid library] (`main` branch by default)
+. Runs the export to generate `website-data.json`
+. Builds the VitePress site with fresh data
+. Deploys to GitHub Pages
+
+=== Triggering a rebuild
+
+The workflow runs on every push to `main`. You can also:
+
+* **Manual trigger**: Use "Run workflow" in GitHub Actions UI, optionally specifying a pubid library branch/ref
+* **From the library repo**: Send a `repository_dispatch` event with type `pubid-library-update` and a `ref` payload
+
+== Data Pipeline
+
+....
+┌─────────────────┐     bundle exec export     ┌────────────────────────┐
+│  pubid library   │ ─────────────────────────▶ │  website-data.json     │
+│  (Ruby gem)      │     209 types × 23 flavors │  (generated JSON)      │
+└─────────────────┘                             └───────────┬────────────┘
+                                                            │
+┌─────────────────┐     VitePress build       ┌────────────▼────────────┐
+│  publishers.ts   │ ────────────────────────▶ │  Merged site data       │
+│  (curated)       │     loader.ts merges      │  (curated + generated)  │
+└─────────────────┘                           └────────────────────────┘
+....
+
+== Auditing
+
+Run the audit script to compare curated data against library exports:
+
+[source,bash]
+----
+node scripts/audit.cjs
+----
+
+This reports types missing from curated data and types in curated data not found in the library.
+
+== Project Structure
+
+[source]
+----
+.vitepress/
+  config.ts                  # VitePress config (sidebar, nav, theme)
+  data/
+    publishers.ts            # Curated publisher/type metadata
+    loader.ts                # Merges curated + generated data
+    syntax-data.ts           # Syntax patterns per type
+    component-data.ts        # Component descriptions per flavor
+    types.ts                 # TypeScript interfaces
+    generated/
+      website-data.json      # Exported from pubid library (do not hand-edit)
+  theme/                     # Vue components and custom CSS
+  vite-plugins/              # Custom Vite plugins (AsciiDoc)
+.github/workflows/
+  deploy.yml                 # Build + deploy to GitHub Pages
+  links.yml                  # Link checker
+scripts/
+  audit.cjs                  # Compare website data vs library export
+public/
+  logos/                     # Publisher SVG logos
+----

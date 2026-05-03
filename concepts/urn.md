@@ -115,6 +115,7 @@ id.to_urn  # => "urn:iec:std:iec:61131:-3:ed-3"
 
 ## See Also
 
+- **[URN Specifications](/specs/)** — Full ABNF grammar and reference documentation for ISO (RFC 5141-bis) and IEC URN namespaces
 - [The Metaschema](/concepts/metaschema)
 - [Common Elements](/concepts/elements)
 - [Library Quick Start](/library/quick-start)

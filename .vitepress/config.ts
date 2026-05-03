@@ -1,5 +1,6 @@
 import { defineConfig } from 'vitepress'
 import { publishers } from './data/publishers'
+import { asciidocPlugin } from './vite-plugins/asciidoc'
 
 const publisherSidebar = [
   { text: 'All Publishers', link: '/publishers/' },
@@ -10,7 +11,7 @@ const publisherSidebar = [
     items: [
       { text: 'Overview', link: `/publishers/${p.flavor}` },
       ...p.docTypes.map(dt => ({
-        text: dt.title,
+        text: dt.abbr.length > 0 ? `${dt.title} (${dt.abbr.join(', ')})` : dt.title,
         link: `/publishers/${p.flavor}/${dt.key}`,
       })),
     ],
@@ -26,11 +27,28 @@ const conceptSidebar = [
   { text: 'Designing Your Scheme', link: '/concepts/designing-your-scheme' },
 ]
 
+const specsSidebar = [
+  { text: 'Overview', link: '/specs/' },
+  { text: 'ISO URN (RFC 5141-bis)', link: '/specs/iso-urn' },
+  { text: 'IEC URN', link: '/specs/iec-urn' },
+]
+
+const librarySidebar = [
+  { text: 'Installation', link: '/library/' },
+  { text: 'Quick Start', link: '/library/quick-start' },
+  { text: 'API Reference', link: '/library/api' },
+  { text: 'Contributing', link: '/library/contributing' },
+]
+
 export default defineConfig({
   title: 'PubID',
   description: 'Universal Publication Identifier — An open standard for machine-readable publication identifiers',
   lang: 'en-US',
   lastUpdated: true,
+
+  vite: {
+    plugins: [asciidocPlugin()],
+  },
 
   head: [
     ['link', { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' }],
@@ -48,11 +66,16 @@ export default defineConfig({
 
     nav: [
       { text: 'About', link: '/about' },
-      { text: 'Concepts', items: conceptSidebar },
       { text: 'Publishers', link: '/publishers/' },
       { text: 'Playground', link: '/playground' },
-      { text: 'Library', link: '/library/' },
-      { text: 'Blog', link: '/blog/' },
+      {
+        text: 'Docs',
+        items: [
+          { text: 'Concepts', items: conceptSidebar },
+          { text: 'Specifications', items: specsSidebar },
+          { text: 'Library', items: librarySidebar },
+        ],
+      },
     ],
 
     socialLinks: [
@@ -66,18 +89,9 @@ export default defineConfig({
 
     sidebar: {
       '/concepts/': [{ text: 'Concepts', items: conceptSidebar }],
+      '/specs/': [{ text: 'Specifications', items: specsSidebar }],
       '/publishers/': [{ text: 'Publishers', items: publisherSidebar }],
-      '/library/': [
-        {
-          text: 'Library',
-          items: [
-            { text: 'Installation', link: '/library/' },
-            { text: 'Quick Start', link: '/library/quick-start' },
-            { text: 'API Reference', link: '/library/api' },
-            { text: 'Contributing', link: '/library/contributing' },
-          ],
-        },
-      ],
+      '/library/': [{ text: 'Library', items: librarySidebar }],
     },
 
     search: {

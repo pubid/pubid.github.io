@@ -274,6 +274,13 @@ const data: Record<string, Record<string, SyntaxPattern[]>> = {
     corrigendum: [
       { label: 'Corrigendum', pattern: '[Base]/Cor [N]' },
     ],
+    special_publication: [
+      { label: 'Operational Bulletin', pattern: 'ITU OB No. [Number] ([Month]/[Year])' },
+      { label: 'Without date', pattern: 'ITU OB No. [Number]' },
+    ],
+    annex: [
+      { label: 'Annex to OB', pattern: 'Annex to ITU OB No. [Number]' },
+    ],
   },
   nist: {
     special_publication: [
@@ -397,7 +404,7 @@ const data: Record<string, Record<string, SyntaxPattern[]>> = {
       { label: 'Track Changes', pattern: '[Base] - TC' },
     ],
   },
-  cen: {
+  'cen-cenelec': {
     european_norm: [
       { label: 'Published (dated)', pattern: 'EN [Number]-[Part]:[Year]' },
       { label: 'With amendment', pattern: 'EN [Number]:[Year]+A[N]:[Year]' },

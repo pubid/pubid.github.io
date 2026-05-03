@@ -77,8 +77,8 @@ Pubid::Nist.parse("NIST SP 800-53 Rev. 5")
 # BSI
 Pubid::Bsi.parse("BS ISO 9001:2015")
 
-# CEN
-Pubid::Cen.parse("EN 196-3:2005+A1:2008")
+# CEN-CENELEC
+Pubid::CenCenelec.parse("EN 196-3:2005+A1:2008")
 
 # And 17+ more publishers...
 ```

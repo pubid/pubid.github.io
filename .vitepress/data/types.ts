@@ -53,6 +53,7 @@ export interface Publisher {
   relatedFlavors?: string[]
   syntaxNotes?: string
   logo: string
+  logos?: string[]
 }
 
 export type Category = Publisher['category']
