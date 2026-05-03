@@ -103,5 +103,5 @@ export default defineConfig({
     },
   },
 
-  srcExclude: ['README.md'],
+  srcExclude: ['README.md', '_pubid/**'],
 })
