@@ -8,7 +8,7 @@ on:
       pubid_ref:
         description: 'PubID library branch/ref to export from'
         required: false
-        default: 'main'
+        default: 'rt-new-lutaml-model'
   repository_dispatch:
     types: [pubid-library-update]
 
@@ -44,7 +44,7 @@ jobs:
           elif [ -n "${{ inputs.pubid_ref }}" ]; then
             echo "ref=${{ inputs.pubid_ref }}" >> "$GITHUB_OUTPUT"
           else
-            echo "ref=main" >> "$GITHUB_OUTPUT"
+            echo "ref=rt-new-lutaml-model" >> "$GITHUB_OUTPUT"
           fi
 
       - name: Checkout pubid library
@@ -63,7 +63,7 @@ jobs:
           cd _pubid
           bundle exec ruby -e '
             require "pubid"
-            require_relative "lib/pubid/export/exporter"
+            require "pubid/export"
 
             data = Pubid::Export::Exporter.export_all
             metadata = {
