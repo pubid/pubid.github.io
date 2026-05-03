@@ -1,0 +1,10 @@
+node_modules/
+.vitepress/dist/
+.vitepress/cache/
+_site/
+.sass-cache/
+.jekyll-cache/
+.jekyll-metadata
+vendor/
+.DS_Store
+Gemfile.lock
