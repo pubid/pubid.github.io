@@ -117,6 +117,6 @@ Every publisher schema in PubID builds on this foundation. The NIST experience s
 ## Learn more
 
 - [NIST PubID reference](/publishers/nist) — Syntax, styles, and elements
-- [Playground](/playground) — Try parsing NIST identifiers interactively
+- [Playground](/) — Try parsing NIST identifiers interactively
 - [nist-pubid on GitHub](https://github.com/metanorma/nist-pubid) — The original conversion tool
 - [NIST Tech Pubs metadata](https://github.com/usnistgov/NIST-Tech-Pubs) — Full catalog data

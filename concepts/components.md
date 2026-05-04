@@ -1,6 +1,6 @@
-# Common PubID Elements
+# PubID Components
 
-All PubID schemas share a common set of elements. This page documents each element, its semantics, and how different publishers use it.
+All PubID schemas share a common set of components. This page documents each component, its semantics, and how different publishers use it.
 
 ## Publisher
 
@@ -123,4 +123,5 @@ Some publishers include language codes:
 
 - [Anatomy of a PubID](/concepts/anatomy) — Visual breakdown
 - [The Metaschema](/concepts/metaschema) — Formal definition
-- [PubID Algebra](/concepts/algebra) — Identifier relationships
+- [PubID Algebra](/concepts/algebra) — Identifier composition
+- [Relationships](/concepts/relationships) — How identifiers relate to each other

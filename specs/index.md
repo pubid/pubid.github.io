@@ -51,4 +51,4 @@ id.to_urn  # => "urn:iec:std:iec:61131:-3:ed-3"
 
 - [URN Mapping Overview](/concepts/urn)
 - [Library Documentation](/library/)
-- [Playground](/playground)
+- [Playground](/)

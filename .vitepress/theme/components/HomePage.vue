@@ -349,8 +349,8 @@ onMounted(() => {
       </div>
 
       <div class="hero-actions">
-        <a href="/playground" class="btn btn-primary">Try Playground</a>
-        <a href="#anatomy" class="btn btn-ghost">How It Works</a>
+        <a href="#anatomy" class="btn btn-primary">How It Works</a>
+        <a href="/library/quick-start" class="btn btn-ghost">Quick Start Guide</a>
         <a href="https://github.com/pubid" class="btn btn-ghost">GitHub</a>
       </div>
     </div>
@@ -600,11 +600,11 @@ onMounted(() => {
     <div class="section-inner" style="text-align:center;">
       <h2 class="section-heading">Get Started</h2>
       <p class="section-sub" style="margin-left:auto;margin-right:auto;">
-        Start parsing identifiers in minutes with the Ruby gem, or explore the interactive playground.
+        Start parsing identifiers in minutes with the Ruby gem, or browse supported publishers.
       </p>
       <div class="hero-actions" style="justify-content:center;">
         <a href="/library/quick-start" class="btn btn-primary">Quick Start Guide</a>
-        <a href="/playground" class="btn btn-ghost-light">Try the Playground</a>
+        <a href="/publishers/" class="btn btn-ghost-light">Browse Publishers</a>
       </div>
     </div>
   </div>

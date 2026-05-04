@@ -55,5 +55,5 @@ PubID is open source. You can:
 
 - [Browse all supported publishers](/publishers/)
 - [Learn how the metaschema works](/concepts/metaschema)
-- [Try the interactive playground](/playground)
+- [Try the interactive playground](/)
 - [Contribute on GitHub](https://github.com/pubid/pubid)

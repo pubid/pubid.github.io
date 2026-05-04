@@ -21,10 +21,11 @@ const publisherSidebar = [
 const conceptSidebar = [
   { text: 'Anatomy of a PubID', link: '/concepts/anatomy' },
   { text: 'The Metaschema', link: '/concepts/metaschema' },
-  { text: 'Common Elements', link: '/concepts/elements' },
+  { text: 'Components', link: '/concepts/components' },
   { text: 'PubID Algebra', link: '/concepts/algebra' },
+  { text: 'Relationships', link: '/concepts/relationships' },
   { text: 'URN Mapping', link: '/concepts/urn' },
-  { text: 'Designing Your Scheme', link: '/concepts/designing-your-scheme' },
+  { text: 'Create Your Scheme', link: '/concepts/designing-your-scheme' },
 ]
 
 const specsSidebar = [
@@ -71,9 +72,8 @@ export default defineConfig({
     nav: [
       { text: 'About', link: '/about' },
       { text: 'Publishers', link: '/publishers/' },
-      { text: 'Playground', link: '/playground' },
       {
-        text: 'Docs',
+        text: 'Learn',
         items: [
           { text: 'Concepts', items: conceptSidebar },
           { text: 'Specifications', items: specsSidebar },

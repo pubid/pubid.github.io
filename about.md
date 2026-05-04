@@ -59,19 +59,6 @@ Identifiers compose through algebraic relationships. A supplement identifier **e
 
 Each layer is a complete identifier in its own right. A supplement identifier does not modify the base — it wraps it, adding its own type (Amendment, Corrigendum), number, and year.
 
-### Identifier Relationships
-
-Some publishers maintain rich relationships between identifiers. IEEE tracks these explicitly in parenthetical annotations:
-
-| Relationship | Example |
-|-------------|---------|
-| **Revision of** | `IEEE Std 802.3-2018 (Revision of IEEE Std 802.3-2015)` |
-| **Reaffirmation of** | `ANSI N42.18-2004 (Reaffirmation of ANSI N42.18-1980)` |
-| **Supersedes** | `IEEE Std X-2020 (Supersedes IEEE Std X-2010)` |
-| **Incorporates** | `IEEE Std 1234-2020 (Incorporates IEEE Std 5678-2015)` |
-| **Adoption of** | `IEEE Std C37.60-2005 (Adoption of IEC 62271-111)` |
-| **Redesignation of** | `ANSI N42.18-2004 (Redesignation of ANSI N13.10-1974)` |
-
 ## Multi-Style Rendering
 
 A key innovation in PubID is the ability to render the same identifier in multiple styles without information loss. A single identifier is parsed into structured components, then re-rendered in any output format:

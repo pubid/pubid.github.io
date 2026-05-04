@@ -98,7 +98,7 @@ The metaschema is implemented in the PubID Ruby library as:
 
 ## See Also
 
-- [Common Elements](/concepts/elements) — Detailed element reference
+- [Common Elements](/concepts/components) — Detailed element reference
 - [PubID Algebra](/concepts/algebra) — Relationships between identifiers
 - [URN Mapping](/concepts/urn) — Machine-readable URN representation
 - [Browse Publishers](/publishers/) — See all implemented schemas

@@ -71,5 +71,5 @@ id.to_urn  # => "urn:iec:std:iec:61131:-3:ed-3"
 ## Learn More
 
 - [URN Mapping reference](/concepts/urn) — Full URN patterns and examples
-- [Try the playground](/playground) — See URN output in real time
+- [Try the playground](/) — See URN output in real time
 - [API Reference](/library/api) — `to_urn` and other serialization methods

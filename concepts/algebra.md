@@ -146,5 +146,5 @@ Working documents for **internal committee use**.
 ## See Also
 
 - [Anatomy of a PubID](/concepts/anatomy)
-- [Common Elements](/concepts/elements)
+- [Common Elements](/concepts/components)
 - [URN Mapping](/concepts/urn)

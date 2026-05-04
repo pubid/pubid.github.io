@@ -568,7 +568,7 @@ ISO/TS 22002-1:2008(en)
 
 - [Anatomy of a PubID](/concepts/anatomy) — How PubIDs are structured
 - [The Metaschema](/concepts/metaschema) — Formal element definitions
-- [Common Elements](/concepts/elements) — Shared component reference
+- [Common Elements](/concepts/components) — Shared component reference
 - [PubID Algebra](/concepts/algebra) — Relationships between identifiers
 - [URN Mapping](/concepts/urn) — Machine-readable URN representation
 - [Browse Publishers](/publishers/) — See all implemented schemas

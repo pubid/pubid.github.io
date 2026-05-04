@@ -42,5 +42,5 @@ Amendments, corrigenda, addenda, and other supplements that modify a base docume
 ## Next Steps
 
 - Learn about the [Metaschema](/concepts/metaschema) that defines these elements
-- Explore [Common Elements](/concepts/elements) across publishers
+- Explore [Common Elements](/concepts/components) across publishers
 - See [PubID Algebra](/concepts/algebra) for identifier relationships
