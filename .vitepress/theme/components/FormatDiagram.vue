@@ -47,8 +47,10 @@ const examples: FormatExample[] = [
     input: 'ISO/IEC 17031-1:2020/Amd 1:2022',
     publisher: 'ISO/IEC',
     components: [
-      { key: 'Publisher', value: 'ISO/IEC', color: '#4590cd' },
-      { key: 'Number', value: '17031-1', color: '#e11d48' },
+      { key: 'Publisher', value: 'ISO', color: '#4590cd' },
+      { key: 'Copublisher', value: 'IEC', color: '#da9d76' },
+      { key: 'Number', value: '17031', color: '#e11d48' },
+      { key: 'Part', value: '1', color: '#34d399' },
       { key: 'Year', value: '2020', color: '#d97706' },
       { key: 'Supplement', value: 'Amd 1:2022', color: '#0d9488' },
     ],

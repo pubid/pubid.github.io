@@ -46,6 +46,22 @@ Each publisher's schema specifies which elements are used, their allowed values,
 
 ---
 
+## Identifier Composition
+
+Identifiers compose through algebraic relationships — a supplement extends a base identifier, an adoption wraps one publisher's identifier inside another's:
+
+| Composition | Example |
+|-------------|---------|
+| **Base** | `ISO 9001:2015` — publisher, number, year |
+| **With Supplement** | `ISO 9001:2015/Amd 1:2023` — amendment extends the base |
+| **With Copublisher** | `ISO/IEC 17031-1:2020` — joint publication |
+| **Composite** | `ISO/IEC 17031-1:2020/Amd 1:2022` — copublished base + supplement |
+| **Adoption** | `BS ISO 9001:2015` — national body adopts international standard |
+
+Each layer is a complete identifier in its own right. Supplements carry their own type (Amendment, Corrigendum), number, and year — composing onto a base without altering it.
+
+---
+
 ## Multi-Style Rendering
 
 A key innovation in PubID is the ability to render the same identifier in multiple styles without information loss. A single identifier is parsed into structured components, then re-rendered in any output format:
