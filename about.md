@@ -52,11 +52,25 @@ Identifiers compose through algebraic relationships. A supplement identifier **e
 | **Supplement embeds Base** | `ISO 9001:2015/Amd 1:2023` — amendment identifier contains the base |
 | **With Copublisher** | `ISO/IEC 17031-1:2020` — joint publication |
 | **Composite** | `ISO/IEC 17031-1:2020/Amd 1:2022` — amendment embeds copublished base |
-| **Adoption** | `BS ISO 9001:2015` — national body adopts international standard |
-| **Dual Published** | `IEC 60255-24 Ed. 2.0 2013-04 and IEEE Std C37.111-2013` — two equivalent identifiers from different publishers for the same document |
-| **With Reaffirmation** | `ANSI C57.12.22-1993 (R1998)` — standard reaffirmed without change |
+| **3-Level Nesting** | `ISO/IEC 13818-1:2015/Amd 3:2016/Cor 1:2017` — corrigendum embeds amendment, which embeds base standard |
+| **Adoption** | `BS EN ISO 9001:2015` — national body adopts European norm, which adopts international standard |
+| **Dual Published** | `IEC 60255-24 Ed. 2.0 2013-04 and IEEE Std C37.111-2013` — two equivalent identifiers from different publishers |
+| **Bundled** | `CSA B127.1:99 + B127.2:99` — multiple standards sold as a package |
 
 Each layer is a complete identifier in its own right. A supplement identifier does not modify the base — it wraps it, adding its own type (Amendment, Corrigendum), number, and year.
+
+### Identifier Relationships
+
+Some publishers maintain rich relationships between identifiers. IEEE tracks these explicitly in parenthetical annotations:
+
+| Relationship | Example |
+|-------------|---------|
+| **Revision of** | `IEEE Std 802.3-2018 (Revision of IEEE Std 802.3-2015)` |
+| **Reaffirmation of** | `ANSI N42.18-2004 (Reaffirmation of ANSI N42.18-1980)` |
+| **Supersedes** | `IEEE Std X-2020 (Supersedes IEEE Std X-2010)` |
+| **Incorporates** | `IEEE Std 1234-2020 (Incorporates IEEE Std 5678-2015)` |
+| **Adoption of** | `IEEE Std C37.60-2005 (Adoption of IEC 62271-111)` |
+| **Redesignation of** | `ANSI N42.18-2004 (Redesignation of ANSI N13.10-1974)` |
 
 ## Multi-Style Rendering
 

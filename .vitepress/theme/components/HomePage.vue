@@ -20,7 +20,7 @@ const demoData: DemoResult[] = [
   {
     input: 'ISO 9001:2015',
     publisher: 'ISO',
-    type: 'International Standard',
+    type: 'ISO · International Standard',
     components: [c('publisher', 'ISO', '#4590cd'), c('number', '9001', '#f87171'), c('year', '2015', '#fbbf24')],
     groups: [],
     urn: 'urn:iso:std:iso:9001:ed-5:en'
@@ -28,7 +28,7 @@ const demoData: DemoResult[] = [
   {
     input: 'ISO/IEC 17031-1:2020/Amd 1:2022',
     publisher: 'ISO',
-    type: 'Amendment Identifier',
+    type: 'ISO · Amendment Identifier',
     components: [],
     groups: [
       { label: 'Amendment', accent: '#2dd4bf', comps: [c('type', 'Amd', '#2dd4bf'), c('number', '1', '#f87171'), c('year', '2022', '#fbbf24')] },
@@ -39,7 +39,7 @@ const demoData: DemoResult[] = [
   {
     input: 'IEEE Std 802.3-2018',
     publisher: 'IEEE',
-    type: 'Standard',
+    type: 'IEEE · Standard',
     components: [c('publisher', 'IEEE', '#4590cd'), c('type', 'Std', '#059669'), c('number', '802.3', '#f87171'), c('year', '2018', '#fbbf24')],
     groups: [],
     urn: 'urn:ieee:std:802.3-2018'
@@ -47,7 +47,7 @@ const demoData: DemoResult[] = [
   {
     input: 'NIST SP 800-53 Rev. 5',
     publisher: 'NIST',
-    type: 'Special Publication',
+    type: 'NIST · Special Publication',
     components: [c('publisher', 'NIST', '#4590cd'), c('type', 'SP', '#059669'), c('number', '800-53', '#f87171'), c('revision', 'Rev. 5', '#d97706')],
     groups: [],
     urn: 'urn:nist:pub:sp:800-53:r5'
@@ -55,7 +55,7 @@ const demoData: DemoResult[] = [
   {
     input: 'IEC 61131-3:2013',
     publisher: 'IEC',
-    type: 'International Standard',
+    type: 'IEC · International Standard',
     components: [c('publisher', 'IEC', '#4590cd'), c('number', '61131', '#f87171'), c('part', '3', '#34d399'), c('year', '2013', '#fbbf24')],
     groups: [],
     urn: 'urn:iec:std:iec:61131:-3:ed-3'
@@ -63,7 +63,7 @@ const demoData: DemoResult[] = [
   {
     input: 'BS EN ISO 9001:2015',
     publisher: 'BSI',
-    type: 'Adopted Standard',
+    type: 'BSI · Adopted Standard',
     components: [],
     groups: [
       { label: 'British Standard', accent: '#4590cd', comps: [c('publisher', 'BS', '#4590cd')] },
@@ -75,7 +75,7 @@ const demoData: DemoResult[] = [
   {
     input: 'IEC 60255-24 Ed. 2.0 2013-04 and IEEE Std C37.111-2013',
     publisher: 'IEC/IEEE',
-    type: 'Dual Published',
+    type: 'IEC/IEEE · Dual Published',
     components: [],
     groups: [
       { label: 'IEC Identifier', accent: '#da9d76', comps: [c('publisher', 'IEC', '#da9d76'), c('number', '60255-24', '#f87171'), c('edition', 'Ed. 2.0', '#059669'), c('date', '2013-04', '#fbbf24')] },
@@ -86,7 +86,7 @@ const demoData: DemoResult[] = [
   {
     input: 'ETSI EN 300 392-2 V3.4.1',
     publisher: 'ETSI',
-    type: 'European Standard',
+    type: 'ETSI · European Standard',
     components: [c('publisher', 'ETSI', '#4590cd'), c('type', 'EN', '#059669'), c('number', '300 392-2', '#f87171'), c('version', 'V3.4.1', '#34d399')],
     groups: [],
     urn: 'urn:etsi:std:en:300_392-2:v3.4.1'
@@ -94,7 +94,7 @@ const demoData: DemoResult[] = [
   {
     input: 'ISO/DIS 45001',
     publisher: 'ISO',
-    type: 'Draft International Standard',
+    type: 'ISO · Draft International Standard',
     components: [c('publisher', 'ISO', '#4590cd'), c('stage', 'DIS', '#dc2626'), c('number', '45001', '#f87171')],
     groups: [],
     urn: 'urn:iso:std:iso:45001:stage-40.00'
@@ -168,27 +168,38 @@ const archData: Record<string, ArchData> = {
     ]
   },
   corrigendum: {
-    input: 'ISO 9001:2015/Cor 1:2023',
-    urn: 'urn:iso:std:iso:9001:ed-5:cor:1:v1',
-    description: 'A corrigendum identifier contains the published standard — structurally identical to amendments but with a different supplement type.',
+    input: 'ISO/IEC 13818-1:2015/Amd 3:2016/Cor 1:2017',
+    urn: 'urn:iso:std:iso-iec:13818:-1:amd:2016:v3:cor:2017:v1',
+    description: 'A corrigendum identifier contains an amendment identifier, which in turn contains the base standard — three levels of nesting.',
     outerLabel: 'Corrigendum Identifier',
     outerAccent: '#f59e0b',
     groups: [
       {
-        label: 'Supplement',
+        label: 'Corrigendum',
         accent: '#f59e0b',
         comps: [
           { key: 'type', value: 'Cor', color: '#f59e0b' },
           { key: 'number', value: '1', color: '#f87171' },
-          { key: 'year', value: '2023', color: '#fbbf24' },
+          { key: 'year', value: '2017', color: '#fbbf24' },
         ]
       },
       {
-        label: 'Base Identifier',
+        label: 'Amendment (embedded)',
+        accent: '#2dd4bf',
+        comps: [
+          { key: 'type', value: 'Amd', color: '#2dd4bf' },
+          { key: 'number', value: '3', color: '#f87171' },
+          { key: 'year', value: '2016', color: '#fbbf24' },
+        ]
+      },
+      {
+        label: 'Int\'l Standard (embedded)',
         accent: '#4590cd',
         comps: [
           { key: 'publisher', value: 'ISO', color: '#4590cd' },
-          { key: 'number', value: '9001', color: '#f87171' },
+          { key: 'copublisher', value: 'IEC', color: '#da9d76' },
+          { key: 'number', value: '13818', color: '#f87171' },
+          { key: 'part', value: '1', color: '#34d399' },
           { key: 'year', value: '2015', color: '#fbbf24' },
         ]
       }
@@ -294,7 +305,6 @@ onMounted(() => {
           <div v-if="demoResult" :key="demoResult.input" class="demo-result">
             <div class="demo-result-head">
               <span class="demo-type">{{ demoResult.type }}</span>
-              <span class="demo-pub-badge">{{ demoResult.publisher }}</span>
             </div>
             <div class="demo-comps">
               <template v-if="demoResult.groups.length">
