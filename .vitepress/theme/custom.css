@@ -373,6 +373,30 @@ html.dark .demo-pub-badge {
   margin-bottom: 1rem;
 }
 
+.demo-group {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid color-mix(in srgb, var(--group-accent) 20%, transparent);
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--group-accent) 4%, transparent);
+  margin-bottom: 0.3rem;
+}
+
+.demo-group-label {
+  font-size: 0.6rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--group-accent);
+  margin-bottom: 0.35rem;
+}
+
+.demo-group-comps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
 .demo-comp {
   display: inline-flex;
   align-items: center;

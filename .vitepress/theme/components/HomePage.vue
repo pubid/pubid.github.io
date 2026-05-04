@@ -11,7 +11,8 @@ const totalTypes = publishers.reduce((sum, p) => sum + p.docTypes.length, 0)
 
 // ── Hero Demo ──────────────────────────────────────────────────
 interface DemoComp { key: string; value: string; color: string }
-interface DemoResult { input: string; publisher: string; type: string; components: DemoComp[]; urn: string }
+interface DemoGroup { label: string; accent: string; comps: DemoComp[] }
+interface DemoResult { input: string; publisher: string; type: string; components: DemoComp[]; groups: DemoGroup[]; urn: string }
 
 const c = (key: string, value: string, color: string): DemoComp => ({ key, value, color })
 
@@ -21,13 +22,18 @@ const demoData: DemoResult[] = [
     publisher: 'ISO',
     type: 'International Standard',
     components: [c('publisher', 'ISO', '#4590cd'), c('number', '9001', '#f87171'), c('year', '2015', '#fbbf24')],
+    groups: [],
     urn: 'urn:iso:std:iso:9001:ed-5:en'
   },
   {
     input: 'ISO/IEC 17031-1:2020/Amd 1:2022',
     publisher: 'ISO',
-    type: 'Amendment',
-    components: [c('publisher', 'ISO', '#4590cd'), c('copublisher', 'IEC', '#a78bfa'), c('number', '17031', '#f87171'), c('part', '1', '#34d399'), c('year', '2020', '#fbbf24'), c('supplement', 'Amd 1:2022', '#2dd4bf')],
+    type: 'Amendment Identifier',
+    components: [],
+    groups: [
+      { label: 'Amendment', accent: '#2dd4bf', comps: [c('type', 'Amd', '#2dd4bf'), c('number', '1', '#f87171'), c('year', '2022', '#fbbf24')] },
+      { label: 'Int\'l Standard', accent: '#4590cd', comps: [c('publisher', 'ISO', '#4590cd'), c('copublisher', 'IEC', '#da9d76'), c('number', '17031', '#f87171'), c('part', '1', '#34d399'), c('year', '2020', '#fbbf24')] },
+    ],
     urn: 'urn:iso:std:iso-iec:17031:-1:ed-1:amd:1:v1'
   },
   {
@@ -35,6 +41,7 @@ const demoData: DemoResult[] = [
     publisher: 'IEEE',
     type: 'Standard',
     components: [c('publisher', 'IEEE', '#4590cd'), c('type', 'Std', '#059669'), c('number', '802.3', '#f87171'), c('year', '2018', '#fbbf24')],
+    groups: [],
     urn: 'urn:ieee:std:802.3-2018'
   },
   {
@@ -42,6 +49,7 @@ const demoData: DemoResult[] = [
     publisher: 'NIST',
     type: 'Special Publication',
     components: [c('publisher', 'NIST', '#4590cd'), c('type', 'SP', '#059669'), c('number', '800-53', '#f87171'), c('revision', 'Rev. 5', '#d97706')],
+    groups: [],
     urn: 'urn:nist:pub:sp:800-53:r5'
   },
   {
@@ -49,20 +57,38 @@ const demoData: DemoResult[] = [
     publisher: 'IEC',
     type: 'International Standard',
     components: [c('publisher', 'IEC', '#4590cd'), c('number', '61131', '#f87171'), c('part', '3', '#34d399'), c('year', '2013', '#fbbf24')],
+    groups: [],
     urn: 'urn:iec:std:iec:61131:-3:ed-3'
   },
   {
-    input: 'BS ISO 9001:2015',
+    input: 'BS EN ISO 9001:2015',
     publisher: 'BSI',
     type: 'Adopted Standard',
-    components: [c('publisher', 'BS', '#4590cd'), c('adopted', 'ISO 9001:2015', '#a78bfa')],
-    urn: 'urn:bsi:std:bs-iso:9001:2015'
+    components: [],
+    groups: [
+      { label: 'British Standard', accent: '#4590cd', comps: [c('publisher', 'BS', '#4590cd')] },
+      { label: 'European Norm', accent: '#da9d76', comps: [c('norm', 'EN', '#da9d76')] },
+      { label: 'Int\'l Standard', accent: '#059669', comps: [c('publisher', 'ISO', '#059669'), c('number', '9001', '#f87171'), c('year', '2015', '#fbbf24')] },
+    ],
+    urn: ''
+  },
+  {
+    input: 'IEC 60255-24 Ed. 2.0 2013-04 and IEEE Std C37.111-2013',
+    publisher: 'IEC/IEEE',
+    type: 'Dual Published',
+    components: [],
+    groups: [
+      { label: 'IEC Identifier', accent: '#da9d76', comps: [c('publisher', 'IEC', '#da9d76'), c('number', '60255-24', '#f87171'), c('edition', 'Ed. 2.0', '#059669'), c('date', '2013-04', '#fbbf24')] },
+      { label: 'IEEE Identifier', accent: '#4590cd', comps: [c('publisher', 'IEEE', '#4590cd'), c('type', 'Std', '#059669'), c('number', 'C37.111', '#f87171'), c('year', '2013', '#fbbf24')] },
+    ],
+    urn: ''
   },
   {
     input: 'ETSI EN 300 392-2 V3.4.1',
     publisher: 'ETSI',
     type: 'European Standard',
     components: [c('publisher', 'ETSI', '#4590cd'), c('type', 'EN', '#059669'), c('number', '300 392-2', '#f87171'), c('version', 'V3.4.1', '#34d399')],
+    groups: [],
     urn: 'urn:etsi:std:en:300_392-2:v3.4.1'
   },
   {
@@ -70,6 +96,7 @@ const demoData: DemoResult[] = [
     publisher: 'ISO',
     type: 'Draft International Standard',
     components: [c('publisher', 'ISO', '#4590cd'), c('stage', 'DIS', '#dc2626'), c('number', '45001', '#f87171')],
+    groups: [],
     urn: 'urn:iso:std:iso:45001:stage-40.00'
   },
 ]
@@ -114,7 +141,7 @@ const archData: Record<string, ArchData> = {
   supplement: {
     input: 'ISO/IEC 17031-1:2020/Amd 1:2022',
     urn: 'urn:iso:std:iso-iec:17031:-1:ed-1:amd:1:v1',
-    description: 'An amendment extends a base identifier — the supplement is appended with its own type, number, and year.',
+    description: 'An amendment identifier contains an international standard identifier — the amendment carries its own type, number, and year, while the base standard remains intact inside it.',
     outerLabel: 'Amendment Identifier',
     outerAccent: '#2dd4bf',
     groups: [
@@ -143,7 +170,7 @@ const archData: Record<string, ArchData> = {
   corrigendum: {
     input: 'ISO 9001:2015/Cor 1:2023',
     urn: 'urn:iso:std:iso:9001:ed-5:cor:1:v1',
-    description: 'A corrigendum applies corrections to a published standard — structurally identical to amendments but with a different supplement type.',
+    description: 'A corrigendum identifier contains the published standard — structurally identical to amendments but with a different supplement type.',
     outerLabel: 'Corrigendum Identifier',
     outerAccent: '#f59e0b',
     groups: [
@@ -168,24 +195,31 @@ const archData: Record<string, ArchData> = {
     ]
   },
   adoption: {
-    input: 'BS ISO 9001:2015',
-    urn: 'urn:bsi:std:bs-iso:9001:2015',
-    description: 'A national body adopts an international standard as its own — the adopting publisher wraps the original identifier.',
+    input: 'BS EN ISO 9001:2015',
+    urn: 'urn:bsi:std:bs-en-iso:9001:2015',
+    description: 'A national body adopts a European Norm, which itself adopts an international standard — three layers of identifier composition.',
     outerLabel: 'Adopted Standard',
-    outerAccent: '#8b5cf6',
+    outerAccent: '#4590cd',
     groups: [
       {
-        label: 'Adopting Body',
-        accent: '#8b5cf6',
+        label: 'British Standard',
+        accent: '#4590cd',
         comps: [
-          { key: 'publisher', value: 'BS', color: '#8b5cf6' },
+          { key: 'publisher', value: 'BS', color: '#4590cd' },
         ]
       },
       {
-        label: 'Adopted Standard',
-        accent: '#4590cd',
+        label: 'European Norm',
+        accent: '#da9d76',
         comps: [
-          { key: 'publisher', value: 'ISO', color: '#4590cd' },
+          { key: 'norm', value: 'EN', color: '#da9d76' },
+        ]
+      },
+      {
+        label: 'Int\'l Standard',
+        accent: '#059669',
+        comps: [
+          { key: 'publisher', value: 'ISO', color: '#059669' },
           { key: 'number', value: '9001', color: '#f87171' },
           { key: 'year', value: '2015', color: '#fbbf24' },
         ]
@@ -263,15 +297,38 @@ onMounted(() => {
               <span class="demo-pub-badge">{{ demoResult.publisher }}</span>
             </div>
             <div class="demo-comps">
-              <span
-                v-for="comp in demoResult.components"
-                :key="comp.key + comp.value"
-                class="demo-comp"
-                :style="{ background: comp.color + '18', color: comp.color, border: '1px solid ' + comp.color + '30' }"
-              >
-                <span class="comp-label">{{ comp.key }}</span>
-                {{ comp.value }}
-              </span>
+              <template v-if="demoResult.groups.length">
+                <div
+                  v-for="(group, gi) in demoResult.groups"
+                  :key="gi"
+                  class="demo-group"
+                  :style="{ '--group-accent': group.accent }"
+                >
+                  <div class="demo-group-label">{{ group.label }}</div>
+                  <div class="demo-group-comps">
+                    <span
+                      v-for="comp in group.comps"
+                      :key="comp.key + comp.value"
+                      class="demo-comp"
+                      :style="{ background: comp.color + '18', color: comp.color, border: '1px solid ' + comp.color + '30' }"
+                    >
+                      <span class="comp-label">{{ comp.key }}</span>
+                      {{ comp.value }}
+                    </span>
+                  </div>
+                </div>
+              </template>
+              <template v-else>
+                <span
+                  v-for="comp in demoResult.components"
+                  :key="comp.key + comp.value"
+                  class="demo-comp"
+                  :style="{ background: comp.color + '18', color: comp.color, border: '1px solid ' + comp.color + '30' }"
+                >
+                  <span class="comp-label">{{ comp.key }}</span>
+                  {{ comp.value }}
+                </span>
+              </template>
             </div>
             <div class="demo-urn-block">
               <div class="demo-urn-label">URN</div>
@@ -295,9 +352,9 @@ onMounted(() => {
         <span class="mq-item">IEEE Std 802.3-2018</span><span class="mq-sep">/</span>
         <span class="mq-item">NIST SP 800-53 Rev. 5</span><span class="mq-sep">/</span>
         <span class="mq-item">IEC 61131-3:2013</span><span class="mq-sep">/</span>
-        <span class="mq-item">BS ISO 9001:2015</span><span class="mq-sep">/</span>
+        <span class="mq-item">BS EN ISO 9001:2015</span><span class="mq-sep">/</span>
         <span class="mq-item">ETSI EN 300 392-2 V3.4.1</span><span class="mq-sep">/</span>
-        <span class="mq-item">ITU-T G.992.1</span><span class="mq-sep">/</span>
+        <span class="mq-item">IEC 60255-24 and IEEE Std C37.111-2013</span><span class="mq-sep">/</span>
         <span class="mq-item">ISO/IEC 17031-1:2020/Amd 1:2022</span><span class="mq-sep">/</span>
         <span class="mq-item">ISO 9001:2015</span><span class="mq-sep">/</span>
         <span class="mq-item">IEEE Std 802.3-2018</span><span class="mq-sep">/</span>
@@ -332,51 +389,15 @@ onMounted(() => {
     </div>
   </div>
 
-  <!-- Anatomy -->
+  <!-- Anatomy (merged into hero demo) -->
   <div id="anatomy" class="page-section animate-in">
     <div class="section-inner">
       <div class="section-kicker">Anatomy</div>
       <h2 class="section-heading">What is a PubID?</h2>
       <p class="section-sub">
         Every standards document identifier decomposes into structured, machine-readable components.
+        Try the examples above, or explore the composition patterns below.
       </p>
-
-      <div class="anatomy-card">
-        <div class="anatomy-diagram">
-          <div class="anatomy-wrapper">
-            <div class="anatomy-overline">
-              <div class="anatomy-bar bar-amendment"></div>
-              <span class="anatomy-tag tag-amendment">Amendment Identifier</span>
-            </div>
-            <div class="anatomy-ident">
-              <span class="base-group">
-                <span class="base-text">
-                  <span class="c1">ISO</span><span class="c-dim">/</span><span class="c2">IEC</span><span class="c-dim">&nbsp;</span><span class="c3">17031</span><span class="c-dim">-</span><span class="c4">1</span><span class="c-dim">:</span><span class="c5">2020</span>
-                </span>
-                <div class="anatomy-bar bar-base"></div>
-                <span class="anatomy-tag tag-base">Base Identifier</span>
-              </span><span class="c-dim">/</span><span class="c6">Amd</span><span class="c-dim">&nbsp;</span><span class="c3">1</span><span class="c-dim">:</span><span class="c5">2022</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="anatomy-legend">
-          <div class="legend-col">
-            <div class="legend-head" style="--lc:#4590cd">Base Identifier</div>
-            <div class="legend-row"><span class="legend-dot" style="background:#4590cd"></span>Publisher — ISO</div>
-            <div class="legend-row"><span class="legend-dot" style="background:#a78bfa"></span>Copublisher — IEC</div>
-            <div class="legend-row"><span class="legend-dot" style="background:#f87171"></span>Number — 17031</div>
-            <div class="legend-row"><span class="legend-dot" style="background:#34d399"></span>Part — 1</div>
-            <div class="legend-row"><span class="legend-dot" style="background:#fbbf24"></span>Year — 2020</div>
-          </div>
-          <div class="legend-col">
-            <div class="legend-head" style="--lc:#2dd4bf">Amendment</div>
-            <div class="legend-row"><span class="legend-dot" style="background:#2dd4bf"></span>Type — Amd</div>
-            <div class="legend-row"><span class="legend-dot" style="background:#f87171"></span>Number — 1</div>
-            <div class="legend-row"><span class="legend-dot" style="background:#fbbf24"></span>Year — 2022</div>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 
@@ -426,7 +447,7 @@ onMounted(() => {
       <div class="section-kicker">Architecture</div>
       <h2 class="section-heading">Identifier Composition</h2>
       <p class="section-sub">
-        Identifiers compose through algebraic relationships — amendments extend bases, corrigenda fix documents, and adoptions map between publishers.
+        Identifiers compose through algebraic relationships — an amendment identifier contains a base identifier, a corrigendum wraps a published standard, and adoptions layer publisher identities.
       </p>
 
       <div class="arch-input-display">
