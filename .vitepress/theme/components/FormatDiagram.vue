@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 
+interface FormatComp { key: string; value: string; color: string }
+interface FormatGroup { label: string; accent: string; comps: FormatComp[] }
 interface FormatExample {
   input: string
   publisher: string
-  components: { key: string; value: string; color: string }[]
+  groups: FormatGroup[]
   outputs: { label: string; abbr: string; value: string; accent: string }[]
 }
 
@@ -12,12 +14,16 @@ const examples: FormatExample[] = [
   {
     input: 'ISO 9001:2015',
     publisher: 'ISO',
-    components: [
-      { key: 'Publisher', value: 'ISO', color: '#4590cd' },
-      { key: 'Number', value: '9001', color: '#e11d48' },
-      { key: 'Year', value: '2015', color: '#d97706' },
-      { key: 'Edition', value: '5', color: '#059669' },
-    ],
+    groups: [{
+      label: 'International Standard',
+      accent: '#4590cd',
+      comps: [
+        { key: 'Publisher', value: 'ISO', color: '#4590cd' },
+        { key: 'Number', value: '9001', color: '#e11d48' },
+        { key: 'Year', value: '2015', color: '#d97706' },
+        { key: 'Edition', value: '5', color: '#059669' },
+      ]
+    }],
     outputs: [
       { label: 'Human-Readable', abbr: 'PubID', value: 'ISO 9001:2015', accent: '#4590cd' },
       { label: 'Short', abbr: 'Short', value: 'ISO 9001', accent: '#059669' },
@@ -29,12 +35,16 @@ const examples: FormatExample[] = [
   {
     input: 'NIST SP 800-53 Rev. 5',
     publisher: 'NIST',
-    components: [
-      { key: 'Publisher', value: 'NIST', color: '#4590cd' },
-      { key: 'Type', value: 'SP', color: '#059669' },
-      { key: 'Number', value: '800-53', color: '#e11d48' },
-      { key: 'Revision', value: '5', color: '#da9d76' },
-    ],
+    groups: [{
+      label: 'Special Publication',
+      accent: '#4590cd',
+      comps: [
+        { key: 'Publisher', value: 'NIST', color: '#4590cd' },
+        { key: 'Type', value: 'SP', color: '#059669' },
+        { key: 'Number', value: '800-53', color: '#e11d48' },
+        { key: 'Revision', value: '5', color: '#da9d76' },
+      ]
+    }],
     outputs: [
       { label: 'Full (Long)', abbr: 'Full', value: 'National Institute of Standards and Technology Special Publication 800-53 Revision 5', accent: '#4590cd' },
       { label: 'Abbreviated', abbr: 'Abbr', value: 'Natl. Inst. Stand. Technol. Spec. Publ. 800-53 Rev. 5', accent: '#059669' },
@@ -46,13 +56,27 @@ const examples: FormatExample[] = [
   {
     input: 'ISO/IEC 17031-1:2020/Amd 1:2022',
     publisher: 'ISO/IEC',
-    components: [
-      { key: 'Publisher', value: 'ISO', color: '#4590cd' },
-      { key: 'Copublisher', value: 'IEC', color: '#da9d76' },
-      { key: 'Number', value: '17031', color: '#e11d48' },
-      { key: 'Part', value: '1', color: '#34d399' },
-      { key: 'Year', value: '2020', color: '#d97706' },
-      { key: 'Supplement', value: 'Amd 1:2022', color: '#0d9488' },
+    groups: [
+      {
+        label: 'Amendment',
+        accent: '#2dd4bf',
+        comps: [
+          { key: 'Type', value: 'Amd', color: '#2dd4bf' },
+          { key: 'Number', value: '1', color: '#e11d48' },
+          { key: 'Year', value: '2022', color: '#d97706' },
+        ]
+      },
+      {
+        label: 'Base Identifier',
+        accent: '#4590cd',
+        comps: [
+          { key: 'Publisher', value: 'ISO', color: '#4590cd' },
+          { key: 'Copublisher', value: 'IEC', color: '#da9d76' },
+          { key: 'Number', value: '17031', color: '#e11d48' },
+          { key: 'Part', value: '1', color: '#34d399' },
+          { key: 'Year', value: '2020', color: '#d97706' },
+        ]
+      },
     ],
     outputs: [
       { label: 'Human-Readable', abbr: 'PubID', value: 'ISO/IEC 17031-1:2020/Amd 1:2022', accent: '#4590cd' },
@@ -96,17 +120,27 @@ const current = computed(() => examples[activeExample.value])
 
     <!-- Parsed Components -->
     <div class="fmt-parsed-box">
-      <span class="fmt-parsed-label">Parsed Components</span>
-      <div class="fmt-comps">
-        <span
-          v-for="comp in current.components"
-          :key="comp.key"
-          class="fmt-comp"
-          :style="{ '--comp-color': comp.color, background: comp.color + '0d', borderColor: comp.color + '25' }"
+      <span class="fmt-parsed-label">Parsed Structure</span>
+      <div class="fmt-groups">
+        <div
+          v-for="(group, gi) in current.groups"
+          :key="gi"
+          class="fmt-group"
+          :style="{ '--group-accent': group.accent }"
         >
-          <span class="fmt-comp-key">{{ comp.key }}</span>
-          <span class="fmt-comp-val">{{ comp.value }}</span>
-        </span>
+          <div class="fmt-group-label">{{ group.label }}</div>
+          <div class="fmt-comps">
+            <span
+              v-for="comp in group.comps"
+              :key="comp.key"
+              class="fmt-comp"
+              :style="{ '--comp-color': comp.color, background: comp.color + '0d', borderColor: comp.color + '25' }"
+            >
+              <span class="fmt-comp-key">{{ comp.key }}</span>
+              <span class="fmt-comp-val">{{ comp.value }}</span>
+            </span>
+          </div>
+        </div>
       </div>
     </div>
 

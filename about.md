@@ -48,17 +48,17 @@ Each publisher's schema specifies which elements are used, their allowed values,
 
 ## Identifier Composition
 
-Identifiers compose through algebraic relationships — a supplement extends a base identifier, an adoption wraps one publisher's identifier inside another's:
+Identifiers compose through algebraic relationships. A supplement identifier **embeds** a base identifier — the supplement carries its own type, number, and year, while the base remains intact inside it:
 
 | Composition | Example |
 |-------------|---------|
 | **Base** | `ISO 9001:2015` — publisher, number, year |
-| **With Supplement** | `ISO 9001:2015/Amd 1:2023` — amendment extends the base |
+| **Supplement embeds Base** | `ISO 9001:2015/Amd 1:2023` — amendment identifier contains the base |
 | **With Copublisher** | `ISO/IEC 17031-1:2020` — joint publication |
-| **Composite** | `ISO/IEC 17031-1:2020/Amd 1:2022` — copublished base + supplement |
+| **Composite** | `ISO/IEC 17031-1:2020/Amd 1:2022` — amendment embeds copublished base |
 | **Adoption** | `BS ISO 9001:2015` — national body adopts international standard |
 
-Each layer is a complete identifier in its own right. Supplements carry their own type (Amendment, Corrigendum), number, and year — composing onto a base without altering it.
+Each layer is a complete identifier in its own right. A supplement identifier does not modify the base — it wraps it, adding its own type (Amendment, Corrigendum), number, and year.
 
 ---
 
