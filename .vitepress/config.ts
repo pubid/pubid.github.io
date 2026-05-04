@@ -72,12 +72,12 @@ export default defineConfig({
     nav: [
       { text: 'About', link: '/about' },
       { text: 'Publishers', link: '/publishers/' },
+      { text: 'Concepts', link: '/concepts/anatomy', items: conceptSidebar },
       {
-        text: 'Learn',
+        text: 'Docs',
         items: [
-          { text: 'Concepts', items: conceptSidebar },
-          { text: 'Specifications', items: specsSidebar },
           { text: 'Library', items: librarySidebar },
+          { text: 'Specifications', items: specsSidebar },
         ],
       },
     ],
