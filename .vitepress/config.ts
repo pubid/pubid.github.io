@@ -56,7 +56,7 @@ export default defineConfig({
     ['link', { rel: 'shortcut icon', href: '/favicon.ico' }],
     ['link', { rel: 'apple-touch-icon', sizes: '180x180', href: '/apple-touch-icon.png' }],
     ['link', { rel: 'manifest', href: '/site.webmanifest' }],
-    ['meta', { name: 'theme-color', content: '#1a56db' }],
+    ['meta', { name: 'theme-color', content: '#2978a1' }],
     ['meta', { property: 'og:title', content: 'PubID — Universal Publication Identifier' }],
     ['meta', { property: 'og:description', content: 'Parse, validate, and interoperate identifiers for 23+ standards publishers (ISO, IEC, IEEE, NIST, and more)' }],
     ['meta', { property: 'og:image', content: 'https://www.pubid.com/og-image.svg' }],

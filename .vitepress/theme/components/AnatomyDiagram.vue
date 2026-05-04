@@ -7,7 +7,7 @@ const examples = [
   ]},
   { id: 'iso-iec-amd', input: 'ISO/IEC 17031-1:2020/Amd 1:2022', label: 'ISO/IEC with Amendment', parts: [
     { name: 'Publisher', value: 'ISO', color: '#1a56db' },
-    { name: 'Copublisher', value: 'IEC', color: '#7c3aed' },
+    { name: 'Copublisher', value: 'IEC', color: '#da9d76' },
     { name: 'Number', value: '17031', color: '#e11d48' },
     { name: 'Part', value: '1', color: '#059669' },
     { name: 'Year', value: '2020', color: '#d97706' },

@@ -24,12 +24,12 @@ interface ParseResult {
 
 const colorMap: Record<string, string> = {
   publisher: '#1a56db',
-  copublisher: '#7c3aed',
+  copublisher: '#da9d76',
   type: '#059669',
   number: '#e11d48',
   part: '#0d9488',
   year: '#d97706',
-  edition: '#2563eb',
+  edition: '#4590cd',
   stage: '#dc2626',
   typed_stage: '#dc2626',
   language: '#8b5cf6',
@@ -40,7 +40,7 @@ const colorMap: Record<string, string> = {
   version: '#059669',
   sector: '#1a56db',
   draft: '#dc2626',
-  volume: '#7c3aed',
+  volume: '#da9d76',
   classification: '#059669',
   adopted_publisher: '#1a56db',
   adopted_number: '#e11d48',

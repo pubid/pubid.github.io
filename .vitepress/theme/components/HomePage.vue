@@ -20,56 +20,56 @@ const demoData: DemoResult[] = [
     input: 'ISO 9001:2015',
     publisher: 'ISO',
     type: 'International Standard',
-    components: [c('publisher', 'ISO', '#5b8def'), c('number', '9001', '#f87171'), c('year', '2015', '#fbbf24')],
+    components: [c('publisher', 'ISO', '#4590cd'), c('number', '9001', '#f87171'), c('year', '2015', '#fbbf24')],
     urn: 'urn:iso:std:iso:9001:ed-5:en'
   },
   {
     input: 'ISO/IEC 17031-1:2020/Amd 1:2022',
     publisher: 'ISO',
     type: 'Amendment',
-    components: [c('publisher', 'ISO', '#5b8def'), c('copublisher', 'IEC', '#a78bfa'), c('number', '17031', '#f87171'), c('part', '1', '#34d399'), c('year', '2020', '#fbbf24'), c('supplement', 'Amd 1:2022', '#2dd4bf')],
+    components: [c('publisher', 'ISO', '#4590cd'), c('copublisher', 'IEC', '#a78bfa'), c('number', '17031', '#f87171'), c('part', '1', '#34d399'), c('year', '2020', '#fbbf24'), c('supplement', 'Amd 1:2022', '#2dd4bf')],
     urn: 'urn:iso:std:iso-iec:17031:-1:ed-1:amd:1:v1'
   },
   {
     input: 'IEEE Std 802.3-2018',
     publisher: 'IEEE',
     type: 'Standard',
-    components: [c('publisher', 'IEEE', '#5b8def'), c('type', 'Std', '#059669'), c('number', '802.3', '#f87171'), c('year', '2018', '#fbbf24')],
+    components: [c('publisher', 'IEEE', '#4590cd'), c('type', 'Std', '#059669'), c('number', '802.3', '#f87171'), c('year', '2018', '#fbbf24')],
     urn: 'urn:ieee:std:802.3-2018'
   },
   {
     input: 'NIST SP 800-53 Rev. 5',
     publisher: 'NIST',
     type: 'Special Publication',
-    components: [c('publisher', 'NIST', '#5b8def'), c('type', 'SP', '#059669'), c('number', '800-53', '#f87171'), c('revision', 'Rev. 5', '#d97706')],
+    components: [c('publisher', 'NIST', '#4590cd'), c('type', 'SP', '#059669'), c('number', '800-53', '#f87171'), c('revision', 'Rev. 5', '#d97706')],
     urn: 'urn:nist:pub:sp:800-53:r5'
   },
   {
     input: 'IEC 61131-3:2013',
     publisher: 'IEC',
     type: 'International Standard',
-    components: [c('publisher', 'IEC', '#5b8def'), c('number', '61131', '#f87171'), c('part', '3', '#34d399'), c('year', '2013', '#fbbf24')],
+    components: [c('publisher', 'IEC', '#4590cd'), c('number', '61131', '#f87171'), c('part', '3', '#34d399'), c('year', '2013', '#fbbf24')],
     urn: 'urn:iec:std:iec:61131:-3:ed-3'
   },
   {
     input: 'BS ISO 9001:2015',
     publisher: 'BSI',
     type: 'Adopted Standard',
-    components: [c('publisher', 'BS', '#5b8def'), c('adopted', 'ISO 9001:2015', '#a78bfa')],
+    components: [c('publisher', 'BS', '#4590cd'), c('adopted', 'ISO 9001:2015', '#a78bfa')],
     urn: 'urn:bsi:std:bs-iso:9001:2015'
   },
   {
     input: 'ETSI EN 300 392-2 V3.4.1',
     publisher: 'ETSI',
     type: 'European Standard',
-    components: [c('publisher', 'ETSI', '#5b8def'), c('type', 'EN', '#059669'), c('number', '300 392-2', '#f87171'), c('version', 'V3.4.1', '#34d399')],
+    components: [c('publisher', 'ETSI', '#4590cd'), c('type', 'EN', '#059669'), c('number', '300 392-2', '#f87171'), c('version', 'V3.4.1', '#34d399')],
     urn: 'urn:etsi:std:en:300_392-2:v3.4.1'
   },
   {
     input: 'ISO/DIS 45001',
     publisher: 'ISO',
     type: 'Draft International Standard',
-    components: [c('publisher', 'ISO', '#5b8def'), c('stage', 'DIS', '#dc2626'), c('number', '45001', '#f87171')],
+    components: [c('publisher', 'ISO', '#4590cd'), c('stage', 'DIS', '#dc2626'), c('number', '45001', '#f87171')],
     urn: 'urn:iso:std:iso:45001:stage-40.00'
   },
 ]
@@ -100,12 +100,12 @@ const archData: Record<string, ArchData> = {
     urn: 'urn:iso:std:iso:9001:ed-5:en',
     description: 'A base identifier decomposes into typed components — publisher, number, and year — the fundamental building block.',
     outerLabel: 'International Standard',
-    outerAccent: '#5b8def',
+    outerAccent: '#4590cd',
     groups: [{
       label: 'Base Identifier',
-      accent: '#5b8def',
+      accent: '#4590cd',
       comps: [
-        { key: 'publisher', value: 'ISO', color: '#5b8def' },
+        { key: 'publisher', value: 'ISO', color: '#4590cd' },
         { key: 'number', value: '9001', color: '#f87171' },
         { key: 'year', value: '2015', color: '#fbbf24' },
       ]
@@ -129,9 +129,9 @@ const archData: Record<string, ArchData> = {
       },
       {
         label: 'Base Identifier',
-        accent: '#5b8def',
+        accent: '#4590cd',
         comps: [
-          { key: 'publisher', value: 'ISO', color: '#5b8def' },
+          { key: 'publisher', value: 'ISO', color: '#4590cd' },
           { key: 'copublisher', value: 'IEC', color: '#a78bfa' },
           { key: 'number', value: '17031', color: '#f87171' },
           { key: 'part', value: '1', color: '#34d399' },
@@ -158,9 +158,9 @@ const archData: Record<string, ArchData> = {
       },
       {
         label: 'Base Identifier',
-        accent: '#5b8def',
+        accent: '#4590cd',
         comps: [
-          { key: 'publisher', value: 'ISO', color: '#5b8def' },
+          { key: 'publisher', value: 'ISO', color: '#4590cd' },
           { key: 'number', value: '9001', color: '#f87171' },
           { key: 'year', value: '2015', color: '#fbbf24' },
         ]
@@ -183,9 +183,9 @@ const archData: Record<string, ArchData> = {
       },
       {
         label: 'Adopted Standard',
-        accent: '#5b8def',
+        accent: '#4590cd',
         comps: [
-          { key: 'publisher', value: 'ISO', color: '#5b8def' },
+          { key: 'publisher', value: 'ISO', color: '#4590cd' },
           { key: 'number', value: '9001', color: '#f87171' },
           { key: 'year', value: '2015', color: '#fbbf24' },
         ]
@@ -362,8 +362,8 @@ onMounted(() => {
 
         <div class="anatomy-legend">
           <div class="legend-col">
-            <div class="legend-head" style="--lc:#5b8def">Base Identifier</div>
-            <div class="legend-row"><span class="legend-dot" style="background:#5b8def"></span>Publisher — ISO</div>
+            <div class="legend-head" style="--lc:#4590cd">Base Identifier</div>
+            <div class="legend-row"><span class="legend-dot" style="background:#4590cd"></span>Publisher — ISO</div>
             <div class="legend-row"><span class="legend-dot" style="background:#a78bfa"></span>Copublisher — IEC</div>
             <div class="legend-row"><span class="legend-dot" style="background:#f87171"></span>Number — 17031</div>
             <div class="legend-row"><span class="legend-dot" style="background:#34d399"></span>Part — 1</div>
