@@ -26,67 +26,6 @@ Since then, PubID has grown to cover **26+ publishers** across international, re
 
 ---
 
-## The Name & Logo
-
-### Why "PubID"?
-
-**PubID** stands for **Publication Identifier**. It is both a noun and a mission: to give every publication an identifier that is universally parsable, unambiguously structured, and faithful to the original meaning it represents.
-
-### The Logo
-
-The PubID logo is not decoration — it is a statement of philosophy.
-
-<div class="logo-breakdown">
-  <div class="logo-display">
-    <img src="/pubid-logo.svg" alt="PubID Logo" class="logo-image" />
-  </div>
-  <div class="logo-explanation">
-
-#### The Pool — *道*
-
-The pool is the Way itself: the original, complete meaning of a publication identifier. It is the source — the semantic model from which all representations emerge and to which they return. Every identifier, in every format, points back to the same underlying reality in this pool.
-
-#### The Depths — *玄*
-
-The bottom of the pool is the profound and unfathomable. Here, meaning exists in its purest form, beyond any particular expression — the deep structure that underlies every identifier, the semantic model that no single rendering can fully capture. It is the ground of meaning that precedes all naming.
-
-#### The Surface — *名*
-
-The top of the pool is where meaning begins to take name and form. It is the boundary between the unnameable and the named — where the depth rises toward expression, where semantic models begin to crystallize into identifiable structure.
-
-#### Waves and Particles — *有*
-
-The waves (human-readable identifiers) and particles (machine-readable forms) are *有* — being, manifest existence. They embody the opening insight of the Dao De Jing:
-
-> *道可道，非常道；名可名，非常名*
->
-> The Way that can be spoken is not the eternal Way; the name that can be named is not the eternal name.
-
-Every representation is real and functional, yet no single form is constant. Human-readable strings and machine-readable URNs are two modes of the same *有* — both arising from the same source, both legitimate, neither permanent.
-
-#### The Space Between — *無*
-
-The emptiness between the waves and particles is *無* — non-being, the void. It is not absence but potential: the space that gives each form its meaning. Without the gaps, there is no structure; without *無*, *有* has no shape. The void is what makes the identifier parsable — the delimiters, the spaces, the structure that separates one component from another.
-
-  </div>
-</div>
-
-### What It All Means
-
-<div class="mission-statement">
-
-**PubID exists to preserve the integrity of meaning across every form a publication identifier can take — human or machine, verbose or terse, printed or digital.**
-
-</div>
-
-We believe that:
-- The **meaning** of an identifier is prior to and independent of any particular rendering
-- **Human-readable** and **machine-readable** forms are equally valid expressions of the same reality
-- **Round-trip fidelity** — parse any form, recover the original — is not just a feature but a philosophical commitment
-- Every identifier carries **depth** that no single surface representation exhausts
-
----
-
 ## The Metaschema
 
 The PubID metaschema defines the common elements that make up any publication identifier:
@@ -138,6 +77,69 @@ import VersionBadge from './.vitepress/theme/components/VersionBadge.vue'
 
 ---
 
+## What We Believe
+
+<div class="mission-statement">
+
+**PubID exists to preserve the integrity of meaning across every form a publication identifier can take — human or machine, verbose or terse, printed or digital.**
+
+</div>
+
+- The **meaning** of an identifier is prior to and independent of any particular rendering
+- **Human-readable** and **machine-readable** forms are equally valid expressions of the same reality
+- **Round-trip fidelity** — parse any form, recover the original — is not just a feature but a philosophical commitment
+- Every identifier carries **depth** that no single surface representation exhausts
+
+---
+
+## The Name & Logo
+
+**PubID** stands for **Publication Identifier**. It is both a noun and a mission: to give every publication an identifier that is universally parsable, unambiguously structured, and faithful to the original meaning it represents.
+
+The logo is not decoration — it is a statement of philosophy. Every element encodes a layer of meaning:
+
+<div class="logo-centered">
+  <img src="/pubid-logo.svg" alt="PubID Logo" class="logo-image" />
+</div>
+
+<div class="logo-cards">
+
+<div class="logo-card">
+<div class="logo-card-glyph">道</div>
+<h4>The Pool</h4>
+<p>The pool is the Way itself: the original, complete meaning of a publication identifier. It is the source — the semantic model from which all representations emerge and to which they return. Every identifier, in every format, points back to the same underlying reality in this pool.</p>
+</div>
+
+<div class="logo-card">
+<div class="logo-card-glyph">玄</div>
+<h4>The Depths</h4>
+<p>The bottom of the pool is the profound and unfathomable. Here, meaning exists in its purest form, beyond any particular expression — the deep structure that underlies every identifier, the semantic model that no single rendering can fully capture. It is the ground of meaning that precedes all naming.</p>
+</div>
+
+<div class="logo-card">
+<div class="logo-card-glyph">名</div>
+<h4>The Surface</h4>
+<p>The top of the pool is where meaning begins to take name and form. It is the boundary between the unnameable and the named — where the depth rises toward expression, where semantic models begin to crystallize into identifiable structure.</p>
+</div>
+
+<div class="logo-card">
+<div class="logo-card-glyph">有</div>
+<h4>Waves &amp; Particles</h4>
+<p>The waves (human-readable identifiers) and particles (machine-readable forms) are <em>有</em> — being, manifest existence. Every representation is real and functional, yet no single form is constant. They embody the opening insight of the Dao De Jing:</p>
+<blockquote><p><em>道可道，非常道；名可名，非常名</em></p><p>The Way that can be spoken is not the eternal Way; the name that can be named is not the eternal name.</p></blockquote>
+<p>Human-readable strings and machine-readable URNs are two modes of the same <em>有</em> — both arising from the same source, both legitimate, neither permanent.</p>
+</div>
+
+<div class="logo-card logo-card--wide">
+<div class="logo-card-glyph">無</div>
+<h4>The Space Between</h4>
+<p>The emptiness between the waves and particles is <em>無</em> — non-being, the void. It is not absence but potential: the space that gives each form its meaning. Without the gaps, there is no structure; without <em>無</em>, <em>有</em> has no shape. The void is what makes the identifier parsable — the delimiters, the spaces, the structure that separates one component from another.</p>
+</div>
+
+</div>
+
+---
+
 ## Open Source
 
 PubID is proudly open source.
@@ -180,47 +182,74 @@ PubID is proudly open source.
   background: var(--vp-c-bg-soft);
 }
 
-/* Logo Breakdown */
-.logo-breakdown {
-  display: grid;
-  grid-template-columns: 200px 1fr;
-  gap: 2.5rem;
-  align-items: center;
-  margin: 2rem 0;
-  padding: 2rem;
-  background: var(--vp-c-bg-soft);
-  border-radius: 12px;
+/* Logo Section */
+.logo-centered {
+  text-align: center;
+  margin: 2rem 0 1rem;
 }
 
-.logo-display {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.logo-image {
-  width: 180px;
+.logo-centered .logo-image {
+  width: 220px;
   height: auto;
 }
 
-.logo-explanation {
-  font-size: 0.9375rem;
-  line-height: 1.7;
-  color: var(--vp-c-text-2);
+/* Logo Cards */
+.logo-cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin: 1rem 0 2rem;
 }
 
-.logo-explanation p {
-  margin: 1rem 0;
+.logo-card {
+  padding: 1.5rem;
+  background: var(--vp-c-bg-soft);
+  border-radius: 12px;
+  border: 1px solid var(--vp-c-divider);
+  transition: border-color 0.25s;
 }
 
-.logo-explanation strong {
+.logo-card:hover {
+  border-color: var(--vp-c-brand-1);
+}
+
+.logo-card--wide {
+  grid-column: 1 / -1;
+}
+
+.logo-card-glyph {
+  font-size: 2rem;
+  line-height: 1;
+  color: var(--vp-c-brand-1);
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+}
+
+.logo-card h4 {
+  margin: 0 0 0.5rem;
+  font-size: 1rem;
   color: var(--vp-c-text-1);
 }
 
-.logo-explanation h4 {
-  margin-top: 1.25rem;
-  margin-bottom: 0.35rem;
-  font-size: 0.95rem;
+.logo-card p {
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
+  line-height: 1.65;
+  color: var(--vp-c-text-2);
+}
+
+.logo-card blockquote {
+  margin: 0.75rem 0;
+  padding: 0.75rem 1rem;
+  border-left: 3px solid var(--vp-c-brand-1);
+  background: var(--vp-c-bg);
+  border-radius: 0 6px 6px 0;
+  font-style: italic;
+  font-size: 0.875rem;
+}
+
+.logo-card blockquote p {
+  margin: 0.25rem 0;
   color: var(--vp-c-text-1);
 }
 
@@ -236,30 +265,14 @@ PubID is proudly open source.
   margin: 1.5rem 0;
 }
 
-/* Blockquote styling for Dao De Jing quote */
-.logo-explanation blockquote {
-  margin: 1rem 0;
-  padding: 1rem 1.25rem;
-  border-left: 3px solid var(--vp-c-brand-1);
-  background: var(--vp-c-bg-soft);
-  border-radius: 0 8px 8px 0;
-  font-style: italic;
-  color: var(--vp-c-text-1);
-}
-
-.logo-explanation blockquote p {
-  margin: 0.35rem 0;
-}
-
 /* Responsive */
 @media (max-width: 768px) {
-  .logo-breakdown {
+  .logo-cards {
     grid-template-columns: 1fr;
-    text-align: center;
   }
 
-  .logo-image {
-    width: 140px;
+  .logo-centered .logo-image {
+    width: 160px;
   }
 }
 </style>
