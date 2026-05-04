@@ -96,44 +96,43 @@ import VersionBadge from './.vitepress/theme/components/VersionBadge.vue'
 
 **PubID** stands for **Publication Identifier**. It is both a noun and a mission: to give every publication an identifier that is universally parsable, unambiguously structured, and faithful to the original meaning it represents.
 
-The logo is not decoration — it is a statement of philosophy. Every element encodes a layer of meaning:
+The logo is not decoration — it is a statement of philosophy:
 
 <div class="logo-centered">
   <img src="/pubid-logo.svg" alt="PubID Logo" class="logo-image" />
 </div>
+
+<div class="logo-epigraph">
+  <p class="logo-epigraph-zh">道可道，非常道；名可名，非常名</p>
+  <p class="logo-epigraph-en">The Way that can be spoken is not the eternal Way;<br>the name that can be named is not the eternal name.</p>
+</div>
+
+Every element encodes a layer of meaning:
 
 <div class="logo-cards">
 
 <div class="logo-card">
 <div class="logo-card-glyph">道</div>
 <h4>The Pool</h4>
-<p>The pool is the Way itself: the original, complete meaning of a publication identifier. It is the source — the semantic model from which all representations emerge and to which they return. Every identifier, in every format, points back to the same underlying reality in this pool.</p>
-</div>
-
-<div class="logo-card">
-<div class="logo-card-glyph">玄</div>
-<h4>The Depths</h4>
-<p>The bottom of the pool is the profound and unfathomable. Here, meaning exists in its purest form, beyond any particular expression — the deep structure that underlies every identifier, the semantic model that no single rendering can fully capture. It is the ground of meaning that precedes all naming.</p>
+<p>The pool is the Way: the original, complete meaning of a publication identifier. It is the source — the semantic model from which all representations emerge and to which they return. Its depths are profound and unfathomable; meaning exists there in its purest form, beyond any particular expression, the deep structure that no single rendering can fully capture. Every identifier, in every format, points back to the same underlying reality in this pool.</p>
 </div>
 
 <div class="logo-card">
 <div class="logo-card-glyph">名</div>
 <h4>The Surface</h4>
-<p>The top of the pool is where meaning begins to take name and form. It is the boundary between the unnameable and the named — where the depth rises toward expression, where semantic models begin to crystallize into identifiable structure.</p>
+<p>The surface of the pool is where meaning begins to take name and form. It is the boundary between the unnameable and the named — where depth rises toward expression, where semantic models crystallize into identifiable structure. A name is real and necessary, yet it is never the thing itself.</p>
 </div>
 
 <div class="logo-card">
 <div class="logo-card-glyph">有</div>
 <h4>Waves &amp; Particles</h4>
-<p>The waves (human-readable identifiers) and particles (machine-readable forms) are <em>有</em> — being, manifest existence. Every representation is real and functional, yet no single form is constant. They embody the opening insight of the Dao De Jing:</p>
-<blockquote><p><em>道可道，非常道；名可名，非常名</em></p><p>The Way that can be spoken is not the eternal Way; the name that can be named is not the eternal name.</p></blockquote>
-<p>Human-readable strings and machine-readable URNs are two modes of the same <em>有</em> — both arising from the same source, both legitimate, neither permanent.</p>
+<p>The waves (human-readable identifiers) and particles (machine-readable forms) are 有 — being, manifest existence. Every representation is real and functional, yet no single form is constant. Human-readable strings and machine-readable URNs are two modes of the same 有 — both arising from the same source, both legitimate, neither permanent.</p>
 </div>
 
-<div class="logo-card logo-card--wide">
+<div class="logo-card">
 <div class="logo-card-glyph">無</div>
 <h4>The Space Between</h4>
-<p>The emptiness between the waves and particles is <em>無</em> — non-being, the void. It is not absence but potential: the space that gives each form its meaning. Without the gaps, there is no structure; without <em>無</em>, <em>有</em> has no shape. The void is what makes the identifier parsable — the delimiters, the spaces, the structure that separates one component from another.</p>
+<p>The emptiness between the waves and particles is 無 — non-being, the void. It is not absence but potential: the space that gives each form its meaning. Without the gaps, there is no structure; without 無, 有 has no shape. The void is what makes the identifier parsable — the delimiters, the spaces, the structure that separates one component from another.</p>
 </div>
 
 </div>
@@ -184,13 +183,40 @@ PubID is proudly open source.
 
 /* Logo Section */
 .logo-centered {
-  text-align: center;
+  display: flex;
+  justify-content: center;
   margin: 2rem 0 1rem;
 }
 
 .logo-centered .logo-image {
   width: 220px;
   height: auto;
+}
+
+/* Logo Epigraph */
+.logo-epigraph {
+  text-align: center;
+  margin: 0 auto 2rem;
+  max-width: 560px;
+  padding: 1.25rem 2rem;
+  border-top: 1px solid var(--vp-c-divider);
+  border-bottom: 1px solid var(--vp-c-divider);
+}
+
+.logo-epigraph-zh {
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: var(--vp-c-text-1);
+  margin: 0 0 0.5rem;
+  letter-spacing: 0.05em;
+}
+
+.logo-epigraph-en {
+  font-size: 0.95rem;
+  font-style: italic;
+  color: var(--vp-c-text-2);
+  margin: 0;
+  line-height: 1.6;
 }
 
 /* Logo Cards */
@@ -213,10 +239,6 @@ PubID is proudly open source.
   border-color: var(--vp-c-brand-1);
 }
 
-.logo-card--wide {
-  grid-column: 1 / -1;
-}
-
 .logo-card-glyph {
   font-size: 2rem;
   line-height: 1;
@@ -236,21 +258,6 @@ PubID is proudly open source.
   font-size: 0.9rem;
   line-height: 1.65;
   color: var(--vp-c-text-2);
-}
-
-.logo-card blockquote {
-  margin: 0.75rem 0;
-  padding: 0.75rem 1rem;
-  border-left: 3px solid var(--vp-c-brand-1);
-  background: var(--vp-c-bg);
-  border-radius: 0 6px 6px 0;
-  font-style: italic;
-  font-size: 0.875rem;
-}
-
-.logo-card blockquote p {
-  margin: 0.25rem 0;
-  color: var(--vp-c-text-1);
 }
 
 /* Mission Statement */
