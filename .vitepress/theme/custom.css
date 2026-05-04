@@ -882,6 +882,173 @@ html.dark .flow-code code { color: var(--accent-warm); }
 }
 
 
+/* ── Anatomy Breakdown ──────────────────────────────────────────── */
+.anatomy-breakdown {
+  margin: 2.5rem 0 0;
+}
+
+.anatomy-identifier {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0;
+  font-family: var(--vp-font-family-mono);
+  font-size: 1.35rem;
+  font-weight: 600;
+  padding: 1.25rem 1.5rem;
+  background: var(--bg-raised);
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  margin-bottom: 2rem;
+}
+
+html.dark .anatomy-identifier {
+  background: rgba(0, 0, 0, 0.25);
+  border-color: rgba(255, 255, 255, 0.06);
+}
+
+.anatomy-segment {
+  color: var(--seg-color);
+  padding: 0.15rem 0.2rem;
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+
+.anatomy-segment:hover {
+  background: color-mix(in srgb, var(--seg-color) 12%, transparent);
+}
+
+.anatomy-sep {
+  color: var(--text-3);
+  user-select: none;
+}
+
+.anatomy-legend {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.anatomy-legend-item {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+  padding: 0.9rem 1rem;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.anatomy-legend-item:hover {
+  border-color: var(--border);
+  background: var(--bg-raised);
+}
+
+html.dark .anatomy-legend-item:hover {
+  border-color: rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.anatomy-legend-chip {
+  flex-shrink: 0;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--seg-color);
+  background: color-mix(in srgb, var(--seg-color) 10%, transparent);
+  padding: 0.25rem 0.6rem;
+  border-radius: 5px;
+  min-width: 72px;
+  text-align: center;
+  margin-top: 0.1rem;
+}
+
+.anatomy-legend-desc {
+  font-size: 0.85rem;
+  line-height: 1.55;
+  color: var(--text-2);
+}
+
+.anatomy-legend-desc strong {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.anatomy-legend-desc code {
+  font-size: 0.82rem;
+  background: var(--bg-raised);
+  padding: 0.1rem 0.3rem;
+  border-radius: 3px;
+}
+
+html.dark .anatomy-legend-desc code {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+/* Anatomy Mapping (Human → URN → JSON) */
+.anatomy-mapping {
+  margin-top: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.anatomy-map-col {
+  width: 100%;
+  text-align: center;
+}
+
+.anatomy-map-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-3);
+  margin-bottom: 0.35rem;
+}
+
+.anatomy-map-code {
+  display: block;
+  font-family: var(--vp-font-family-mono);
+  font-size: 0.82rem;
+  padding: 0.75rem 1rem;
+  background: var(--bg-raised);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text);
+  word-break: break-all;
+  text-align: left;
+  line-height: 1.5;
+}
+
+html.dark .anatomy-map-code {
+  background: rgba(0, 0, 0, 0.25);
+  border-color: rgba(255, 255, 255, 0.06);
+}
+
+.anatomy-map-urn {
+  color: var(--accent-warm);
+}
+
+.anatomy-map-json {
+  color: var(--text-2);
+}
+
+.anatomy-map-arrow {
+  color: var(--text-3);
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+.anatomy-cta {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
 /* ── Bento Grid (Capabilities) ────────────────────────────────── */
 .bento-grid {
   display: grid;
@@ -1085,6 +1252,51 @@ html.dark .arch-group {
 
 .arch-comp-val {
   font-weight: 600;
+}
+
+/* Nested architecture diagram (corrigendum wraps amendment wraps base) */
+.arch-nested > .arch-nest-box {
+  background: var(--bg);
+  border: 2px solid var(--group-accent, var(--accent));
+  border-top-width: 3px;
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+}
+
+html.dark .arch-nested > .arch-nest-box {
+  background: rgba(255, 255, 255, 0.02);
+  border-color: var(--group-accent, var(--accent));
+}
+
+.arch-nest-box .arch-nest-box {
+  border: 1.5px dashed var(--group-accent, var(--accent));
+  border-top: 2px solid var(--group-accent, var(--accent));
+  border-radius: 10px;
+  padding: 0.75rem 1rem;
+  margin-top: 0.5rem;
+  background: var(--bg-raised);
+}
+
+html.dark .arch-nest-box .arch-nest-box {
+  background: rgba(255, 255, 255, 0.03);
+  border-color: var(--group-accent, var(--accent));
+  border-top-color: var(--group-accent, var(--accent));
+}
+
+.arch-nest-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--group-accent, var(--accent));
+  margin-bottom: 0.6rem;
+  font-family: var(--vp-font-family-mono);
+}
+
+.arch-nest-comps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
 }
 
 .arch-urn {
@@ -1780,6 +1992,8 @@ html.dark .fmt-note {
   .anatomy-card { padding: 1.5rem; }
   .anatomy-ident { font-size: 1rem; }
   .anatomy-legend { grid-template-columns: 1fr; }
+  .anatomy-identifier { font-size: 1rem; }
+  .anatomy-cta { flex-direction: column; align-items: center; }
   .arch-groups { flex-direction: column; }
   .flavor-stats { grid-template-columns: repeat(2, 1fr); }
   .flavor-hero { padding: 1.5rem 1rem; margin: -1rem -1rem 2rem; }

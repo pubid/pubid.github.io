@@ -1,14 +1,18 @@
 ---
-title: "NIST PubID — The First Multi-Style, Round-Trippable Publication Identifier"
+title: "NIST PubID — The First Official Adoption of a Universal Publication Identifier"
 date: 2024-08-01
 author: PubID Team
 ---
 
-# NIST PubID — The First Multi-Style, Round-Trippable Publication Identifier
+# NIST PubID — The First Official Adoption of a Universal Publication Identifier
 
-In April 2022, NIST published the ["Publication Identifier Syntax for NIST Technical Series Publications"](https://www.nist.gov/system/files/documents/2021/08/26/Publication-ID-Proposal_26Aug21.pdf), formalizing a scheme that does something no standards body had done before: define a single identifier that can be **rendered in four distinct human- and machine-readable styles**, with full round-trip conversion between them.
+In April 2022, NIST's Information Services Office officially published the ["Publication Identifier Syntax for NIST Technical Series Publications"](https://www.nist.gov/system/files/documents/2022/04/01/PubID_Syntax_NIST_TechPubs.pdf) — formally adopting a universal publication identifier scheme that does something no standards body had done before: define a single identifier that renders in **four distinct human- and machine-readable styles**, with full round-trip conversion between them.
 
-This is the story of NIST PubID — why it matters, how it works, and why it set the template for every publisher that followed.
+This was the first time any standards organization officially adopted the concept of a universal PubID. NIST's decision validated a core conviction: the meaning of an identifier is separate from any single representation of it, and that meaning should be preserved across every form the identifier takes.
+
+## Background
+
+The NIST PubID scheme was jointly developed by the [NIST Information Services Office](https://www.nist.gov/associate-director-management-resources/staff-offices/information-services-office) and the [NIST Computer Security Division](https://www.nist.gov/itl/csd). [Ribose](https://www.ribose.com) was involved from the conception phase together with the NIST ISO and CSRC teams in conceptualizing a universal PubID scheme, and was acknowledged in both the [original 2020 draft](https://www.nist.gov/system/files/documents/2021/08/26/Publication-ID-Proposal_26Aug21.pdf) and the final PubID 1.0 document.
 
 ## The problem NIST faced
 
@@ -72,7 +76,7 @@ This maps directly to the DOI: `https://doi.org/10.6028/NIST.SP.800-53A`. The MR
 
 ## Migration at scale
 
-Adopting PubID meant retroactively converting 19,333 existing identifiers. The open-source [`nist-pubid`](https://github.com/metanorma/nist-pubid) Ruby gem was built to handle this:
+Adopting PubID meant retroactively converting 19,333 existing identifiers. The open-source [`nist-pubid`](https://github.com/metanorma/nist-pubid) Ruby gem was built by the Ribose/Metanorma team to handle this:
 
 ```bash
 # Convert a legacy identifier to any style
@@ -91,9 +95,25 @@ $ nist-pubid report --csv > migration-report.csv
 
 Notable changes in the migration included normalizing series abbreviations — `NISTIR` became `NIST IR`, `NISTGCR` became `NIST GCR` — and standardizing revision formatting across the entire catalog.
 
+## The CSWP PubID migration
+
+After the initial adoption, the NIST Research Library decided to also migrate CyberSecurity White Paper (CSWP) identifiers. The original CSWP scheme used date strings as identifiers — `NIST CSWP 02122014` for the Cybersecurity Framework 1.0 — which proved problematic when multiple documents were published on the same date.
+
+NIST moved to a sequential numbering scheme: `NIST CSWP 02122014` became `NIST CSWP 4`. [James Foti](https://www.nist.gov/people/james-foti) of the NIST ITL Cyber Security Division provided the complete old-to-new mapping. Read the [full CSWP migration details on the Relaton blog](https://www.relaton.org/posts/2023-08-23-nist-cswp-pubid/).
+
+## Ribose's role
+
+[Ribose](https://www.ribose.com) was part of NIST's PubID journey from the conception phase:
+
+- **Conception phase** — Worked alongside the NIST Information Services Office and CSRC teams in conceptualizing the universal PubID scheme. Acknowledged in the original 2020 draft and the final PubID 1.0 document.
+- **Public comment period** — Submitted a [formal technical response](https://riboseinc.github.io/report-nist-pubid/) to NIST's request for comments, with detailed analysis of the proposed scheme
+- **Conversion tooling** — Built and maintained the [`nist-pubid`](https://github.com/metanorma/nist-pubid) Ruby gem that migrated all 19,333 legacy identifiers
+- **CSWP migration** — Assisted with mapping the CyberSecurity White Paper identifier changes from date-based to sequential numbering
+- **PubID library integration** — Integrated NIST PubID as a first-class flavor in the [pubid-ruby](https://github.com/metanorma/pubid) reference implementation
+
 ## NIST PubID in the PubID ecosystem
 
-NIST PubID is now one of the 23+ publisher schemas supported by the PubID library. Every NIST identifier can be parsed, rendered in any style, and converted to a URN:
+NIST PubID is now one of the 26+ publisher schemas supported by the PubID library. Every NIST identifier can be parsed, rendered in any style, and converted to a URN:
 
 ```ruby
 require 'pubid'
@@ -105,7 +125,7 @@ id.to_urn  # => "urn:nist:pub:sp:800-53:r5"
 
 ## Why NIST PubID matters
 
-NIST was the **first organization to formally adopt a multi-style, round-trippable publication identifier scheme**. Their approach proved that:
+NIST was the **first organization to officially adopt a multi-style, round-trippable publication identifier scheme**. Their decision by the Information Services Office in 2022 proved that:
 
 1. A single data model can serve humans (full, abbreviated, short) and machines (MR, DOI)
 2. Round-trip fidelity across styles is achievable and practical
@@ -116,7 +136,8 @@ Every publisher schema in PubID builds on this foundation. The NIST experience s
 
 ## Learn more
 
-- [NIST PubID reference](/publishers/nist) — Syntax, styles, and elements
-- [Playground](/) — Try parsing NIST identifiers interactively
+- [NIST Publisher Schema](/publishers/nist) — Syntax, styles, and elements
+- [Introducing NIST PubID](https://www.metanorma.org/posts/2022-01-09-nist-pubid) — Original Metanorma blog post
+- [NIST CSWP PubID Mapping](https://www.relaton.org/posts/2023-08-23-nist-cswp-pubid/) — CSWP migration details
 - [nist-pubid on GitHub](https://github.com/metanorma/nist-pubid) — The original conversion tool
 - [NIST Tech Pubs metadata](https://github.com/usnistgov/NIST-Tech-Pubs) — Full catalog data

@@ -25,7 +25,11 @@ const conceptSidebar = [
   { text: 'PubID Algebra', link: '/concepts/algebra' },
   { text: 'Relationships', link: '/concepts/relationships' },
   { text: 'URN Mapping', link: '/concepts/urn' },
-  { text: 'Create Your Scheme', link: '/concepts/designing-your-scheme' },
+]
+
+const adoptSidebar = [
+  { text: 'Why Adopt PubID', link: '/adopt' },
+  { text: 'Design Guide', link: '/adopt/guide' },
 ]
 
 const specsSidebar = [
@@ -70,7 +74,6 @@ export default defineConfig({
     logo: '/pubid-logo.svg',
 
     nav: [
-      { text: 'About', link: '/about' },
       { text: 'Publishers', link: '/publishers/' },
       { text: 'Concepts', link: '/concepts/anatomy', items: conceptSidebar },
       {
@@ -80,6 +83,8 @@ export default defineConfig({
           { text: 'Specifications', items: specsSidebar },
         ],
       },
+      { text: 'Adopt', link: '/adopt' },
+      { text: 'About', link: '/about' },
     ],
 
     socialLinks: [
@@ -92,6 +97,7 @@ export default defineConfig({
     },
 
     sidebar: {
+      '/adopt/': [{ text: 'Adopt', items: adoptSidebar }],
       '/concepts/': [{ text: 'Concepts', items: conceptSidebar }],
       '/specs/': [{ text: 'Specifications', items: specsSidebar }],
       '/publishers/': [{ text: 'Publishers', items: publisherSidebar }],

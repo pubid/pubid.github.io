@@ -1,3 +1,8 @@
+---
+title: Designing Your PubID Scheme
+description: A 12-dimension guide to designing a formal publication identifier scheme using the PubID metaschema, with real-world examples from ISO, NIST, ASTM, and more.
+---
+
 # Designing Your PubID Scheme
 
 This guide helps standards publishers formalize their publication identifier scheme using the PubID metaschema. Whether you're an international body like ISO, a national standards organization like BSI, or a trade association like API, the same principles apply.

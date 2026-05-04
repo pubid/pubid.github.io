@@ -116,6 +116,7 @@ interface ArchData {
   description: string
   outerLabel: string
   outerAccent: string
+  nested?: boolean
   groups: ArchGroup[]
 }
 
@@ -141,12 +142,13 @@ const archData: Record<string, ArchData> = {
   supplement: {
     input: 'ISO/IEC 17031-1:2020/Amd 1:2022',
     urn: 'urn:iso:std:iso-iec:17031:-1:ed-1:amd:1:v1',
-    description: 'An amendment identifier contains an international standard identifier — the amendment carries its own type, number, and year, while the base standard remains intact inside it.',
+    description: 'An amendment identifier wraps an international standard identifier — the amendment carries its own type, number, and year, while the base standard remains intact inside it.',
     outerLabel: 'Amendment Identifier',
     outerAccent: '#2dd4bf',
+    nested: true,
     groups: [
       {
-        label: 'Supplement',
+        label: 'Amendment',
         accent: '#2dd4bf',
         comps: [
           { key: 'type', value: 'Amd', color: '#2dd4bf' },
@@ -155,11 +157,11 @@ const archData: Record<string, ArchData> = {
         ]
       },
       {
-        label: 'Base Identifier',
+        label: 'Int\'l Standard',
         accent: '#4590cd',
         comps: [
           { key: 'publisher', value: 'ISO', color: '#4590cd' },
-          { key: 'copublisher', value: 'IEC', color: '#a78bfa' },
+          { key: 'copublisher', value: 'IEC', color: '#da9d76' },
           { key: 'number', value: '17031', color: '#f87171' },
           { key: 'part', value: '1', color: '#34d399' },
           { key: 'year', value: '2020', color: '#fbbf24' },
@@ -170,9 +172,10 @@ const archData: Record<string, ArchData> = {
   corrigendum: {
     input: 'ISO/IEC 13818-1:2015/Amd 3:2016/Cor 1:2017',
     urn: 'urn:iso:std:iso-iec:13818:-1:amd:2016:v3:cor:2017:v1',
-    description: 'A corrigendum identifier contains an amendment identifier, which in turn contains the base standard — three levels of nesting.',
+    description: 'A corrigendum wraps an amendment, which wraps the base standard — three levels of nesting.',
     outerLabel: 'Corrigendum Identifier',
     outerAccent: '#f59e0b',
+    nested: true,
     groups: [
       {
         label: 'Corrigendum',
@@ -184,7 +187,7 @@ const archData: Record<string, ArchData> = {
         ]
       },
       {
-        label: 'Amendment (embedded)',
+        label: 'Amendment',
         accent: '#2dd4bf',
         comps: [
           { key: 'type', value: 'Amd', color: '#2dd4bf' },
@@ -193,7 +196,7 @@ const archData: Record<string, ArchData> = {
         ]
       },
       {
-        label: 'Int\'l Standard (embedded)',
+        label: 'Int\'l Standard',
         accent: '#4590cd',
         comps: [
           { key: 'publisher', value: 'ISO', color: '#4590cd' },
@@ -211,6 +214,7 @@ const archData: Record<string, ArchData> = {
     description: 'A national body adopts a European Norm, which itself adopts an international standard — three layers of identifier composition.',
     outerLabel: 'Adopted Standard',
     outerAccent: '#4590cd',
+    nested: true,
     groups: [
       {
         label: 'British Standard',
@@ -399,15 +403,100 @@ onMounted(() => {
     </div>
   </div>
 
-  <!-- Anatomy (merged into hero demo) -->
+  <!-- Anatomy -->
   <div id="anatomy" class="page-section animate-in">
     <div class="section-inner">
       <div class="section-kicker">Anatomy</div>
       <h2 class="section-heading">What is a PubID?</h2>
       <p class="section-sub">
         Every standards document identifier decomposes into structured, machine-readable components.
-        Try the examples above, or explore the composition patterns below.
+        The same meaning can be rendered as a human-readable string, a URN, or structured JSON.
       </p>
+
+      <div class="anatomy-breakdown">
+        <div class="anatomy-identifier">
+          <span class="anatomy-segment" style="--seg-color: #4590cd">ISO</span><span class="anatomy-sep">/</span>
+          <span class="anatomy-segment" style="--seg-color: #059669">IEC</span><span class="anatomy-sep">&nbsp;</span>
+          <span class="anatomy-segment" style="--seg-color: #f87171">17031</span><span class="anatomy-sep">-</span>
+          <span class="anatomy-segment" style="--seg-color: #34d399">1</span><span class="anatomy-sep">:</span>
+          <span class="anatomy-segment" style="--seg-color: #fbbf24">2020</span><span class="anatomy-sep">/</span>
+          <span class="anatomy-segment" style="--seg-color: #2dd4bf">Amd</span><span class="anatomy-sep">&nbsp;</span>
+          <span class="anatomy-segment" style="--seg-color: #2dd4bf">1</span><span class="anatomy-sep">:</span>
+          <span class="anatomy-segment" style="--seg-color: #2dd4bf">2022</span>
+        </div>
+
+        <div class="anatomy-legend">
+          <div class="anatomy-legend-item">
+            <div class="anatomy-legend-chip" style="--seg-color: #4590cd">Publisher</div>
+            <div class="anatomy-legend-desc">
+              <strong>The issuing organization</strong> — ISO, IEC, IEEE, NIST, BSI, etc. Joint publications list multiple publishers separated by slashes.
+            </div>
+          </div>
+          <div class="anatomy-legend-item">
+            <div class="anatomy-legend-chip" style="--seg-color: #059669">Copublisher</div>
+            <div class="anatomy-legend-desc">
+              <strong>Jointly published with</strong> — a second publisher sharing responsibility. Written after the primary publisher, e.g. <code>ISO/IEC</code>, <code>IEC/IEEE</code>.
+            </div>
+          </div>
+          <div class="anatomy-legend-item">
+            <div class="anatomy-legend-chip" style="--seg-color: #dc2626">Stage</div>
+            <div class="anatomy-legend-desc">
+              <strong>Where in its lifecycle</strong> — WD (Working Draft), CD (Committee Draft), DIS (Draft International Standard), FDIS (Final Draft). Encodes development progress directly in the identifier.
+            </div>
+          </div>
+          <div class="anatomy-legend-item">
+            <div class="anatomy-legend-chip" style="--seg-color: #f87171">Number</div>
+            <div class="anatomy-legend-desc">
+              <strong>The unique numeric ID</strong> — assigned by the publisher. May include sub-parts (<code>800-53</code>), letter suffixes (<code>9001</code>), or prefixed sections (<code>JIS A 0001</code>).
+            </div>
+          </div>
+          <div class="anatomy-legend-item">
+            <div class="anatomy-legend-chip" style="--seg-color: #fbbf24">Year</div>
+            <div class="anatomy-legend-desc">
+              <strong>Publication or revision year</strong> — typically separated by a colon (<code>:2015</code>) or hyphen (<code>-2018</code> depending on publisher convention).
+            </div>
+          </div>
+          <div class="anatomy-legend-item">
+            <div class="anatomy-legend-chip" style="--seg-color: #2dd4bf">Supplement</div>
+            <div class="anatomy-legend-desc">
+              <strong>Amendment or Corrigendum</strong> — a supplement identifier <em>contains</em> the base identifier. <code>Amd 1:2023</code> wraps the base standard, adding its own number and year.
+            </div>
+          </div>
+          <div class="anatomy-legend-item">
+            <div class="anatomy-legend-chip" style="--seg-color: #34d399">Language</div>
+            <div class="anatomy-legend-desc">
+              <strong>Publication language</strong> — <code>en</code> (English), <code>fr</code> (French), <code>ru</code> (Russian), etc. Not all publishers include this.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="anatomy-mapping">
+        <div class="anatomy-map-col">
+          <div class="anatomy-map-label">Human-readable</div>
+          <code class="anatomy-map-code">ISO/IEC 17031-1:2020/Amd 1:2022</code>
+        </div>
+        <div class="anatomy-map-arrow">&darr;</div>
+        <div class="anatomy-map-col">
+          <div class="anatomy-map-label">URN</div>
+          <code class="anatomy-map-code anatomy-map-urn">urn:iso:std:iso-iec:17031:-1:amd:2022:v1</code>
+        </div>
+        <div class="anatomy-map-arrow">&darr;</div>
+        <div class="anatomy-map-col">
+          <div class="anatomy-map-label">Structured (PubID 2.0)</div>
+          <code class="anatomy-map-code anatomy-map-json">Amendment(number: 1, year: 2022,
+  base_identifier: InternationalStandard(
+    publisher: ISO, copublishers: [IEC],
+    number: 17031, part: 1, year: 2020
+  )
+)</code>
+        </div>
+      </div>
+
+      <div class="anatomy-cta">
+        <a href="/concepts/anatomy" class="btn btn-ghost">Full Anatomy Reference</a>
+        <a href="/concepts/components" class="btn btn-ghost">Component Details</a>
+      </div>
     </div>
   </div>
 
@@ -479,7 +568,56 @@ onMounted(() => {
       <p class="arch-desc">{{ currentArch.description }}</p>
 
       <div class="arch-diagram">
-        <div class="arch-outer" :style="{ '--arch-accent': currentArch.outerAccent }">
+        <!-- Nested rendering: each box wraps the next -->
+        <div v-if="currentArch.nested" class="arch-nested" :style="{ '--arch-accent': currentArch.outerAccent }">
+          <!-- Outermost group -->
+          <div class="arch-nest-box" :style="{ '--group-accent': currentArch.groups[0].accent }">
+            <div class="arch-nest-label">{{ currentArch.groups[0].label }}</div>
+            <div class="arch-nest-comps">
+              <div
+                v-for="comp in currentArch.groups[0].comps"
+                :key="comp.key"
+                class="arch-comp"
+                :style="{ background: comp.color + '14', color: comp.color, borderColor: comp.color + '30' }"
+              >
+                <span class="arch-comp-key">{{ comp.key }}</span>
+                <span class="arch-comp-val">{{ comp.value }}</span>
+              </div>
+            </div>
+            <!-- Second level (wraps third if present) -->
+            <div v-if="currentArch.groups[1]" class="arch-nest-box" :style="{ '--group-accent': currentArch.groups[1].accent }">
+              <div class="arch-nest-label">{{ currentArch.groups[1].label }}</div>
+              <div class="arch-nest-comps">
+                <div
+                  v-for="comp in currentArch.groups[1].comps"
+                  :key="comp.key"
+                  class="arch-comp"
+                  :style="{ background: comp.color + '14', color: comp.color, borderColor: comp.color + '30' }"
+                >
+                  <span class="arch-comp-key">{{ comp.key }}</span>
+                  <span class="arch-comp-val">{{ comp.value }}</span>
+                </div>
+              </div>
+              <!-- Third level -->
+              <div v-if="currentArch.groups[2]" class="arch-nest-box" :style="{ '--group-accent': currentArch.groups[2].accent }">
+                <div class="arch-nest-label">{{ currentArch.groups[2].label }}</div>
+                <div class="arch-nest-comps">
+                  <div
+                    v-for="comp in currentArch.groups[2].comps"
+                    :key="comp.key"
+                    class="arch-comp"
+                    :style="{ background: comp.color + '14', color: comp.color, borderColor: comp.color + '30' }"
+                  >
+                    <span class="arch-comp-key">{{ comp.key }}</span>
+                    <span class="arch-comp-val">{{ comp.value }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Flat rendering for other types -->
+        <div v-else class="arch-outer" :style="{ '--arch-accent': currentArch.outerAccent }">
           <div class="arch-outer-label">{{ currentArch.outerLabel }}</div>
           <div class="arch-groups">
             <div

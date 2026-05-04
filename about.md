@@ -86,6 +86,33 @@ import VersionBadge from './.vitepress/theme/components/VersionBadge.vue'
   <VersionBadge />
 </div>
 
+## NIST: The First Adopter
+
+<div class="nist-card">
+
+In 2021, NIST published the [Publication Identifier Syntax for NIST Technical Series Publications](https://www.nist.gov/system/files/documents/2022/04/01/PubID_Syntax_NIST_TechPubs.pdf) — a formal scheme for uniquely identifying every document across the 53 publication series and 19,333+ documents in the NIST Library, dating back to 1901.
+
+NIST was the first standards organization to adopt a multi-style, round-trippable PubID scheme with four defined rendering styles:
+
+| Style | Usage | Example |
+|-------|-------|---------|
+| **Full** | Title page and bibliography | National Institute of Standards and Technology Special Publication 800-53, Revision 5 |
+| **Abbreviated** | Authority section | Natl. Inst. Stand. Technol. Spec. Publ. 800-53 Rev. 5 |
+| **Short** | Inline citations | NIST SP 800-53 Rev. 5 |
+| **Machine-Readable** | DOI suffix | NIST.SP.800-53r5 |
+
+[Ribose](https://www.ribose.com) was involved from the conception phase alongside the NIST Information Services Office and CSRC teams in conceptualizing the universal PubID scheme — acknowledged in both the original 2020 draft and the final PubID 1.0 document. Ribose submitted [formal comments](https://riboseinc.github.io/report-nist-pubid/) during the public review period, built the [nist-pubid](https://github.com/metanorma/nist-pubid) conversion tool that migrated all 19,333 legacy identifiers, and assisted with the CSWP identifier migration when NIST moved from date-based to sequential numbering.
+
+The NIST PubID demonstrated that a well-designed identifier scheme can serve both human and machine needs simultaneously — a principle that PubID carries forward across all publishers.
+
+<div class="nist-links">
+  <a href="https://www.metanorma.org/posts/2022-01-09-nist-pubid/" class="nist-link-btn">Blog: Introducing NIST PubID</a>
+  <a href="https://www.relaton.org/posts/2023-08-23-nist-cswp-pubid/" class="nist-link-btn">Blog: NIST CSWP PubID Mapping</a>
+  <a href="/publishers/nist" class="nist-link-btn">NIST Publisher Schema</a>
+</div>
+
+</div>
+
 ## What We Believe
 
 <div class="mission-statement">
@@ -267,6 +294,44 @@ PubID is proudly open source.
   font-size: 0.9rem;
   line-height: 1.65;
   color: var(--vp-c-text-2);
+}
+
+/* NIST Card */
+.nist-card {
+  padding: 1.5rem 2rem;
+  background: var(--vp-c-bg-soft);
+  border-radius: 12px;
+  border: 1px solid var(--vp-c-divider);
+  margin: 1.5rem 0;
+}
+
+.nist-card table {
+  margin: 1rem 0;
+  font-size: 0.9rem;
+}
+
+.nist-links {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-top: 1.25rem;
+}
+
+.nist-link-btn {
+  display: inline-block;
+  padding: 0.4rem 1rem;
+  border-radius: 8px;
+  border: 1px solid var(--vp-c-brand-1);
+  color: var(--vp-c-brand-1);
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s;
+}
+
+.nist-link-btn:hover {
+  background: var(--vp-c-brand-1);
+  color: var(--vp-c-bg);
 }
 
 /* Mission Statement */
