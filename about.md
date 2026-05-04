@@ -24,8 +24,6 @@ There was no universal way to:
 
 Since then, PubID has grown to cover **26+ publishers** across international, regional, national, and industry standards, with a Ruby reference implementation that parses, renders, and interchanges identifiers with round-trip fidelity.
 
----
-
 ## The Metaschema
 
 The PubID metaschema defines the common elements that make up any publication identifier:
@@ -44,8 +42,6 @@ The PubID metaschema defines the common elements that make up any publication id
 
 Each publisher's schema specifies which elements are used, their allowed values, and how they combine syntactically.
 
----
-
 ## Identifier Composition
 
 Identifiers compose through algebraic relationships. A supplement identifier **embeds** a base identifier — the supplement carries its own type, number, and year, while the base remains intact inside it:
@@ -57,10 +53,10 @@ Identifiers compose through algebraic relationships. A supplement identifier **e
 | **With Copublisher** | `ISO/IEC 17031-1:2020` — joint publication |
 | **Composite** | `ISO/IEC 17031-1:2020/Amd 1:2022` — amendment embeds copublished base |
 | **Adoption** | `BS ISO 9001:2015` — national body adopts international standard |
+| **Dual Published** | `IEC 60255-24 Ed. 2.0 2013-04 and IEEE Std C37.111-2013` — two equivalent identifiers from different publishers for the same document |
+| **With Reaffirmation** | `ANSI C57.12.22-1993 (R1998)` — standard reaffirmed without change |
 
 Each layer is a complete identifier in its own right. A supplement identifier does not modify the base — it wraps it, adding its own type (Amendment, Corrigendum), number, and year.
-
----
 
 ## Multi-Style Rendering
 
@@ -69,8 +65,6 @@ A key innovation in PubID is the ability to render the same identifier in multip
 <FormatDiagram />
 
 This pattern extends across all supported publishers: every PubID can render as a human-readable string, a URN, or structured JSON. Parse any style, and you can re-render it in any other — the interchange is lossless.
-
----
 
 ## The Ecosystem
 
@@ -91,8 +85,6 @@ import VersionBadge from './.vitepress/theme/components/VersionBadge.vue'
   <VersionBadge />
 </div>
 
----
-
 ## What We Believe
 
 <div class="mission-statement">
@@ -105,8 +97,6 @@ import VersionBadge from './.vitepress/theme/components/VersionBadge.vue'
 - **Human-readable** and **machine-readable** forms are equally valid expressions of the same reality
 - **Round-trip fidelity** — parse any form, recover the original — is not just a feature but a philosophical commitment
 - Every identifier carries **depth** that no single surface representation exhausts
-
----
 
 ## The Name & Logo
 
@@ -153,8 +143,6 @@ Every element encodes a layer of meaning:
 
 </div>
 
----
-
 ## Open Source
 
 PubID is proudly open source.
@@ -163,8 +151,6 @@ PubID is proudly open source.
 - **Reference Implementation**: [github.com/metanorma/pubid](https://github.com/metanorma/pubid)
 - **This Site**: [github.com/pubid/pubid.github.io](https://github.com/pubid/pubid.github.io)
 - **Contributing**: New publisher schemas and features welcome
-
----
 
 *An open source project maintained by [Ribose](https://www.ribose.com)*
 
@@ -186,7 +172,9 @@ PubID is proudly open source.
 }
 
 .vp-doc h2 {
-  margin-top: 2.5rem;
+  margin-top: 3rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--vp-c-divider);
 }
 
 .vp-doc h3 {
@@ -195,6 +183,10 @@ PubID is proudly open source.
 
 .vp-doc code {
   background: var(--vp-c-bg-soft);
+}
+
+.vp-doc hr {
+  display: none;
 }
 
 /* Logo Section */
