@@ -1,0 +1,58 @@
+---
+import '../styles/global.css'
+import Header from '~/components/Header.astro'
+import Footer from '~/components/Footer.astro'
+
+interface Props {
+  title: string
+  description?: string
+  noindex?: boolean
+}
+
+const { title, description = 'Universal Publication Identifier', noindex = false } = Astro.props
+const fullTitle = title === 'PubID' ? title : `${title} · PubID`
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex" />}
+    <link rel="icon" type="image/svg+xml" href="/pubid-logo.svg" />
+    <meta name="theme-color" content="#2978a1" />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary" />
+    <script is:inline>
+      const t = localStorage.getItem('pubid-theme')
+      if (t === 'dark' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.dataset.theme = 'dark'
+      }
+    </script>
+  </head>
+  <body>
+    <Header />
+    <main>
+      <slot />
+    </main>
+    <Footer />
+    <script>
+      const io = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) {
+              e.target.classList.add('visible')
+              io.unobserve(e.target)
+            }
+          })
+        },
+        { threshold: 0.06, rootMargin: '0px 0px -50px 0px' }
+      )
+      document.querySelectorAll('.animate-in').forEach((el) => io.observe(el))
+    </script>
+  </body>
+</html>

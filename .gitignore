@@ -9,3 +9,8 @@ vendor/
 .DS_Store
 Gemfile.lock
 TODO*
+!TODO.astro/
+astro-site/node_modules/
+astro-site/dist/
+astro-site/.astro/
+.astro/
