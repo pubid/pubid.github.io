@@ -1,0 +1,79 @@
+---
+const path = Astro.url.pathname
+const isActive = (prefix: string) =>
+  prefix === '/' ? path === '/' : path.startsWith(prefix)
+
+const nav = [
+  { label: 'Publishers', href: '/publishers' },
+  { label: 'Concepts', href: '/concepts/anatomy' },
+  { label: 'Library', href: '/library' },
+  { label: 'Specs', href: '/specs' },
+  { label: 'Adopt', href: '/adopt' },
+  { label: 'About', href: '/about' },
+]
+---
+
+<header class="sticky top-0 z-50 backdrop-blur-xl bg-[var(--color-bg)]/80 border-b border-[var(--color-border)]">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex h-14 items-center justify-between">
+    <a href="/" class="flex items-center gap-2 font-display text-base font-semibold tracking-tight">
+      <img src="/pubid-logo.svg" alt="PubID" class="h-7 w-7" />
+      <span>PubID</span>
+    </a>
+
+    <nav class="hidden md:flex items-center gap-1">
+      {nav.map(item => (
+        <a
+          href={item.href}
+          class:list={[
+            'px-3 py-1.5 rounded-md text-sm transition-colors',
+            isActive(item.href) || (item.href !== '/' && path.startsWith(item.href))
+              ? 'text-[var(--color-accent)] bg-[var(--color-accent-soft)]'
+              : 'text-[var(--color-text-2)] hover:text-[var(--color-text)]',
+          ]}
+        >
+          {item.label}
+        </a>
+      ))}
+    </nav>
+
+    <div class="flex items-center gap-2">
+      <button
+        id="theme-toggle"
+        aria-label="Toggle theme"
+        class="size-9 grid place-items-center rounded-md text-[var(--color-text-2)] hover:text-[var(--color-text)] hover:bg-[var(--color-bg-raised)] transition-colors"
+      >
+        <svg class="size-4 hidden dark:block" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+        <svg class="size-4 block dark:hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+      <a
+        href="https://github.com/pubid/pubid.github.io"
+        aria-label="GitHub repository"
+        class="size-9 grid place-items-center rounded-md text-[var(--color-text-2)] hover:text-[var(--color-text)] hover:bg-[var(--color-bg-raised)] transition-colors"
+      >
+        <svg class="size-4" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.387.6.113.82-.26.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.807 1.305 3.492.997.108-.775.418-1.305.762-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.467-2.38 1.235-3.22-.135-.303-.535-1.524.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.4 3-.405 1.02.005 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.652.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12z"/></svg>
+      </a>
+    </div>
+  </div>
+</header>
+
+<script>
+  const btn = document.getElementById('theme-toggle')!
+  btn.addEventListener('click', () => {
+    const current = document.documentElement.dataset.theme
+    const next = current === 'dark' ? 'light' : 'dark'
+    if (next === 'dark') {
+      document.documentElement.dataset.theme = 'dark'
+    } else {
+      delete document.documentElement.dataset.theme
+    }
+    localStorage.setItem('pubid-theme', next)
+  })
+</script>
+
+<style>
+  [data-theme='dark'] .dark\:block { display: block; }
+  [data-theme='dark'] .dark\:hidden { display: none; }
+  [data-theme='dark'] .block { display: none; }
+  [data-theme='dark'] .block.dark\:block { display: block; }
+  html:not([data-theme='dark']) .dark\:block { display: none; }
+</style>
