@@ -752,7 +752,7 @@ export const publishers: Publisher[] = [
     fullName: 'International Association of Marine Aids to Navigation and Lighthouse Authorities',
     category: 'international',
     description: "IALA is an international technical association that gathers marine aids to navigation authorities, industry manufacturers and consultants to harmonize and improve marine aids to navigation worldwide. IALA Recommendations and Standards guide lighthouse authorities, vessel traffic services, and e-Navigation implementations across more than 90 member countries.",
-    website: 'https://www.iala-aism.org',
+    website: 'https://www.iala.int',
     syntaxNotes: "IALA identifiers use a single-letter type prefix followed by a 4-digit zero-padded number: IALA {S|R|G|M|C|A|L|GA|X|P}[Number][ Ed [Edition]][ ([LangLetter])]. General Assembly resolutions use a dotted series.index form (GA01.01).",
     urnPattern: 'urn:iala:[type]:[number]:[edition]:[language]',
     relatedFlavors: ['iso', 'iho', 'iec'],
