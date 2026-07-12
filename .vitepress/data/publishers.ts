@@ -745,6 +745,219 @@ export const publishers: Publisher[] = [
       { type: 'Supplement', description: 'Additional content', syntax: 'ITU-[Sector] [Series].[Number] Suppl [N]', example: 'ITU-T G.992.1 Suppl 1' },
     ],
   },
+  {
+    flavor: 'iala',
+    logo: '/logos/iala-logo.svg',
+    name: 'IALA',
+    fullName: 'International Association of Marine Aids to Navigation and Lighthouse Authorities',
+    category: 'international',
+    description: "IALA is an international technical association that gathers marine aids to navigation authorities, industry manufacturers and consultants to harmonize and improve marine aids to navigation worldwide. IALA Recommendations and Standards guide lighthouse authorities, vessel traffic services, and e-Navigation implementations across more than 90 member countries.",
+    website: 'https://www.iala-aism.org',
+    syntaxNotes: "IALA identifiers use a single-letter type prefix followed by a 4-digit zero-padded number: IALA {S|R|G|M|C|A|L|GA|X|P}[Number][ Ed [Edition]][ ([LangLetter])]. General Assembly resolutions use a dotted series.index form (GA01.01).",
+    urnPattern: 'urn:iala:[type]:[number]:[edition]:[language]',
+    relatedFlavors: ['iso', 'iho', 'iec'],
+    docTypes: [
+      {
+        key: 'standard',
+        title: 'Standard',
+        abbr: ['S'],
+        description: 'IALA Standards (S series) define normative requirements for marine aids to navigation systems, including the IALA Maritime Buoyage System and e-Navigation components.',
+        examples: [
+          { input: 'IALA S1010' },
+          { input: 'IALA S1020 Ed 2.0' },
+          { input: 'IALA S1070 Ed 2.0' },
+        ],
+      },
+      {
+        key: 'recommendation',
+        title: 'Recommendation',
+        abbr: ['R'],
+        description: 'IALA Recommendations (R series) are the principal deliverable type, recommending practices and systems to be adopted by member authorities.',
+        examples: [
+          { input: 'IALA R0103 Ed 3.1' },
+          { input: 'IALA R0126 Ed 2.0' },
+          { input: 'IALA R1024 Ed 1.0' },
+        ],
+      },
+      {
+        key: 'guideline',
+        title: 'Guideline',
+        abbr: ['G'],
+        description: 'IALA Guidelines (G series) provide practical guidance for the implementation and operation of aids to navigation systems.',
+        examples: [
+          { input: 'IALA G1015 Ed 2.2' },
+          { input: 'IALA G1045 Ed 1' },
+          { input: 'IALA G1078 Ed 2.1' },
+        ],
+      },
+      {
+        key: 'manual',
+        title: 'Manual',
+        abbr: ['M'],
+        description: 'IALA Manuals (M series). Most current manuals (NAVGUIDE, VTS Manual) carry no number; the M prefix is reserved for future numbered manuals.',
+        examples: [
+          { input: 'IALA M0001' },
+        ],
+      },
+      {
+        key: 'model_course',
+        title: 'Model Course',
+        abbr: ['C'],
+        description: 'IALA Model Courses (C series) define training programmes for aids to navigation personnel and VTS operators.',
+        examples: [
+          { input: 'IALA C0103-1 Ed 3.0' },
+          { input: 'IALA C2001-1 Ed 1.0' },
+        ],
+      },
+      {
+        key: 'advice',
+        title: 'Advice',
+        abbr: ['A'],
+        description: 'IALA Advices (A series) are brief advisory notes issued by IALA committees. Numbering is dashed (A12-01, A13-04) and they carry no edition.',
+        examples: [
+          { input: 'IALA A12-01' },
+          { input: 'IALA A13-04' },
+        ],
+      },
+      {
+        key: 'general_assembly',
+        title: 'General Assembly Resolution',
+        abbr: ['GA'],
+        description: 'Resolutions of the IALA General Assembly, numbered with a dotted series.index form (volume = series, sequence = index).',
+        examples: [
+          { input: 'IALA GA01.01' },
+          { input: 'IALA GA01.13' },
+        ],
+      },
+      {
+        key: 'letter',
+        title: 'Letter',
+        abbr: ['L'],
+        description: 'IALA Letters (L series) use a multi-dotted series.sub-series.item form, with an optional sub-part suffix.',
+        examples: [
+          { input: 'IALA L2.1.11' },
+          { input: 'IALA L2.7.1-2' },
+        ],
+      },
+      {
+        key: 'annex',
+        title: 'Annex',
+        abbr: ['Annex'],
+        description: 'Annex to an IALA base publication (typically a Guideline). The "Annex"/"ANNEX" marker case is preserved verbatim, with an optional single-letter suffix (A–D).',
+        examples: [
+          { input: 'IALA G1045 Annex Ed 1' },
+          { input: 'IALA G1128 ANNEX A Ed 1.6' },
+        ],
+      },
+      {
+        key: 'report',
+        title: 'Report',
+        abbr: ['X'],
+        description: 'IALA Reports & Proceedings (X series, reserved). Current reports carry no code; X is reserved for future numbered reports.',
+        examples: [],
+      },
+      {
+        key: 'resolution',
+        title: 'Resolution',
+        abbr: ['P'],
+        description: 'IALA Council Resolutions and publications (P series, reserved). Current resolutions carry no code; P is reserved for future numbered resolutions.',
+        examples: [],
+      },
+    ],
+    components: [
+      { name: 'Publisher', description: 'IALA — optional on input, always emitted on output' },
+      { name: 'Type Letter', description: 'Single-letter type code (S, R, G, M, C, A, L, GA, X, P)', attribute: 'type_letter' },
+      { name: 'Number', description: '4-digit zero-padded number; GA series uses dotted series.index', attribute: 'number' },
+      { name: 'Sub-part', description: 'Optional hyphenated sub-part suffix', attribute: 'subpart' },
+      { name: 'Edition', description: 'Prefixed with "Ed" (cover form) or ":ed" (compact listing form)', attribute: 'edition' },
+      { name: 'Language', description: 'Single uppercase letter in parentheses: E, F, S, C, A, R', attribute: 'language' },
+    ],
+    algebra: [
+      { type: 'Edition', description: 'Cover-page vs listing-page edition forms', syntax: 'IALA [Type][Number] Ed [X.Y] | IALA [Type][Number]:ed[X.Y]', example: 'IALA R1016 Ed 2.0' },
+      { type: 'Sub-part', description: 'Sub-part within a numbered publication', syntax: 'IALA [Type][Number]-[SubPart] Ed [X.Y]', example: 'IALA C0103-1 Ed 3.0' },
+      { type: 'Annex', description: 'Wraps a base publication with an annex marker', syntax: 'IALA [Type][Number] Annex [A-D] Ed [X.Y]', example: 'IALA G1128 ANNEX A Ed 1.6' },
+      { type: 'Language', description: 'Translation suffix as a parenthesised letter', syntax: 'IALA [Type][Number] Ed [X.Y] ([Lang])', example: 'IALA R1016 Ed 2.0 (F)' },
+    ],
+  },
+  {
+    flavor: 'iho',
+    logo: '/logos/iho-logo.svg',
+    name: 'IHO',
+    fullName: 'International Hydrographic Organization',
+    category: 'international',
+    description: "The IHO is an intergovernmental organization that coordinates the setting of international hydrographic and nautical charting standards. Its Standards and Specifications (S-series) underpin Electronic Navigational Charts (ENCs) and the developing S-100 Universal Hydrographic Data Model used by mariners and maritime software worldwide.",
+    website: 'https://iho.int',
+    syntaxNotes: "IHO identifiers use a single-letter series prefix followed by a hyphenated number: IHO {S|P|M|B|C}-[Number][ Ap. [Appendix]][ Part [Part]][ Annex [Annex]][ Suppl [Supplement]] [Version].",
+    urnPattern: 'urn:iho:[type]:[number]:[version]',
+    relatedFlavors: ['iso', 'iala', 'iec'],
+    docTypes: [
+      {
+        key: 'standard',
+        title: 'Standards and Specifications',
+        abbr: ['S'],
+        description: 'IHO Standards and Specifications (S series), including the S-100 Universal Hydrographic Data Model and the S-57/S-101 ENC transfer standards.',
+        examples: [
+          { input: 'IHO S-44 5.0.0' },
+          { input: 'IHO S-100 Part 4a 1.0.0' },
+          { input: 'IHO S-65 Ap. A 1.0.0' },
+        ],
+      },
+      {
+        key: 'publication',
+        title: 'Publication',
+        abbr: ['P'],
+        description: 'IHO Publications (P series) — reference works such as Charts and Publications Regulations. Numbers may carry a sub-year (P-1/21) or sub-part (P-6-3).',
+        examples: [
+          { input: 'IHO P-1 1.0.0' },
+          { input: 'IHO P-1/21 1.0.0' },
+          { input: 'IHO P-6-3 1.0.0' },
+        ],
+      },
+      {
+        key: 'miscellaneous',
+        title: 'Miscellaneous Publication',
+        abbr: ['M'],
+        description: 'IHO Miscellaneous Publications (M series) — manuals, guides, and reference documents that do not fit the S/P categories.',
+        examples: [
+          { input: 'IHO M-3 2.0.0' },
+        ],
+      },
+      {
+        key: 'bibliographic',
+        title: 'Bibliographic Publication',
+        abbr: ['B'],
+        description: 'IHO Bibliographic Publications (B series) — bibliographies and reference catalogues.',
+        examples: [
+          { input: 'IHO B-4 2.19.0' },
+        ],
+      },
+      {
+        key: 'circular_letter',
+        title: 'Circular Letter',
+        abbr: ['C'],
+        description: 'IHO Circular Letters (C series) — official correspondence from the IHO Secretariat to Member States.',
+        examples: [
+          { input: 'IHO C-13 1.0.0' },
+        ],
+      },
+    ],
+    components: [
+      { name: 'Publisher', description: 'IHO — optional on input, always emitted on output' },
+      { name: 'Type Letter', description: 'Single-letter series code (S, P, M, B, C)', attribute: 'type_letter' },
+      { name: 'Number', description: 'Document number, may include sub-part or slash-year', attribute: 'number' },
+      { name: 'Appendix', description: 'Appendix marker: "Ap." prefix', attribute: 'appendix' },
+      { name: 'Part', description: 'Part marker: "Part" keyword', attribute: 'part' },
+      { name: 'Annex', description: 'Annex marker: "Annex" keyword', attribute: 'annex' },
+      { name: 'Supplement', description: 'Supplement marker: "Suppl" keyword', attribute: 'supplement' },
+      { name: 'Version', description: 'Three-part dotted version (X.Y.Z)', attribute: 'version' },
+    ],
+    algebra: [
+      { type: 'Part', description: 'Subdivision of a standard', syntax: 'IHO [Type]-[Number] Part [Part] [Version]', example: 'IHO S-100 Part 4a 1.0.0' },
+      { type: 'Appendix', description: 'Appendix within a publication', syntax: 'IHO [Type]-[Number] Ap. [Letter] [Version]', example: 'IHO S-65 Ap. A 1.0.0' },
+      { type: 'Slash Year', description: 'Annual revision indicator within a series', syntax: 'IHO [Type]-[Number]/[Year] [Version]', example: 'IHO P-1/21 1.0.0' },
+      { type: 'Sub-part', description: 'Compound number with sub-part', syntax: 'IHO [Type]-[Number]-[SubPart] [Version]', example: 'IHO P-6-3 1.0.0' },
+    ],
+  },
   // ─── REGIONAL ──────────────────────────────────────────────────
   {
     flavor: 'cen-cenelec',
@@ -1160,6 +1373,35 @@ export const publishers: Publisher[] = [
         description: 'Emergency Commercial Standards.',
         examples: [
           { input: 'NBS CSE 1' },
+        ]
+      },
+      {
+        key: 'research_brief',
+        title: 'Research Brief',
+        abbr: ['RB'],
+        description: "NIST Research Briefs — short-form research summaries from NIST laboratories. Revisions are appended as a lowercase 'r' suffix (e.g. 6r1).",
+        examples: [
+          { input: 'NIST RB 6' },
+          { input: 'NIST RB 4r1' },
+        ]
+      },
+      {
+        key: 'chips_act_rd',
+        title: 'CHIPS Act R&D',
+        abbr: ['CHIPS'],
+        description: "Publications under the NIST CHIPS Research and Development program (Creating Helpful Incentives to Produce Semiconductors). Numbers are compound, hyphenated (e.g. 1400-3).",
+        examples: [
+          { input: 'NIST CHIPS 1400-3' },
+          { input: 'NIST CHIPS 1100-1' },
+        ]
+      },
+      {
+        key: 'nwirp',
+        title: 'NWIRP',
+        abbr: ['NWIRP'],
+        description: 'Low-volume NIST series present in the MODS publication dump.',
+        examples: [
+          { input: 'NIST NWIRP 1' },
         ]
       },
     ],
@@ -2073,6 +2315,19 @@ export const publishers: Publisher[] = [
         ]
       },
       {
+        key: 'bulletin',
+        title: 'Bulletin',
+        abbr: ['Bulletin'],
+        description: 'The OIML Bulletin is the periodical of the International Organization of Legal Metrology, published since 1960 (Volume I). It has a four-tier hierarchy: periodical (OIML Bulletin), volume/year (OIML Bulletin 1960), issue (OIML Bulletin 1960-03), and article (OIML Bulletin 1960-03-01). Each article also has a citation form combining roman volume, parenthesised issue, and 8-digit article id (OIML Bulletin LXVII(2) 20260211).',
+        examples: [
+          { input: 'OIML Bulletin' },
+          { input: 'OIML Bulletin 1960' },
+          { input: 'OIML Bulletin 1960-03' },
+          { input: 'OIML Bulletin 1960-03-01' },
+          { input: 'OIML Bulletin LXVII(2) 20260211' },
+        ]
+      },
+      {
         key: 'amendment',
         title: 'Amendment',
         abbr: ['Amd'],
@@ -2104,6 +2359,9 @@ export const publishers: Publisher[] = [
       { type: 'Amendment', description: 'Modifies an OIML publication', syntax: 'Amendment ([Year]) to OIML [Type] [Number]:[Year] (E)', example: 'Amendment (2009) to OIML R 138:2007 (E)' },
       { type: 'Annex', description: 'Annex to a publication', syntax: 'OIML [Type] [Number] Annex [Letter]', example: 'OIML R 49-1 Annex A' },
       { type: 'Part', description: 'Multi-part publication', syntax: 'OIML [Type] [Number]-[Part]:[Year]', example: 'OIML R 76-1:2006' },
+      { type: 'Bulletin Issue', description: 'Issue of the OIML Bulletin periodical', syntax: 'OIML Bulletin [Year]-[Issue]', example: 'OIML Bulletin 1960-03' },
+      { type: 'Bulletin Article', description: 'Structured article reference within an issue', syntax: 'OIML Bulletin [Year]-[Issue]-[Sequence]', example: 'OIML Bulletin 1960-03-01' },
+      { type: 'Bulletin Citation', description: 'Citation form combining roman volume and article id', syntax: 'OIML Bulletin [RomanVolume]([Issue]) [ArticleID]', example: 'OIML Bulletin LXVII(2) 20260211' },
     ],
   },
   {
@@ -2455,6 +2713,54 @@ export const publishers: Publisher[] = [
       { name: 'Date', description: 'Publication date', attribute: 'date' },
     ],
     algebra: [],
+  },
+  {
+    flavor: 'adobe',
+    logo: '/logos/adobe-logo.svg',
+    name: 'Adobe',
+    fullName: 'Adobe Inc.',
+    category: 'industry',
+    description: "Adobe publishes foundational technical specifications for digital typography, font formats, and document interchange — including the Adobe Glyph List, PostScript Language Reference, CIDFont specifications, and the Adobe-Japan/Korea/CJK character collections. These underpin modern text rendering engines and CJK font workflows.",
+    website: 'https://www.adobe.com',
+    syntaxNotes: 'Adobe identifiers use two shapes: slug-keyed publications (Adobe Glyph List, Adobe-Japan1-7) and numbered Technical Notes (Adobe Technical Note #5014, ATN5014).',
+    relatedFlavors: ['iso'],
+    docTypes: [
+      {
+        key: 'publication',
+        title: 'Publication',
+        abbr: [''],
+        description: 'Adobe named publications identified by a kebab-case slug, optionally versioned. Includes character collections (Adobe-Japan1), the Adobe Glyph List, and the PostScript Language Reference.',
+        examples: [
+          { input: 'Adobe Glyph List' },
+          { input: 'Adobe-Japan1-7' },
+          { input: 'Adobe-Korea1-2' },
+          { input: 'Adobe-CNS1-0' },
+          { input: 'Adobe-GB1-5' },
+        ],
+      },
+      {
+        key: 'tech_note',
+        title: 'Technical Note',
+        abbr: ['ATN'],
+        description: 'Adobe Technical Notes are numbered 4-digit (typically 5xxx series) technical specifications such as AFM, CIDFont, and SFNT-Mask specifications. They have a formal citation form (Adobe Technical Note #5014) and a short alias (ATN5014) used in document anchors.',
+        examples: [
+          { input: 'Adobe Technical Note #5014' },
+          { input: 'ATN5014' },
+          { input: 'Adobe Technical Note #5902' },
+        ],
+      },
+    ],
+    components: [
+      { name: 'Publisher', description: 'Adobe' },
+      { name: 'Slug', description: 'Kebab-case slug for publications (adobe-glyph-list, adobe-japan1)', attribute: 'slug' },
+      { name: 'Number', description: '4-digit Technical Note number (5xxx series)', attribute: 'number' },
+      { name: 'Version', description: 'Collection version (Adobe-Japan1-7 → version 7)', attribute: 'version' },
+    ],
+    algebra: [
+      { type: 'Short Alias', description: 'Anchor-id form used in cross-references', syntax: 'ATN[Number]', example: 'ATN5014' },
+      { type: 'Citation Form', description: 'Formal citation form', syntax: 'Adobe Technical Note #[Number]', example: 'Adobe Technical Note #5014' },
+      { type: 'Collection Version', description: 'Character collection with version', syntax: 'Adobe-[Collection]-[Version]', example: 'Adobe-Japan1-7' },
+    ],
   },
 ]
 
