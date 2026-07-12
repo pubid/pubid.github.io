@@ -46,7 +46,7 @@ const data: Record<string, CM> = {
   },
   nist: {
     Publisher: { dataType: 'enum', values: ['NIST', 'NBS'], format: 'NBS for pre-1988 documents.', example: 'NIST' },
-    'Document Type': { dataType: 'enum', values: ['SP', 'FIPS', 'IR', 'TN', 'HB', 'CIRC', 'MONO', 'RPT', 'LCIRC', 'GCR', 'CRPL', 'NSRDS', 'NCSTAR', 'OWMWP', 'CS', 'MP', 'CSM', 'CSE'], example: 'SP' },
+    'Document Type': { dataType: 'enum', values: ['SP', 'FIPS', 'IR', 'TN', 'HB', 'CIRC', 'MONO', 'RPT', 'LCIRC', 'GCR', 'CRPL', 'NSRDS', 'NCSTAR', 'OWMWP', 'CS', 'MP', 'CSM', 'CSE', 'RB', 'CHIPS', 'NWIRP'], example: 'SP' },
     Number: { dataType: 'string', format: '1–6 digits. May include dash-separated sub-numbers (e.g., 800-53).', example: '800-53' },
     Part: { dataType: 'string', format: 'Optional. Appended after number with dash.', example: '3' },
     Revision: { dataType: 'string', format: 'Optional. Prefixed with "Rev."', example: 'Rev. 5' },
@@ -173,6 +173,30 @@ const data: Record<string, CM> = {
     Type: { dataType: 'enum', values: ['J (Ground Vehicle)', 'AS (Aerospace Standard)', 'ARP (Aerospace Recommended Practice)', 'AIR (Aerospace Information Report)', 'AMS (Aerospace Material Specification)'], example: 'J' },
     Number: { dataType: 'string', format: 'Alphanumeric. May include letter suffix for version.', example: 'J3016' },
     Year: { dataType: 'year', format: '4-digit year, preceded by hyphen.', example: '2021' },
+  },
+  iala: {
+    Publisher: { dataType: 'enum', values: ['IALA'], example: 'IALA' },
+    'Type Letter': { dataType: 'enum', values: ['S (Standard)', 'R (Recommendation)', 'G (Guideline)', 'M (Manual)', 'C (Model Course)', 'A (Advice)', 'L (Letter)', 'GA (General Assembly)', 'X (Report)', 'P (Resolution)'], example: 'R' },
+    Number: { dataType: 'string', format: '4-digit zero-padded for S/R/G/M/C; dotted series.index for GA; dotted series.subseries.item for L', example: '0103' },
+    'Sub-part': { dataType: 'integer', format: 'Optional. Hyphenated suffix on the number.', example: '-1' },
+    Edition: { dataType: 'string', format: '"Ed X.Y" (cover form) or ":edX.Y" (compact listing form).', example: 'Ed 3.0' },
+    Language: { dataType: 'enum', values: ['E (English)', 'F (French)', 'S (Spanish)', 'C (Chinese)', 'A (Arabic)', 'R (Russian)'], format: 'Optional. Single uppercase letter in parentheses.', example: 'F' },
+  },
+  iho: {
+    Publisher: { dataType: 'enum', values: ['IHO'], example: 'IHO' },
+    'Type Letter': { dataType: 'enum', values: ['S (Standard/Specification)', 'P (Publication)', 'M (Miscellaneous)', 'B (Bibliographic)', 'C (Circular Letter)'], example: 'S' },
+    Number: { dataType: 'string', format: 'Hyphenated after type letter. May include slash-year (P-1/21) or sub-part (P-6-3).', example: '44' },
+    Appendix: { dataType: 'string', format: '"Ap." prefix, single letter.', example: 'Ap. A' },
+    Part: { dataType: 'string', format: '"Part" keyword. Alphanumeric allowed (e.g. 4a).', example: 'Part 4a' },
+    Annex: { dataType: 'string', format: '"Annex" keyword.', example: 'Annex A' },
+    Supplement: { dataType: 'string', format: '"Suppl" keyword.', example: 'Suppl 1' },
+    Version: { dataType: 'string', format: 'Three-part dotted version (X.Y.Z).', example: '5.0.0' },
+  },
+  adobe: {
+    Publisher: { dataType: 'enum', values: ['Adobe'], example: 'Adobe' },
+    Slug: { dataType: 'string', format: 'Kebab-case slug for named publications (adobe-glyph-list, adobe-japan1).', example: 'adobe-japan1' },
+    Number: { dataType: 'integer', format: '4-digit Technical Note number, typically 5xxx series.', example: '5014' },
+    Version: { dataType: 'integer', format: 'Collection version (Adobe-Japan1-7 → version 7).', example: '7' },
   },
 }
 
