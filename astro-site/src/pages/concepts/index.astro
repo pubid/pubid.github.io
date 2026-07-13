@@ -1,0 +1,28 @@
+---
+import BaseLayout from '~/layouts/BaseLayout.astro'
+import { getCollection } from 'astro:content'
+
+const conceptOrder = ['anatomy', 'metaschema', 'components', 'algebra', 'relationships', 'urn']
+const items = (await getCollection('concepts')).sort((a, b) =>
+  conceptOrder.indexOf(a.id) - conceptOrder.indexOf(b.id))
+---
+
+<BaseLayout title="Concepts" description="The mental model behind PubID.">
+  <section class="mx-auto max-w-3xl px-6 py-16">
+    <header class="mb-12">
+      <h1 class="font-display text-4xl font-bold tracking-tight mb-2">Concepts</h1>
+      <p class="text-[var(--color-text-2)]">The mental model behind PubID.</p>
+    </header>
+
+    <ul class="space-y-4">
+      {items.map(item => (
+        <li>
+          <a href={`/concepts/${item.id}`} class="block p-5 rounded-xl border border-[var(--color-border)] hover:border-[var(--color-accent)] hover:bg-[var(--color-accent-soft)] transition-colors group">
+            <h2 class="font-display text-xl font-semibold group-hover:text-[var(--color-accent)]">{item.data.title}</h2>
+            {item.data.description && <p class="text-sm text-[var(--color-text-2)] mt-1">{item.data.description}</p>}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+</BaseLayout>

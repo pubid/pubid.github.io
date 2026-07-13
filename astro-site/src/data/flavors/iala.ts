@@ -1,0 +1,180 @@
+import type { Publisher } from '../types'
+
+export const iala: Publisher = {
+  flavor: "iala",
+  logo: "/logos/iala-logo.svg",
+  name: "IALA",
+  fullName: "International Association of Marine Aids to Navigation and Lighthouse Authorities",
+  category: "international",
+  description: "IALA is an international technical association that gathers marine aids to navigation authorities, industry manufacturers and consultants to harmonize and improve marine aids to navigation worldwide. IALA Recommendations and Standards guide lighthouse authorities, vessel traffic services, and e-Navigation implementations across more than 90 member countries.",
+  website: "https://www.iala.int",
+  syntaxNotes: "IALA identifiers use a single-letter type prefix followed by a 4-digit zero-padded number: IALA {S|R|G|M|C|A|L|GA|X|P}[Number][ Ed [Edition]][ ([LangLetter])]. General Assembly resolutions use a dotted series.index form (GA01.01).",
+  urnPattern: "urn:iala:[type]:[number]:[edition]:[language]",
+  relatedFlavors: ["iso", "iho", "iec"],
+  docTypes: [
+    {
+      key: "standard",
+      title: "Standard",
+      abbr: ["S"],
+      description: "IALA Standards (S series) define normative requirements for marine aids to navigation systems, including the IALA Maritime Buoyage System and e-Navigation components.",
+      examples: [
+        { input: "IALA S1010" },
+        { input: "IALA S1020 Ed 2.0" },
+        { input: "IALA S1070 Ed 2.0" },
+    ],
+    },
+    {
+      key: "recommendation",
+      title: "Recommendation",
+      abbr: ["R"],
+      description: "IALA Recommendations (R series) are the principal deliverable type, recommending practices and systems to be adopted by member authorities.",
+      examples: [
+        { input: "IALA R0103 Ed 3.1" },
+        { input: "IALA R0126 Ed 2.0" },
+        { input: "IALA R1024 Ed 1.0" },
+    ],
+    },
+    {
+      key: "guideline",
+      title: "Guideline",
+      abbr: ["G"],
+      description: "IALA Guidelines (G series) provide practical guidance for the implementation and operation of aids to navigation systems.",
+      examples: [
+        { input: "IALA G1015 Ed 2.2" },
+        { input: "IALA G1045 Ed 1" },
+        { input: "IALA G1078 Ed 2.1" },
+    ],
+    },
+    {
+      key: "manual",
+      title: "Manual",
+      abbr: ["M"],
+      description: "IALA Manuals (M series). Most current manuals (NAVGUIDE, VTS Manual) carry no number; the M prefix is reserved for future numbered manuals.",
+      examples: [
+        { input: "IALA M0001" },
+    ],
+    },
+    {
+      key: "model_course",
+      title: "Model Course",
+      abbr: ["C"],
+      description: "IALA Model Courses (C series) define training programmes for aids to navigation personnel and VTS operators.",
+      examples: [
+        { input: "IALA C0103-1 Ed 3.0" },
+        { input: "IALA C2001-1 Ed 1.0" },
+    ],
+    },
+    {
+      key: "advice",
+      title: "Advice",
+      abbr: ["A"],
+      description: "IALA Advices (A series) are brief advisory notes issued by IALA committees. Numbering is dashed (A12-01, A13-04) and they carry no edition.",
+      examples: [
+        { input: "IALA A12-01" },
+        { input: "IALA A13-04" },
+    ],
+    },
+    {
+      key: "general_assembly",
+      title: "General Assembly Resolution",
+      abbr: ["GA"],
+      description: "Resolutions of the IALA General Assembly, numbered with a dotted series.index form (volume = series, sequence = index).",
+      examples: [
+        { input: "IALA GA01.01" },
+        { input: "IALA GA01.13" },
+    ],
+    },
+    {
+      key: "letter",
+      title: "Letter",
+      abbr: ["L"],
+      description: "IALA Letters (L series) use a multi-dotted series.sub-series.item form, with an optional sub-part suffix.",
+      examples: [
+        { input: "IALA L2.1.11" },
+        { input: "IALA L2.7.1-2" },
+    ],
+    },
+    {
+      key: "annex",
+      title: "Annex",
+      abbr: ["Annex"],
+      description: "Annex to an IALA base publication (typically a Guideline). The \"Annex\"/\"ANNEX\" marker case is preserved verbatim, with an optional single-letter suffix (A–D).",
+      examples: [
+        { input: "IALA G1045 Annex Ed 1" },
+        { input: "IALA G1128 ANNEX A Ed 1.6" },
+    ],
+    },
+    {
+      key: "report",
+      title: "Report",
+      abbr: ["X"],
+      description: "IALA Reports & Proceedings (X series, reserved). Current reports carry no code; X is reserved for future numbered reports.",
+      examples: [],
+    },
+    {
+      key: "resolution",
+      title: "Resolution",
+      abbr: ["P"],
+      description: "IALA Council Resolutions and publications (P series, reserved). Current resolutions carry no code; P is reserved for future numbered resolutions.",
+      examples: [],
+    },
+],
+  components: [
+    {
+      name: "Publisher",
+      description: "IALA — optional on input, always emitted on output",
+      dataType: "enum",
+      values: ["IALA"],
+      example: "IALA",
+    },
+    {
+      name: "Type Letter",
+      description: "Single-letter type code (S, R, G, M, C, A, L, GA, X, P)",
+      attribute: "type_letter",
+      dataType: "enum",
+      values: ["S (Standard)", "R (Recommendation)", "G (Guideline)", "M (Manual)", "C (Model Course)", "A (Advice)", "L (Letter)", "GA (General Assembly)", "X (Report)", "P (Resolution)"],
+      example: "R",
+    },
+    {
+      name: "Number",
+      description: "4-digit zero-padded number; GA series uses dotted series.index",
+      attribute: "number",
+      dataType: "string",
+      format: "4-digit zero-padded for S/R/G/M/C; dotted series.index for GA; dotted series.subseries.item for L",
+      example: "0103",
+    },
+    {
+      name: "Sub-part",
+      description: "Optional hyphenated sub-part suffix",
+      attribute: "subpart",
+      dataType: "integer",
+      format: "Optional. Hyphenated suffix on the number.",
+      example: "-1",
+    },
+    {
+      name: "Edition",
+      description: "Prefixed with \"Ed\" (cover form) or \":ed\" (compact listing form)",
+      attribute: "edition",
+      dataType: "string",
+      format: "\"Ed X.Y\" (cover form) or \":edX.Y\" (compact listing form).",
+      example: "Ed 3.0",
+    },
+    {
+      name: "Language",
+      description: "Single uppercase letter in parentheses: E, F, S, C, A, R",
+      attribute: "language",
+      dataType: "enum",
+      values: ["E (English)", "F (French)", "S (Spanish)", "C (Chinese)", "A (Arabic)", "R (Russian)"],
+      format: "Optional. Single uppercase letter in parentheses.",
+      example: "F",
+    },
+],
+  algebra: [
+    { type: "Edition", description: "Cover-page vs listing-page edition forms", syntax: "IALA [Type][Number] Ed [X.Y] | IALA [Type][Number]:ed[X.Y]", example: "IALA R1016 Ed 2.0" },
+    { type: "Sub-part", description: "Sub-part within a numbered publication", syntax: "IALA [Type][Number]-[SubPart] Ed [X.Y]", example: "IALA C0103-1 Ed 3.0" },
+    { type: "Annex", description: "Wraps a base publication with an annex marker", syntax: "IALA [Type][Number] Annex [A-D] Ed [X.Y]", example: "IALA G1128 ANNEX A Ed 1.6" },
+    { type: "Language", description: "Translation suffix as a parenthesised letter", syntax: "IALA [Type][Number] Ed [X.Y] ([Lang])", example: "IALA R1016 Ed 2.0 (F)" },
+],
+}
+
+export default iala

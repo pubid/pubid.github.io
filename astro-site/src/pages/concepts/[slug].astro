@@ -1,0 +1,31 @@
+---
+import BaseLayout from '~/layouts/BaseLayout.astro'
+import AnatomyDiagram from '~/components/diagrams/AnatomyDiagram.vue'
+import FormatDiagram from '~/components/diagrams/FormatDiagram.vue'
+import { getCollection, render, type CollectionEntry } from 'astro:content'
+
+export async function getStaticPaths() {
+  const items = await getCollection('concepts')
+  return items.map(item => ({
+    params: { slug: item.id },
+    props: { item },
+  }))
+}
+
+interface Props { item: CollectionEntry<'concepts'> }
+const { item } = Astro.props
+const { Content } = await render(item)
+
+const isAnatomy = item.id === 'anatomy'
+const isUrn = item.id === 'urn'
+const title = item.data.title || 'Concept'
+---
+
+<BaseLayout title={title} description={item.data.description || ''}>
+  <article class="mx-auto max-w-3xl px-6 py-16 prose prose-pubid">
+    <h1>{title}</h1>
+    <Content />
+    {isAnatomy && <AnatomyDiagram client:visible />}
+    {isUrn && <FormatDiagram client:visible />}
+  </article>
+</BaseLayout>

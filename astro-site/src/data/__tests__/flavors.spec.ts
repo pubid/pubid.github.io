@@ -1,0 +1,109 @@
+import { describe, it, expect } from 'vitest'
+import { publishers } from '~/data'
+import type { Publisher } from '~/data/types'
+
+// Per-flavor structural invariants. These catch data-entry bugs at the
+// source — e.g. a doc type missing examples, a component missing a description.
+
+const REQUIRED_STRING_FIELDS: (keyof Publisher)[] = [
+  'flavor', 'name', 'fullName', 'category', 'description', 'components',
+]
+
+describe('per-flavor structural validation', () => {
+  for (const p of publishers) {
+    describe(`flavor: ${p.flavor}`, () => {
+      it('has all required string fields non-empty', () => {
+        for (const field of REQUIRED_STRING_FIELDS) {
+          const v = p[field]
+          if (typeof v === 'string') {
+            expect(v.length, `${field} should be non-empty`).toBeGreaterThan(0)
+          } else if (Array.isArray(v)) {
+            expect(v.length, `${field} should be a non-empty array`).toBeGreaterThan(0)
+          }
+        }
+      })
+
+      it('flavor matches expected pattern (lowercase, hyphens)', () => {
+        expect(p.flavor).toMatch(/^[a-z]+(-[a-z]+)*$/)
+      })
+
+      it('has at least one doc type', () => {
+        expect(p.docTypes.length).toBeGreaterThan(0)
+      })
+
+      it('every doc type has a unique key', () => {
+        const keys = p.docTypes.map(d => d.key)
+        expect(new Set(keys).size).toBe(keys.length)
+      })
+
+      it('every doc type has at least an empty examples array (not undefined)', () => {
+        for (const dt of p.docTypes) {
+          expect(Array.isArray(dt.examples)).toBe(true)
+        }
+      })
+
+      it('every component has a name and description', () => {
+        for (const c of p.components) {
+          expect(c.name.length).toBeGreaterThan(0)
+          expect(c.description.length).toBeGreaterThan(0)
+        }
+      })
+
+      it('related flavors (if any) reference real flavors', () => {
+        if (!p.relatedFlavors) return
+        for (const ref of p.relatedFlavors) {
+          const found = publishers.find(x => x.flavor === ref)
+          expect(found, `related flavor "${ref}" is not in registry`).toBeDefined()
+        }
+      })
+
+      it('every algebra relation has all four fields', () => {
+        for (const a of p.algebra) {
+          expect(a.type.length).toBeGreaterThan(0)
+          expect(a.description.length).toBeGreaterThan(0)
+          expect(a.syntax.length).toBeGreaterThan(0)
+          expect(a.example.length).toBeGreaterThan(0)
+        }
+      })
+    })
+  }
+})
+
+// Specific flavor assertions — these catch regressions in known-shape flavors
+// that other tests would miss (e.g. "we added a new doc type to NIST").
+
+describe('specific flavor invariants', () => {
+  it('ISO has at least 15 doc types', () => {
+    const iso = publishers.find(p => p.flavor === 'iso')
+    expect(iso?.docTypes.length).toBeGreaterThanOrEqual(15)
+  })
+
+  it('NIST has RB, CHIPS, NWIRP doc types (recently added)', () => {
+    const nist = publishers.find(p => p.flavor === 'nist')
+    const keys = nist?.docTypes.map(d => d.key) || []
+    expect(keys).toContain('research_brief')
+    expect(keys).toContain('chips_act_rd')
+    expect(keys).toContain('nwirp')
+  })
+
+  it('OIML has the Bulletin doc type', () => {
+    const oiml = publishers.find(p => p.flavor === 'oiml')
+    expect(oiml?.docTypes.find(d => d.key === 'bulletin')).toBeDefined()
+  })
+
+  it('IALA has all 11 doc types (S, R, G, M, C, A, GA, L, Annex, X, P)', () => {
+    const iala = publishers.find(p => p.flavor === 'iala')
+    expect(iala?.docTypes).toHaveLength(11)
+  })
+
+  it('IHO has all 5 doc types', () => {
+    const iho = publishers.find(p => p.flavor === 'iho')
+    expect(iho?.docTypes).toHaveLength(5)
+  })
+
+  it('Adobe has Publication + Technical Note', () => {
+    const adobe = publishers.find(p => p.flavor === 'adobe')
+    const keys = adobe?.docTypes.map(d => d.key) || []
+    expect(keys).toEqual(['publication', 'tech_note'])
+  })
+})

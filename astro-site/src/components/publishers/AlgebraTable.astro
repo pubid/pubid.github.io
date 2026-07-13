@@ -1,0 +1,41 @@
+---
+// AlgebraTable.astro — static table of identifier relationships.
+import type { Publisher } from '~/data/types'
+
+interface Props { publisher: Publisher }
+const { publisher: p } = Astro.props
+
+if (p.algebra.length === 0) return null
+---
+
+<section class="mb-16">
+  <h2 class="font-display text-2xl font-semibold mb-1">
+    PubID Algebra
+    <span class="ml-2 text-sm font-normal text-[var(--color-text-3)]">{p.algebra.length}</span>
+  </h2>
+  <p class="text-sm text-[var(--color-text-2)] mb-6">
+    Relationships between {p.name} identifiers:
+  </p>
+  <div class="overflow-x-auto rounded-lg border border-[var(--color-border)]">
+    <table class="w-full text-sm">
+      <thead class="bg-[var(--color-bg-raised)] text-[var(--color-text-2)]">
+        <tr>
+          <th class="text-left p-3 font-medium">Relation</th>
+          <th class="text-left p-3 font-medium">Description</th>
+          <th class="text-left p-3 font-medium">Syntax</th>
+          <th class="text-left p-3 font-medium">Example</th>
+        </tr>
+      </thead>
+      <tbody>
+        {p.algebra.map((rel, i) => (
+          <tr class={`border-t border-[var(--color-border-subtle)] ${i % 2 === 1 ? 'bg-[var(--color-bg-inset)]/30' : ''}`}>
+            <td class="p-3 font-medium">{rel.type}</td>
+            <td class="p-3 text-[var(--color-text-2)]">{rel.description}</td>
+            <td class="p-3"><code class="font-mono text-xs">{rel.syntax}</code></td>
+            <td class="p-3"><code class="font-mono text-xs text-[var(--color-accent)]">{rel.example}</code></td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+</section>
