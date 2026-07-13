@@ -1,0 +1,18 @@
+---
+import BaseLayout from '~/layouts/BaseLayout.astro'
+import PublisherGrid from '~/components/publishers/PublisherGrid.vue'
+import { publishers } from '~/data'
+---
+
+<BaseLayout title="Publishers" description={`All ${publishers.length} publisher schemas supported by PubID.`}>
+  <section class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
+    <header class="mb-10">
+      <h1 class="font-display text-4xl font-bold tracking-tight mb-2">Publishers</h1>
+      <p class="text-[var(--color-text-2)] max-w-2xl">
+        Browse all {publishers.length} supported publisher schemes. Each publisher defines their own PubID schema using the shared metaschema — a typed data model that round-trips through human, URN, and JSON formats without information loss.
+      </p>
+    </header>
+
+    <PublisherGrid client:load />
+  </section>
+</BaseLayout>

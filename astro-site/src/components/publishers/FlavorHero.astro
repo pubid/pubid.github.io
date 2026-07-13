@@ -1,0 +1,71 @@
+---
+// FlavorHero.astro — the hero section of a publisher detail page.
+import type { Publisher } from '~/data/types'
+import { categoryLabels } from '~/data/types'
+
+interface Props { publisher: Publisher }
+const { publisher: p } = Astro.props
+---
+
+<section class="mb-12">
+  <div class="flex items-start gap-6 mb-6">
+    {(p.logos && p.logos.length > 1) ? (
+      <div class="flex gap-3">
+        {p.logos.map((logo: string) => <img src={logo} alt={`${p.name} logo`} class="h-16 w-16 object-contain" />)}
+      </div>
+    ) : p.logo ? (
+      <img src={p.logo} alt={`${p.name} logo`} class="h-16 w-16 object-contain" />
+    ) : (
+      <div class="size-16 grid place-items-center rounded-lg bg-[var(--color-accent-soft)] text-[var(--color-accent)] font-display font-bold text-2xl">
+        {p.name.slice(0, 2)}
+      </div>
+    )}
+    <div class="flex-1">
+      <h1 class="font-display text-4xl font-bold tracking-tight">{p.name}</h1>
+      <p class="text-[var(--color-text-2)] mt-1">{p.fullName}</p>
+    </div>
+  </div>
+
+  <p class="text-base text-[var(--color-text-2)] leading-relaxed mb-6 max-w-3xl">{p.description}</p>
+
+  <div class="flex items-center gap-3 flex-wrap text-sm">
+    <span class={`chip ${p.category}`}>{categoryLabels[p.category]}</span>
+    {p.syntaxNotes && (
+      <span class="px-3 py-1.5 rounded-md bg-[var(--color-bg-raised)] border border-[var(--color-border)] text-xs">
+        <span class="text-[var(--color-text-3)] uppercase tracking-wide mr-1.5">Syntax</span>
+        {p.syntaxNotes}
+      </span>
+    )}
+    {p.website && (
+      <a href={p.website} target="_blank" rel="noopener" class="inline-flex items-center gap-1 text-[var(--color-accent)] hover:underline">
+        Website <span aria-hidden="true">→</span>
+      </a>
+    )}
+  </div>
+
+  {p.urnPattern && (
+    <div class="mt-4 p-3 rounded-md bg-[var(--color-bg-inset)] border border-[var(--color-border-subtle)]">
+      <span class="text-[var(--color-text-3)] uppercase tracking-wide text-xs mr-2">URN</span>
+      <code class="font-mono text-sm">{p.urnPattern}</code>
+    </div>
+  )}
+</section>
+
+<section class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-12">
+  <div class="p-4 card-elevated text-center">
+    <div class="font-display text-3xl font-bold text-[var(--color-accent)]">{p.docTypes.length}</div>
+    <div class="text-xs text-[var(--color-text-2)] mt-1">Doc Types</div>
+  </div>
+  <div class="p-4 card-elevated text-center">
+    <div class="font-display text-3xl font-bold text-[var(--color-accent)]">{p.components.length}</div>
+    <div class="text-xs text-[var(--color-text-2)] mt-1">Components</div>
+  </div>
+  <div class="p-4 card-elevated text-center">
+    <div class="font-display text-3xl font-bold text-[var(--color-accent)]">{p.algebra.length}</div>
+    <div class="text-xs text-[var(--color-text-2)] mt-1">Relations</div>
+  </div>
+  <div class="p-4 card-elevated text-center">
+    <div class="font-display text-3xl font-bold text-[var(--color-accent)]">{p.stages?.length || 0}</div>
+    <div class="text-xs text-[var(--color-text-2)] mt-1">Stages</div>
+  </div>
+</section>

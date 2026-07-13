@@ -1,0 +1,53 @@
+---
+// PublisherSidebar.astro — collapsible tree of all publishers and their doc types.
+// Shared by /publishers/[flavor] and /publishers/[flavor]/[type].
+import { publishers } from '~/data'
+
+const path = Astro.url.pathname
+const currentFlavor = path.split('/')[2]
+const currentType = path.split('/')[3]
+---
+
+<aside class="publisher-sidebar">
+  <h3 class="font-display text-sm font-semibold uppercase tracking-wide text-[var(--color-text-3)] mb-3">Publishers</h3>
+  <ul class="space-y-0.5 text-sm">
+    {publishers.map(p => {
+      const isOpen = currentFlavor === p.flavor
+      return (
+        <li>
+          <details open={isOpen} class="group">
+            <summary class={`px-2 py-1 rounded cursor-pointer hover:bg-[var(--color-bg-raised)] flex items-center gap-1 ${isOpen ? 'text-[var(--color-accent)] bg-[var(--color-accent-soft)]' : ''}`}>
+              <span class="text-[var(--color-text-3)] text-xs transition-transform group-open:rotate-90">▶</span>
+              <a href={`/publishers/${p.flavor}`} class="flex-1 hover:text-[var(--color-accent)]" @click.stop>{p.name}</a>
+            </summary>
+            <ul class="ml-4 border-l border-[var(--color-border-subtle)] pl-2 mt-1 space-y-0.5">
+              <li>
+                <a
+                  href={`/publishers/${p.flavor}`}
+                  class={`block px-2 py-1 rounded hover:bg-[var(--color-bg-raised)] text-[var(--color-text-2)] ${isOpen && !currentType ? 'text-[var(--color-accent)]' : ''}`}
+                >
+                  Overview
+                </a>
+              </li>
+              {p.docTypes.map(dt => (
+                <li>
+                  <a
+                    href={`/publishers/${p.flavor}/${dt.key}`}
+                    class={`block px-2 py-1 rounded hover:bg-[var(--color-bg-raised)] text-[var(--color-text-2)] ${currentFlavor === p.flavor && currentType === dt.key ? 'text-[var(--color-accent)] bg-[var(--color-accent-soft)]' : ''}`}
+                  >
+                    {dt.title}{dt.abbr.length > 0 ? ` (${dt.abbr.join(', ')})` : ''}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </details>
+        </li>
+      )
+    })}
+  </ul>
+</aside>
+
+<style>
+  .publisher-sidebar summary::-webkit-details-marker { display: none; }
+  .publisher-sidebar summary { list-style: none; }
+</style>

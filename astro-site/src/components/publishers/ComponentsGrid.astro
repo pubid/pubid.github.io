@@ -1,0 +1,57 @@
+---
+// ComponentsGrid.astro — static grid of flavor components with typed metadata.
+// Pure Astro component (no JS) — components are static data.
+import type { Publisher, FlavorComponent } from '~/data/types'
+
+interface Props { publisher: Publisher }
+const { publisher: p } = Astro.props
+
+const dataTypeLabel: Record<string, string> = {
+  enum: 'Enumeration',
+  integer: 'Integer',
+  string: 'String',
+  year: 'Year',
+  compound: 'Compound',
+}
+---
+
+<section class="mb-16">
+  <h2 class="font-display text-2xl font-semibold mb-1">
+    Components
+    <span class="ml-2 text-sm font-normal text-[var(--color-text-3)]">{p.components.length}</span>
+  </h2>
+  <p class="text-sm text-[var(--color-text-2)] mb-6">
+    Structured elements that make up a {p.name} identifier:
+  </p>
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+    {p.components.map((c: FlavorComponent) => (
+      <div class="p-4 rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-raised)]">
+        <div class="flex items-center justify-between mb-1.5">
+          <h4 class="font-medium text-sm">{c.name}</h4>
+          {c.dataType && (
+            <span class="text-[0.65rem] px-2 py-0.5 rounded-full bg-[var(--color-accent-soft)] text-[var(--color-accent)]">
+              {dataTypeLabel[c.dataType] || c.dataType}
+            </span>
+          )}
+        </div>
+        <p class="text-xs text-[var(--color-text-2)]">{c.description}</p>
+        {c.values && c.values.length > 0 && (
+          <div class="flex flex-wrap gap-1 mt-2">
+            {c.values.slice(0, 8).map(v => <span class="text-[0.7rem] px-1.5 py-0.5 rounded bg-[var(--color-bg-inset)] font-mono">{v}</span>)}
+            {c.values.length > 8 && <span class="text-[0.7rem] text-[var(--color-text-3)]">+{c.values.length - 8} more</span>}
+          </div>
+        )}
+        {c.format && <div class="mt-1.5 text-[0.7rem] text-[var(--color-text-3)]">{c.format}</div>}
+        {c.example && (
+          <div class="mt-1.5 text-xs flex items-center gap-1.5">
+            <span class="text-[var(--color-text-3)] uppercase tracking-wide text-[0.65rem]">e.g.</span>
+            <code class="font-mono">{c.example}</code>
+          </div>
+        )}
+        {c.attribute && (
+          <span class="inline-block mt-2 text-[0.65rem] px-1.5 py-0.5 rounded bg-[var(--color-bg-inset)] font-mono text-[var(--color-text-3)]">:{c.attribute}</span>
+        )}
+      </div>
+    ))}
+  </div>
+</section>

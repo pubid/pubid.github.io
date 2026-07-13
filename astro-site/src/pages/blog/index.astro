@@ -1,0 +1,49 @@
+---
+import BaseLayout from '~/layouts/BaseLayout.astro'
+import { getCollection, render } from 'astro:content'
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft))
+  .sort((a, b) => {
+    const ad = a.data.pubDate || a.data.date || new Date(0)
+    const bd = b.data.pubDate || b.data.date || new Date(0)
+    return bd.valueOf() - ad.valueOf()
+  })
+
+const formatDate = (d: Date) => d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
+const getDate = (post: typeof posts[number]) => post.data.pubDate || post.data.date || new Date(0)
+---
+
+<BaseLayout title="Blog" description="Updates, deep dives, and stories from the PubID project.">
+  <section class="mx-auto max-w-3xl px-6 py-16">
+    <header class="mb-12">
+      <h1 class="font-display text-4xl font-bold tracking-tight mb-2">Blog</h1>
+      <p class="text-[var(--color-text-2)]">Updates, deep dives, and stories from the PubID project.</p>
+    </header>
+
+    <ul class="space-y-8">
+      {posts.map(post => {
+        const date = getDate(post)
+        return (
+          <li class="border-b border-[var(--color-border-subtle)] pb-8">
+            <a href={`/blog/${post.id}/`} class="block group">
+              <div class="text-xs uppercase tracking-wide text-[var(--color-text-3)] mb-1">
+                <time datetime={date.toISOString()}>{formatDate(date)}</time>
+                <span class="mx-2">·</span>
+                <span>{post.data.author}</span>
+              </div>
+              <h2 class="font-display text-2xl font-semibold group-hover:text-[var(--color-accent)] transition-colors">
+                {post.data.title}
+              </h2>
+              <p class="text-[var(--color-text-2)] mt-2">{post.data.description}</p>
+              {post.data.tags.length > 0 && (
+                <div class="flex flex-wrap gap-1.5 mt-3">
+                  {post.data.tags.map(t => <span class="chip">{t}</span>)}
+                </div>
+              )}
+            </a>
+          </li>
+        )
+      })}
+    </ul>
+  </section>
+</BaseLayout>

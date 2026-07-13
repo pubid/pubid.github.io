@@ -1,0 +1,21 @@
+---
+import DocTypePage from '~/components/publishers/DocTypePage.astro'
+import { publishers } from '~/data'
+
+export async function getStaticPaths() {
+  const paths = []
+  for (const p of publishers) {
+    for (const dt of p.docTypes) {
+      paths.push({
+        params: { flavor: p.flavor, type: dt.key },
+        props: { publisher: p, docType: dt },
+      })
+    }
+  }
+  return paths
+}
+
+const { publisher, docType } = Astro.props
+---
+
+<DocTypePage publisher={publisher} docType={docType} />

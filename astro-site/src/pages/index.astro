@@ -1,8 +1,11 @@
 ---
 import BaseLayout from '~/layouts/BaseLayout.astro'
+import HeroDemo from '~/components/home/HeroDemo.vue'
+import ArchitectureDiagram from '~/components/home/ArchitectureDiagram.vue'
 import { publishers } from '~/data'
 
 const totalTypes = publishers.reduce((sum, p) => sum + p.docTypes.length, 0)
+const previewPublishers = publishers.slice(0, 12)
 ---
 
 <BaseLayout title="PubID" description="Universal Publication Identifier — Parse, render, and exchange identifiers for 26+ standards publishers.">
@@ -14,8 +17,8 @@ const totalTypes = publishers.reduce((sum, p) => sum + p.docTypes.length, 0)
         radial-gradient(ellipse 50% 50% at 80% 80%, rgba(218, 157, 118, 0.04), transparent);"></div>
     </div>
 
-    <div class="relative mx-auto max-w-4xl px-6 pt-32 pb-20 text-center">
-      <div class="animate-in" style="animation-delay: 0ms;">
+    <div class="relative mx-auto max-w-4xl px-6 pt-32 pb-12 text-center">
+      <div class="animate-in">
         <p class="font-mono text-xs font-semibold tracking-[0.2em] uppercase text-[var(--color-accent)] mb-6">
           Open Standard · v2
         </p>
@@ -35,9 +38,14 @@ const totalTypes = publishers.reduce((sum, p) => sum + p.docTypes.length, 0)
           <span aria-hidden="true">→</span>
         </a>
         <a href="/concepts/anatomy" class="inline-flex items-center gap-2 rounded-md border border-[var(--color-border)] hover:border-[var(--color-accent)] hover:text-[var(--color-accent)] px-5 py-2.5 text-sm font-medium transition-colors">
-          Read the spec
+          Read the concepts
         </a>
       </div>
+    </div>
+
+    <!-- Interactive demo -->
+    <div class="animate-in mx-auto max-w-3xl px-6 pb-20" style="animation-delay: 400ms;">
+      <HeroDemo client:visible />
     </div>
   </section>
 
@@ -57,20 +65,33 @@ const totalTypes = publishers.reduce((sum, p) => sum + p.docTypes.length, 0)
         <div class="mt-2 text-sm text-[var(--color-text-2)]">Render Styles</div>
       </div>
       <div class="animate-in text-center p-6 card-elevated" style="animation-delay: 240ms;">
-        <div class="font-display text-4xl font-bold gradient-text">∞</div>
-        <div class="mt-2 text-sm text-[var(--color-text-2)]">Round-Trip Fidelity</div>
+        <div class="font-display text-4xl font-bold gradient-text">100%</div>
+        <div class="mt-2 text-sm text-[var(--color-text-2)]">Round-Trip</div>
       </div>
     </div>
   </section>
 
-  <!-- Sample publishers preview -->
-  <section class="mx-auto max-w-7xl px-6 pb-20">
+  <!-- Architecture diagram -->
+  <section class="mx-auto max-w-5xl px-6 py-16">
     <div class="text-center mb-10">
-      <h2 class="font-display text-3xl font-semibold mb-2">One schema, many publishers</h2>
-      <p class="text-[var(--color-text-2)]">From ISO to NIST, BSI to IEEE — PubID scales across the standards world.</p>
+      <h2 class="animate-in font-display text-3xl font-semibold mb-3">Identifiers compose, like Lego</h2>
+      <p class="animate-in text-[var(--color-text-2)] max-w-2xl mx-auto" style="animation-delay: 100ms;">
+        A PubID is not a flat string — it's a typed tree. Amendments wrap base standards, corrigenda wrap amendments, adoptions stack national bodies on top. Round-trip fidelity means the tree parses back to the same shape, every time.
+      </p>
+    </div>
+    <div class="animate-in" style="animation-delay: 200ms;">
+      <ArchitectureDiagram client:visible />
+    </div>
+  </section>
+
+  <!-- Publisher preview -->
+  <section class="mx-auto max-w-7xl px-6 py-16">
+    <div class="text-center mb-10">
+      <h2 class="animate-in font-display text-3xl font-semibold mb-2">One schema, many publishers</h2>
+      <p class="animate-in text-[var(--color-text-2)]" style="animation-delay: 100ms;">From ISO to NIST, BSI to IEEE — PubID scales across the standards world.</p>
     </div>
     <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
-      {publishers.slice(0, 12).map(p => (
+      {previewPublishers.map(p => (
         <a
           href={`/publishers/${p.flavor}`}
           class="group flex flex-col items-center gap-3 p-4 rounded-lg border border-[var(--color-border)] hover:border-[var(--color-accent)] hover:bg-[var(--color-accent-soft)] transition-colors"

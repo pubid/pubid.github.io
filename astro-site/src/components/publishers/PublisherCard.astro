@@ -1,0 +1,41 @@
+---
+// PublisherCard.astro — pure static markup, no interactivity.
+// Reused everywhere a publisher card appears (grid, related links, home preview).
+import type { Publisher } from '~/data/types'
+import { categoryLabels } from '~/data/types'
+
+interface Props {
+  publisher: Publisher
+  variant?: 'grid' | 'compact'
+}
+
+const { publisher: p, variant = 'grid' } = Astro.props
+---
+
+{variant === 'grid' && (
+  <a href={`/publishers/${p.flavor}`} class="group flex flex-col gap-3 p-5 rounded-xl border border-[var(--color-border)] hover:border-[var(--color-accent)] hover:bg-[var(--color-accent-soft)] transition-colors">
+    <div class="flex items-center gap-3">
+      {p.logo ? (
+        <img src={p.logo} alt={`${p.name} logo`} class="h-10 w-10 object-contain" />
+      ) : (
+        <div class="size-10 grid place-items-center rounded-md bg-[var(--color-accent-soft)] text-[var(--color-accent)] font-display font-semibold text-sm">
+          {p.name.slice(0, 2)}
+        </div>
+      )}
+      <h4 class="font-display font-semibold text-base">{p.name}</h4>
+    </div>
+    <p class="text-xs text-[var(--color-text-2)] line-clamp-2 flex-1">{p.fullName}</p>
+    <div class="flex items-center gap-2 flex-wrap">
+      <span class={`chip ${p.category}`}>{categoryLabels[p.category]}</span>
+      <span class="chip">{p.docTypes.length} types</span>
+    </div>
+  </a>
+)}
+
+{variant === 'compact' && (
+  <a href={`/publishers/${p.flavor}`} class="inline-flex items-center gap-2 px-3 py-1.5 rounded-md border border-[var(--color-border)] hover:border-[var(--color-accent)] hover:text-[var(--color-accent)] text-sm transition-colors">
+    {p.logo && <img src={p.logo} alt="" class="h-4 w-4" />}
+    <span>{p.name}</span>
+    <span aria-hidden="true">→</span>
+  </a>
+)}

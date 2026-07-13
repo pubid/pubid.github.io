@@ -1,0 +1,30 @@
+---
+// RelatedPublishers.astro — chips linking to related flavors.
+import type { Publisher } from '~/data/types'
+import { getPublisher } from '~/data'
+
+interface Props { publisher: Publisher }
+const { publisher: p } = Astro.props
+
+const related = (p.relatedFlavors || [])
+  .map(f => getPublisher(f))
+  .filter((x): x is Publisher => Boolean(x))
+
+if (related.length === 0) return null
+---
+
+<section class="mb-16">
+  <h2 class="font-display text-2xl font-semibold mb-4">Related Publishers</h2>
+  <div class="flex flex-wrap gap-2">
+    {related.map(rp => (
+      <a
+        href={`/publishers/${rp.flavor}`}
+        class="inline-flex items-center gap-2 px-3 py-1.5 rounded-md border border-[var(--color-border)] hover:border-[var(--color-accent)] hover:text-[var(--color-accent)] text-sm transition-colors"
+      >
+        {rp.logo && <img src={rp.logo} alt="" class="h-4 w-4" />}
+        <span>{rp.name}</span>
+        <span aria-hidden="true">→</span>
+      </a>
+    ))}
+  </div>
+</section>

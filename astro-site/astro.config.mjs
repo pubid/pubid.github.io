@@ -1,6 +1,6 @@
 import { defineConfig } from 'astro/config'
 import starlight from '@astrojs/starlight'
-import react from '@astrojs/react'
+import vue from '@astrojs/vue'
 import mdx from '@astrojs/mdx'
 import sitemap from '@astrojs/sitemap'
 import tailwindcss from '@tailwindcss/vite'
@@ -28,10 +28,34 @@ export default defineConfig({
             { label: 'URN Mapping', link: '/concepts/urn' },
           ],
         },
+        {
+          label: 'Library',
+          items: [
+            { label: 'Installation', link: '/library/' },
+            { label: 'Quick Start', link: '/library/quick-start' },
+            { label: 'API Reference', link: '/library/api' },
+            { label: 'Contributing', link: '/library/contributing' },
+          ],
+        },
+        {
+          label: 'Specifications',
+          items: [
+            { label: 'Overview', link: '/specs/' },
+            { label: 'ISO URN (RFC 5141-bis)', link: '/specs/iso-urn' },
+            { label: 'IEC URN', link: '/specs/iec-urn' },
+          ],
+        },
+        {
+          label: 'Adopt',
+          items: [
+            { label: 'Why Adopt PubID', link: '/adopt/' },
+            { label: 'Design Guide', link: '/adopt/guide' },
+          ],
+        },
       ],
       customCss: ['./src/styles/global.css'],
     }),
-    react(),
+    vue(),
     mdx(),
     sitemap(),
   ],

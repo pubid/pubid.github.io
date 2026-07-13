@@ -1,0 +1,39 @@
+---
+// StagesTable.astro — static table of development stages (NIST/ISO/IEC).
+import type { Publisher } from '~/data/types'
+
+interface Props { publisher: Publisher }
+const { publisher: p } = Astro.props
+
+if (!p.stages || p.stages.length === 0) return null
+---
+
+<section class="mb-16">
+  <h2 class="font-display text-2xl font-semibold mb-1">
+    Development Stages
+    <span class="ml-2 text-sm font-normal text-[var(--color-text-3)]">{p.stages.length}</span>
+  </h2>
+  <p class="text-sm text-[var(--color-text-2)] mb-6">
+    Lifecycle stages for {p.name} documents:
+  </p>
+  <div class="overflow-x-auto rounded-lg border border-[var(--color-border)]">
+    <table class="w-full text-sm">
+      <thead class="bg-[var(--color-bg-raised)] text-[var(--color-text-2)]">
+        <tr>
+          <th class="text-left p-3 font-medium">Code</th>
+          <th class="text-left p-3 font-medium">Abbr</th>
+          <th class="text-left p-3 font-medium">Name</th>
+        </tr>
+      </thead>
+      <tbody>
+        {p.stages.map((s, i) => (
+          <tr class={`border-t border-[var(--color-border-subtle)] ${i % 2 === 1 ? 'bg-[var(--color-bg-inset)]/30' : ''}`}>
+            <td class="p-3 font-mono text-xs">{s.code}</td>
+            <td class="p-3"><span class="chip">{s.abbr}</span></td>
+            <td class="p-3 text-[var(--color-text-2)]">{s.name}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+</section>

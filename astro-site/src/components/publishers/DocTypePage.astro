@@ -1,0 +1,88 @@
+---
+// DocTypePage.astro — subpage for a single doc type within a publisher.
+import type { Publisher, DocType } from '~/data/types'
+import PublisherSidebar from '~/components/publishers/PublisherSidebar.astro'
+import BaseLayout from '~/layouts/BaseLayout.astro'
+
+interface Props {
+  publisher: Publisher
+  docType: DocType
+}
+const { publisher: p, docType: dt } = Astro.props
+
+const related = p.docTypes.filter(d => d.key !== dt.key).slice(0, 6)
+---
+
+<BaseLayout title={`${dt.title} · ${p.name}`} description={dt.description}>
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10 grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-8">
+    <div class="hidden lg:block">
+      <div class="sticky top-20 max-h-[calc(100vh-6rem)] overflow-auto">
+        <PublisherSidebar />
+      </div>
+    </div>
+
+    <article class="min-w-0">
+      <nav class="text-sm text-[var(--color-text-3)] mb-6" aria-label="Breadcrumb">
+        <a href="/publishers" class="hover:text-[var(--color-accent)]">Publishers</a>
+        <span class="mx-2">/</span>
+        <a href={`/publishers/${p.flavor}`} class="hover:text-[var(--color-accent)]">{p.name}</a>
+        <span class="mx-2">/</span>
+        <span class="text-[var(--color-text)]">{dt.title}</span>
+      </nav>
+
+      <header class="mb-8">
+        <div class="flex items-center gap-3 mb-2">
+          <img src={p.logo} alt={`${p.name} logo`} class="h-8 w-8 object-contain" />
+          <h1 class="font-display text-3xl font-bold tracking-tight">{dt.title}</h1>
+        </div>
+        {dt.abbr.length > 0 && (
+          <div class="flex flex-wrap gap-1.5">
+            {dt.abbr.map(a => <span class="chip">{a}</span>)}
+          </div>
+        )}
+      </header>
+
+      <p class="text-base text-[var(--color-text-2)] leading-relaxed mb-8">{dt.description}</p>
+
+      {dt.syntax && (
+        <div class="mb-8 p-4 rounded-md bg-[var(--color-bg-inset)] border border-[var(--color-border-subtle)]">
+          <div class="text-xs uppercase tracking-wide text-[var(--color-text-3)] mb-1">Syntax</div>
+          <code class="font-mono text-sm">{dt.syntax}</code>
+        </div>
+      )}
+
+      {dt.examples.length > 0 && (
+        <section class="mb-8">
+          <h2 class="font-display text-xl font-semibold mb-3">Examples</h2>
+          <div class="rounded-lg border border-[var(--color-border)] overflow-hidden">
+            {dt.examples.map((ex, i) => (
+              <div class={`p-3 flex items-center gap-3 ${i > 0 ? 'border-t border-[var(--color-border-subtle)]' : ''} ${i % 2 === 1 ? 'bg-[var(--color-bg-inset)]/40' : ''}`}>
+                <code class="font-mono text-sm">{ex.input}</code>
+                {ex.output && ex.output !== ex.input && (
+                  <>
+                    <span class="text-[var(--color-text-3)]" aria-hidden="true">→</span>
+                    <code class="font-mono text-sm text-[var(--color-accent)]">{ex.output}</code>
+                  </>
+                )}
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {related.length > 0 && (
+        <section>
+          <h2 class="font-display text-xl font-semibold mb-3">Other {p.name} doc types</h2>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+            {related.map(r => (
+              <a href={`/publishers/${p.flavor}/${r.key}`} class="block p-3 rounded-md border border-[var(--color-border)] hover:border-[var(--color-accent)] transition-colors">
+                <div class="font-medium text-sm">{r.title}</div>
+                {r.abbr.length > 0 && <div class="text-xs text-[var(--color-text-3)] mt-0.5">{r.abbr.join(', ')}</div>}
+              </a>
+            ))}
+          </div>
+        </section>
+      )}
+    </article>
+  </div>
+</BaseLayout>
