@@ -14,17 +14,11 @@ export async function getStaticPaths() {
 
 interface Props { item: any }
 const { item } = Astro.props
-const slugParam = Astro.params.slug
-const entry = slugParam
-  ? item
-  : (await getCollection('library')).find(e => e.id === 'index')
-
-if (!entry) return Astro.redirect('/404')
-const { Content } = await render(entry)
-const title = entry.data.title || 'Library'
+const { Content } = await render(item)
+const title = item.data.title || 'Library'
 ---
 
-<BaseLayout title={title} description={entry.data.description || ''}>
+<BaseLayout title={title} description={item.data.description || ''}>
   <article class="mx-auto max-w-3xl px-6 py-16 prose prose-pubid">
     <Content />
   </article>

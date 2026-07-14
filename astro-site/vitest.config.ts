@@ -8,10 +8,6 @@ export default defineConfig({
     environment: 'happy-dom',
     globals: true,
     include: ['src/**/*.spec.ts'],
-    coverage: {
-      reporter: ['text', 'html'],
-      include: ['src/data/**/*.ts', 'src/components/**/*.{vue,ts}'],
-    },
   },
   resolve: {
     alias: {

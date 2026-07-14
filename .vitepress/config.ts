@@ -113,5 +113,5 @@ export default defineConfig({
     },
   },
 
-  srcExclude: ['README.md', '_pubid/**'],
+  srcExclude: ['README.md', '_pubid/**', 'astro-site/**', 'TODO.astro/**', 'TODO.improve-website/**'],
 })

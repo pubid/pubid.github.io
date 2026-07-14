@@ -12,9 +12,12 @@ async function patchFile(filepath, fallback) {
   if (content.startsWith('---')) {
     const end = content.indexOf('\n---', 3)
     if (end > 0) {
-      const fm = content.slice(3, end)
+      // fm is the frontmatter between the opening --- and closing ---.
+      // Ensure it ends with a newline before appending new keys,
+      // otherwise the new key gets concatenated onto the last existing line.
+      let fm = content.slice(3, end)
+      if (!fm.endsWith('\n')) fm += '\n'
       const body = content.slice(end + 4)
-      // Check if title is present; if not, derive from first H1
       if (!fm.includes('title:')) {
         const h1 = body.match(/^#\s+(.+)$/m)
         const title = h1 ? h1[1].trim() : fallback.title
@@ -23,7 +26,6 @@ async function patchFile(filepath, fallback) {
       return
     }
   }
-  // No frontmatter at all — derive from first H1
   const h1 = content.match(/^#\s+(.+)$/m)
   const title = h1 ? h1[1].trim() : fallback.title
   const description = fallback.description || ''

@@ -1,0 +1,15 @@
+---
+import BaseLayout from '~/layouts/BaseLayout.astro'
+import { getCollection, render } from 'astro:content'
+
+const entry = (await getCollection('specs')).find(e => e.id === 'index')
+if (!entry) return Astro.redirect('/404')
+const { Content } = await render(entry)
+const title = entry.data.title || 'Specifications'
+---
+
+<BaseLayout title={title} description={entry.data.description || ''}>
+  <article class="mx-auto max-w-4xl px-6 py-16 prose prose-pubid">
+    <Content />
+  </article>
+</BaseLayout>
