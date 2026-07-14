@@ -17,6 +17,13 @@
 # Adobe TLS configuration cleanly.
 ^https://www\.adobe\.com/?$
 
+# Publisher WAFs that block GitHub Actions IP ranges (links are valid for
+# real browsers). 403 from CI does not indicate a broken link.
+^https://www\.ansi\.org/?$
+^https://www\.astm\.org/?$
+^https://www\.csagroup\.org/?$
+^https://www\.iec\.ch/?$
+
 # Local-asset patterns from VitePress era (not used by Astro, but harmless).
 assets
 javascript:.*
