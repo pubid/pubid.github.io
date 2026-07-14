@@ -6,7 +6,7 @@ import { join } from 'node:path'
 // and unit tests miss — e.g. content collections silently empty, patch
 // scripts corrupting YAML, VitePress scanning astro-site/.
 
-const ROOT = join(process.cwd(), '..') // repo root (astro-site/ → root)
+const ROOT = process.cwd() // Astro is now at repo root
 
 describe('integration: content collections are non-empty', () => {
   // Each collection must have at least one source file. If this fails,
@@ -72,12 +72,19 @@ describe('integration: no corrupted YAML frontmatter', () => {
   }
 })
 
-describe('integration: VitePress excludes astro-site/', () => {
-  // Without this, VitePress recursively scans astro-site/ and chokes on
-  // Astro-specific syntax (MDX imports, etc.).
-  it('.vitepress/config.ts has astro-site in srcExclude', () => {
-    const config = readFileSync(join(ROOT, '.vitepress', 'config.ts'), 'utf8')
-    expect(config).toMatch(/astro-site\/\*\*/)
+describe('integration: VitePress site removed', () => {
+  // The Astro migration is complete: VitePress files have been moved to
+  // _archive-vitepress/. The root is the Astro site now.
+  it('no .vitepress/ directory at root', () => {
+    expect(existsSync(join(ROOT, '.vitepress'))).toBe(false)
+  })
+
+  it('VitePress files archived under _archive-vitepress/', () => {
+    expect(existsSync(join(ROOT, '_archive-vitepress', '.vitepress'))).toBe(true)
+  })
+
+  it('Astro is the root site (astro.config.mjs at root)', () => {
+    expect(existsSync(join(ROOT, 'astro.config.mjs'))).toBe(true)
   })
 })
 

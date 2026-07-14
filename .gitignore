@@ -1,16 +1,36 @@
+# Build output
+dist/
+.output/
+
+# Dependencies
 node_modules/
-.vitepress/dist/
-.vitepress/cache/
-_site/
-.sass-cache/
-.jekyll-cache/
-.jekyll-metadata
-vendor/
+
+# Astro generated
+.astro/
+
+# Env
+.env
+.env.production
+.env.local
+
+# OS
 .DS_Store
-Gemfile.lock
+
+# Logs
+*.log
+npm-debug.log*
+
+# Editor
+.vscode/
+.idea/
+
+# Archived VitePress build artifacts (if anyone builds them locally)
+_archive-vitepress/.vitepress/dist/
+_archive-vitepress/.vitepress/cache/
+_archive-vitepress/_site/
+_archive-vitepress/.jekyll-cache/
+
+# Legacy (preserved for reference)
 TODO*
 !TODO.astro/
-astro-site/node_modules/
-astro-site/dist/
-astro-site/.astro/
-.astro/
+!TODO.improve-website/
