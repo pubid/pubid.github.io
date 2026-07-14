@@ -6,10 +6,12 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
+    "build:full": "npm run check && npm run test && astro build",
     "preview": "astro preview",
     "check": "astro check",
     "test": "vitest run",
     "test:watch": "vitest",
+    "test:integration": "vitest run src/__tests__",
     "migrate-data": "node scripts/migrate-data.mjs",
     "patch-content": "node scripts/patch-content.mjs"
   },

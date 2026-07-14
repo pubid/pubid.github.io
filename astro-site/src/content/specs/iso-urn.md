@@ -1,7 +1,6 @@
 ---
-
 prev: /specs/
-next: /specs/iec-urntitle: "Specification"
+next: /specs/iec-urn
 ---
 
 <script setup>

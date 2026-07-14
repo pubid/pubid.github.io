@@ -4,16 +4,14 @@ on:
   pull_request:
     paths:
       - 'astro-site/**'
+      - '.vitepress/**'
       - '.github/workflows/astro-pr.yml'
   push:
     branches: [feat/astro-migration]
     paths:
       - 'astro-site/**'
+      - '.vitepress/**'
       - '.github/workflows/astro-pr.yml'
-
-defaults:
-  run:
-    working-directory: astro-site
 
 jobs:
   build:
@@ -30,17 +28,42 @@ jobs:
           cache: npm
           cache-dependency-path: astro-site/package-lock.json
 
-      - name: Install dependencies
+      - name: Install Astro site dependencies
+        working-directory: astro-site
         run: npm ci
 
       - name: Type check
+        working-directory: astro-site
         run: npx astro check
 
-      - name: Unit tests
+      - name: Build (must succeed before tests can check dist/)
+        working-directory: astro-site
+        run: npm run build
+
+      - name: Tests (unit + integration)
+        working-directory: astro-site
         run: npx vitest run
 
-      - name: Build
-        run: npm run build
+      - name: Verify page count
+        working-directory: astro-site
+        run: |
+          PAGE_COUNT=$(find dist -name "*.html" | wc -l)
+          echo "HTML pages built: $PAGE_COUNT"
+          if [ "$PAGE_COUNT" -lt 250 ]; then
+            echo "::error::Expected ≥250 pages, got $PAGE_COUNT — content collections may be empty"
+            exit 1
+          fi
+
+      - name: Verify content collections produced pages
+        working-directory: astro-site
+        run: |
+          # These files only exist if the content layer loaded successfully.
+          for f in concepts/anatomy/index.html blog/2024-01-15-what-is-pubid/index.html specs/iso-urn/index.html library/api/index.html adopt/guide/index.html; do
+            if [ ! -f "dist/$f" ]; then
+              echo "::error::Missing dist/$f — content collection is empty"
+              exit 1
+            fi
+          done
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
@@ -49,13 +72,24 @@ jobs:
           path: astro-site/dist/
           retention-days: 14
 
-      - name: Verify page count
-        run: |
-          # Sanity check: every publisher + every doc type + content pages
-          # The current expected floor is 200+ pages (26 publishers × ~10 doctypes).
-          PAGE_COUNT=$(find dist -name "*.html" | wc -l)
-          echo "HTML pages built: $PAGE_COUNT"
-          if [ "$PAGE_COUNT" -lt 200 ]; then
-            echo "::error::Expected ≥200 pages, got $PAGE_COUNT — a routing module is broken"
-            exit 1
-          fi
+  vitepress-still-works:
+    name: VitePress site not broken
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install root dependencies
+        run: npm ci
+
+      - name: VitePress build (root site must still compile)
+        run: npx vitepress build
+        env:
+          # Ensure VitePress excludes the astro-site/ subdirectory
+          NODE_ENV: production

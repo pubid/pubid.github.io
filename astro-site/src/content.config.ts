@@ -1,8 +1,8 @@
 import { defineCollection, z } from 'astro:content'
+import { glob } from 'astro/loaders'
 
-// All content collections use zod schemas for compile-time validation.
-// Adding a new collection = adding a new block here (OCP).
-// Schemas are intentionally permissive to accommodate legacy content shapes.
+// Content Layer API (Astro 7). Each collection uses a glob loader to
+// discover its files. Adding a new collection = new block here (OCP).
 
 const baseSchema = z.object({
   title: z.string().optional(),
@@ -10,16 +10,15 @@ const baseSchema = z.object({
 })
 
 const concepts = defineCollection({
-  type: 'content',
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/concepts' }),
   schema: baseSchema.extend({
     ord: z.number().default(0),
   }),
 })
 
 const blog = defineCollection({
-  type: 'content',
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/blog' }),
   schema: baseSchema.extend({
-    // Accept both `date` (legacy) and `pubDate` (preferred)
     pubDate: z.coerce.date().optional(),
     date: z.coerce.date().optional(),
     author: z.string().default('PubID Team'),
@@ -29,26 +28,26 @@ const blog = defineCollection({
 })
 
 const library = defineCollection({
-  type: 'content',
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/library' }),
   schema: baseSchema.extend({
     ord: z.number().default(0),
   }),
 })
 
 const specs = defineCollection({
-  type: 'content',
+  loader: glob({ pattern: '**/*.md', base: './src/content/specs' }),
   schema: baseSchema.extend({
     ord: z.number().default(0),
   }),
 })
 
 const adopt = defineCollection({
-  type: 'content',
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/adopt' }),
   schema: baseSchema,
 })
 
 const about = defineCollection({
-  type: 'content',
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/about' }),
   schema: baseSchema,
 })
 

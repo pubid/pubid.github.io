@@ -1,6 +1,5 @@
 ---
-
-prev: /specs/iso-urntitle: "Specification"
+prev: /specs/iso-urn
 ---
 
 <script setup>
