@@ -47,4 +47,9 @@ const adopt = defineCollection({
   schema: baseSchema,
 })
 
-export const collections = { concepts, blog, library, specs, adopt }
+const about = defineCollection({
+  type: 'content',
+  schema: baseSchema,
+})
+
+export const collections = { concepts, blog, library, specs, adopt, about }

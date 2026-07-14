@@ -2,6 +2,7 @@
 import BaseLayout from '~/layouts/BaseLayout.astro'
 import HeroDemo from '~/components/home/HeroDemo.vue'
 import ArchitectureDiagram from '~/components/home/ArchitectureDiagram.vue'
+import PublisherCard from '~/components/publishers/PublisherCard.vue'
 import { publishers } from '~/data'
 
 const totalTypes = publishers.reduce((sum, p) => sum + p.docTypes.length, 0)
@@ -92,13 +93,7 @@ const previewPublishers = publishers.slice(0, 12)
     </div>
     <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
       {previewPublishers.map(p => (
-        <a
-          href={`/publishers/${p.flavor}`}
-          class="group flex flex-col items-center gap-3 p-4 rounded-lg border border-[var(--color-border)] hover:border-[var(--color-accent)] hover:bg-[var(--color-accent-soft)] transition-colors"
-        >
-          <img src={p.logo} alt={`${p.name} logo`} class="h-10 w-auto" />
-          <span class="text-xs font-medium text-[var(--color-text-2)] group-hover:text-[var(--color-accent)]">{p.name}</span>
-        </a>
+        <PublisherCard publisher={p} />
       ))}
     </div>
     <div class="mt-8 text-center">

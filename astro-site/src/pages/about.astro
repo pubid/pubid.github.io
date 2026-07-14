@@ -1,36 +1,18 @@
 ---
 import BaseLayout from '~/layouts/BaseLayout.astro'
+import { getEntry, render } from 'astro:content'
+
+const entry = await getEntry('about', 'index')
+if (!entry) {
+  return Astro.redirect('/404')
+}
+const { Content } = await render(entry)
+const title = entry.data.title || 'About PubID'
+const description = entry.data.description || ''
 ---
 
-<BaseLayout title="About PubID" description="Why we built PubID and where it's going.">
-  <section class="mx-auto max-w-3xl px-6 py-16">
-    <h1 class="font-display text-4xl font-bold tracking-tight mb-6">About PubID</h1>
-    <p class="text-lg text-[var(--color-text-2)] leading-relaxed mb-6">
-      PubID is an open standard for universal publication identifiers — a typed, machine-readable way to identify documents across 26+ standards publishers (ISO, IEC, IEEE, NIST, and many more).
-    </p>
-    <p class="text-[var(--color-text-2)] leading-relaxed mb-6">
-      At <a href="https://www.ribose.com" class="text-[var(--color-accent)] hover:underline">Ribose</a>, we build systems that manage standards documents — and we kept running into the same wall. Every publisher identifies documents differently. ISO uses <code class="font-mono text-sm">ISO 9001:2015</code>. IEEE writes <code class="font-mono text-sm">IEEE Std 802.3-2018</code>. NIST has <code class="font-mono text-sm">NIST SP 800-53 Rev. 5</code>.
-    </p>
-    <p class="text-[var(--color-text-2)] leading-relaxed mb-6">
-      These identifiers carry rich semantic meaning — publisher, document type, number, year, stage, part — but that meaning is locked inside conventions that only humans can parse, and only imperfectly. PubID unlocks it.
-    </p>
-
-    <h2 class="font-display text-2xl font-semibold mt-12 mb-4">What PubID does</h2>
-    <ul class="space-y-2 text-[var(--color-text-2)] mb-6">
-      <li class="flex gap-3"><span class="text-[var(--color-accent)] mt-1">→</span> <span><strong>Parse</strong> any identifier into typed components</span></li>
-      <li class="flex gap-3"><span class="text-[var(--color-accent)] mt-1">→</span> <span><strong>Render</strong> in multiple styles (full, abbreviated, short, machine-readable)</span></li>
-      <li class="flex gap-3"><span class="text-[var(--color-accent)] mt-1">→</span> <span><strong>Compare</strong> identifiers across different publishers</span></li>
-      <li class="flex gap-3"><span class="text-[var(--color-accent)] mt-1">→</span> <span><strong>Map</strong> to URN for machine interchange (RFC 5141-bis compliant)</span></li>
-    </ul>
-
-    <div class="mt-12 p-6 rounded-xl bg-[var(--color-accent-soft)] border border-[var(--color-accent)]/20">
-      <h3 class="font-display text-lg font-semibold mb-2">NIST: The first official adopter</h3>
-      <p class="text-sm text-[var(--color-text-2)] mb-4">
-        In April 2022, NIST officially published the PubID Syntax for NIST Technical Series Publications — making NIST the first standards organization to formally adopt a universal PubID scheme.
-      </p>
-      <a href="/publishers/nist" class="inline-flex items-center gap-1 text-sm text-[var(--color-accent)] hover:underline">
-        See the NIST publisher schema <span aria-hidden="true">→</span>
-      </a>
-    </div>
-  </section>
+<BaseLayout title={title} description={description}>
+  <article class="mx-auto max-w-3xl px-6 py-16 prose prose-pubid">
+    <Content />
+  </article>
 </BaseLayout>

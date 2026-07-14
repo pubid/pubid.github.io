@@ -1,6 +1,12 @@
 @import "tailwindcss";
 @import "@fontsource-variable/fraunces";
 @import "@fontsource-variable/inter-tight";
+@plugin "@tailwindcss/typography";
+
+/* Tailwind 4 dark mode: use data-theme attribute on <html> as the dark
+   selector. This makes `dark:` variants work with our theme toggle.
+   The default would be prefers-color-scheme, but we want manual control. */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 
 /* ───────────────────────────────────────────────────────────────
    PubID Design System — Tailwind 4 theme tokens
