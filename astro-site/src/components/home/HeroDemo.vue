@@ -56,6 +56,53 @@ const demoData: DemoResult[] = [
     groups: [],
     urn: 'urn:nist:pub:sp:800-53:r5',
   },
+  {
+    input: 'IEC 61131-3:2013',
+    publisher: 'IEC',
+    type: 'IEC · International Standard',
+    components: [c('publisher', 'IEC', '#2978a1'), c('number', '61131', '#dc2626'), c('part', '3', '#059669'), c('year', '2013', '#d97706')],
+    groups: [],
+    urn: 'urn:iec:std:iec:61131:-3:ed-3',
+  },
+  {
+    input: 'BS EN ISO 9001:2015',
+    publisher: 'BSI',
+    type: 'BSI · Adopted Standard',
+    components: [],
+    groups: [
+      { label: 'British Standard', accent: '#2978a1', comps: [c('publisher', 'BS', '#2978a1')] },
+      { label: 'European Norm', accent: '#da9d76', comps: [c('norm', 'EN', '#da9d76')] },
+      { label: 'Int\'l Standard', accent: '#059669', comps: [c('publisher', 'ISO', '#059669'), c('number', '9001', '#dc2626'), c('year', '2015', '#d97706')] },
+    ],
+    urn: '',
+  },
+  {
+    input: 'IEC 60255-24 Ed. 2.0 2013-04 and IEEE Std C37.111-2013',
+    publisher: 'IEC/IEEE',
+    type: 'IEC/IEEE · Dual Published',
+    components: [],
+    groups: [
+      { label: 'IEC Identifier', accent: '#da9d76', comps: [c('publisher', 'IEC', '#da9d76'), c('number', '60255-24', '#dc2626'), c('edition', 'Ed. 2.0', '#059669'), c('date', '2013-04', '#d97706')] },
+      { label: 'IEEE Identifier', accent: '#2978a1', comps: [c('publisher', 'IEEE', '#2978a1'), c('type', 'Std', '#059669'), c('number', 'C37.111', '#dc2626'), c('year', '2013', '#d97706')] },
+    ],
+    urn: '',
+  },
+  {
+    input: 'ETSI EN 300 392-2 V3.4.1',
+    publisher: 'ETSI',
+    type: 'ETSI · European Standard',
+    components: [c('publisher', 'ETSI', '#2978a1'), c('type', 'EN', '#059669'), c('number', '300 392-2', '#dc2626'), c('version', 'V3.4.1', '#059669')],
+    groups: [],
+    urn: 'urn:etsi:std:en:300_392-2:v3.4.1',
+  },
+  {
+    input: 'ISO/DIS 45001',
+    publisher: 'ISO',
+    type: 'ISO · Draft International Standard',
+    components: [c('publisher', 'ISO', '#2978a1'), c('stage', 'DIS', '#dc2626'), c('number', '45001', '#dc2626')],
+    groups: [],
+    urn: 'urn:iso:std:iso:45001:stage-40.00',
+  },
 ]
 
 const input = ref('ISO 9001:2015')
