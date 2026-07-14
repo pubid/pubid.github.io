@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 80">
-  <rect width="240" height="80" rx="6" fill="#fa0f00"/>
-  <g transform="translate(20 16)">
-    <path d="M20 0 L0 48 L12 48 L20 28 L28 48 L40 48 Z" fill="#ffffff"/>
-  </g>
-  <text x="78" y="50" font-family="'Helvetica Neue', Arial, sans-serif" font-size="26" font-weight="700" letter-spacing="1" fill="#ffffff">Adobe</text>
-</svg>
