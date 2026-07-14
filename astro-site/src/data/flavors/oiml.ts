@@ -2,11 +2,13 @@ import type { Publisher } from '../types'
 
 export const oiml: Publisher = {
   flavor: "oiml",
-  logo: "/logos/oiml-logo.svg",
+  logo: "/logos/oiml-logo-light.svg",
+  logoLight: "/logos/oiml-logo-light.svg",
+  logoDark: "/logos/oiml-logo-dark.svg",
   name: "OIML",
   fullName: "International Organization of Legal Metrology",
   category: "international",
-  description: "OIML is an intergovernmental treaty organization that develops model regulations, standards, and related documents for legal metrology (measurement standards and instruments).",
+  description: "The International Organization of Legal Metrology (OIML, Organisation Internationale de Métrologie Légale) is an intergovernmental treaty organization founded in 1955 that develops model regulations, standards, and related documents for legal metrology — the discipline of measurement as it affects consumers, trade, regulation, and law. OIML Recommendations establish the requirements that measuring instruments (weighing scales, fuel pumps, taximeters, utility meters, medical devices) must satisfy to be legally placed on the market. Member states from over 60 countries commit to adopting OIML Recommendations into their national measurement systems, enabling mutual recognition of instrument approvals under the OIML-CS (MAA) framework.",
   website: "https://www.oiml.org",
   syntaxNotes: "OIML identifiers follow the pattern: OIML [Type] [Number]:[Year]. Types include R (Recommendation), D (Document), G (Guide), V (Vocabulary), B (Basic Publication).",
   relatedFlavors: ["iso", "jcgm"],

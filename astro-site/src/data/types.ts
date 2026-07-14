@@ -54,6 +54,11 @@ export interface Publisher {
   syntaxNotes?: string
   logo: string
   logos?: string[]
+  // For publishers with separate light/dark brand assets (rendered against
+  // dark/light backgrounds). When set, the layout picks the variant that
+  // matches the active theme.
+  logoLight?: string
+  logoDark?: string
 }
 
 export type Category = Publisher['category']

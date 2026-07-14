@@ -8,9 +8,8 @@ import type { Publisher, Category } from '~/data/types'
 
 describe('registry', () => {
   it('contains exactly the expected publisher count', () => {
-    // Adding/removing a publisher is a deliberate decision; this assertion
-    // catches accidental regressions.
-    expect(publishers).toHaveLength(26)
+    // 28 = 26 (original 2026 baseline) + GOST + EASC (added 2026-07-14)
+    expect(publishers).toHaveLength(28)
   })
 
   it('publishers are sorted alphabetically by flavor', () => {

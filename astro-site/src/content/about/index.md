@@ -22,7 +22,7 @@ There was no universal way to:
 
 **PubID was born** from a conviction that the meaning of an identifier should be separate from any single representation of it. We needed a metaschema — a shared grammar — that could capture the full semantic depth of any publication identifier and express it in whatever form the situation demands.
 
-Since then, PubID has grown to cover **26+ publishers** across international, regional, national, and industry standards, with a Ruby reference implementation that parses, renders, and interchanges identifiers with round-trip fidelity.
+Since then, PubID has grown to cover **28+ publishers** across international, regional, national, and industry standards, with a Ruby reference implementation that parses, renders, and interchanges identifiers with round-trip fidelity.
 
 ## The Metaschema
 
@@ -72,7 +72,7 @@ This pattern extends across all supported publishers: every PubID can render as 
 | Component | Description |
 |-----------|-------------|
 | **Metaschema** | Formal definition of identifier elements and their relationships |
-| **Publisher Schemas** | 26+ publisher-specific schema definitions |
+| **Publisher Schemas** | 28+ publisher-specific schema definitions |
 | **Reference Library** | Ruby gem implementing all schemas with parse/render/URN support |
 | **This Website** | Documentation, interactive playground, and schema registry |
 
