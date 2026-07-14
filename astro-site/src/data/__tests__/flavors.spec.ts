@@ -103,7 +103,27 @@ describe('specific flavor invariants', () => {
 
   it('Adobe has Publication + Technical Note', () => {
     const adobe = publishers.find(p => p.flavor === 'adobe')
+    expect(adobe).toBeDefined()
     const keys = adobe?.docTypes.map(d => d.key) || []
     expect(keys).toEqual(['publication', 'tech_note'])
+  })
+
+  it('GOST flavor is present with 3 doc types (Interstate, National, Identical Adoption)', () => {
+    const gost = publishers.find(p => p.flavor === 'gost')
+    expect(gost).toBeDefined()
+    expect(gost?.docTypes).toHaveLength(3)
+    const keys = gost?.docTypes.map(d => d.key) || []
+    expect(keys).toEqual(['interstate_standard', 'national_standard', 'identical_adoption'])
+  })
+
+  it('EASC flavor is present as the parent body of GOST', () => {
+    const easc = publishers.find(p => p.flavor === 'easc')
+    expect(easc).toBeDefined()
+    expect(easc?.relatedFlavors).toContain('gost')
+  })
+
+  it('PDF Association is not a flavor (not in pubid gem)', () => {
+    const pdf = publishers.find(p => p.flavor === 'pdf' || p.flavor === 'pdf_association')
+    expect(pdf).toBeUndefined()
   })
 })

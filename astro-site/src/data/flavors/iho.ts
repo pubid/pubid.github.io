@@ -6,7 +6,7 @@ export const iho: Publisher = {
   name: "IHO",
   fullName: "International Hydrographic Organization",
   category: "international",
-  description: "The IHO is an intergovernmental organization that coordinates the setting of international hydrographic and nautical charting standards. Its Standards and Specifications (S-series) underpin Electronic Navigational Charts (ENCs) and the developing S-100 Universal Hydrographic Data Model used by mariners and maritime software worldwide.",
+  description: "The International Hydrographic Organization (IHO) is an intergovernmental organization that coordinates the setting of international hydrographic and nautical charting standards. Its S-series of Standards and Specifications underpin Electronic Navigational Charts (ENCs), the S-100 Universal Hydrographic Data Model, and the maritime regulatory framework under SOLAS. Member states commit to adopting IHO specifications for their national charting agencies.",
   website: "https://iho.int",
   syntaxNotes: "IHO identifiers use a single-letter series prefix followed by a hyphenated number: IHO {S|P|M|B|C}-[Number][ Ap. [Appendix]][ Part [Part]][ Annex [Annex]][ Suppl [Supplement]] [Version].",
   urnPattern: "urn:iho:[type]:[number]:[version]",

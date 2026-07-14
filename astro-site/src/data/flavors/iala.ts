@@ -2,7 +2,9 @@ import type { Publisher } from '../types'
 
 export const iala: Publisher = {
   flavor: "iala",
-  logo: "/logos/iala-logo.svg",
+  logo: "/logos/iala-logo-light.svg",
+  logoLight: "/logos/iala-logo-light.svg",
+  logoDark: "/logos/iala-logo-dark.svg",
   name: "IALA",
   fullName: "International Association of Marine Aids to Navigation and Lighthouse Authorities",
   category: "international",
