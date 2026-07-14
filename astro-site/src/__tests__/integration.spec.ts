@@ -26,7 +26,10 @@ describe('integration: content collections are non-empty', () => {
       const dir = join(process.cwd(), 'src', 'content', name)
       expect(existsSync(dir), `directory ${dir} must exist`).toBe(true)
       const files = readdirSync(dir, { recursive: true })
-        .filter((f: string) => f.endsWith('.md') || f.endsWith('.mdx'))
+        .filter((f) => {
+          const s = String(f)
+          return s.endsWith('.md') || s.endsWith('.mdx')
+        })
       expect(files.length, `${name}/ has ${files.length} files`).toBeGreaterThanOrEqual(minFiles)
     })
   }
