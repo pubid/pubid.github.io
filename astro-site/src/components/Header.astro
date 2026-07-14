@@ -57,15 +57,21 @@ const nav = [
 </header>
 
 <script>
+  // Theme toggle: sets BOTH data-theme attribute (for our Tailwind 4 @custom-variant)
+  // AND .dark class on <html> (for the ported theme.css which uses html.dark selectors).
   const btn = document.getElementById('theme-toggle')!
-  btn.addEventListener('click', () => {
-    const current = document.documentElement.dataset.theme
-    const next = current === 'dark' ? 'light' : 'dark'
+  function setTheme(next: 'light' | 'dark') {
     if (next === 'dark') {
       document.documentElement.dataset.theme = 'dark'
+      document.documentElement.classList.add('dark')
     } else {
       delete document.documentElement.dataset.theme
+      document.documentElement.classList.remove('dark')
     }
     localStorage.setItem('pubid-theme', next)
+  }
+  btn.addEventListener('click', () => {
+    const current = document.documentElement.dataset.theme
+    setTheme(current === 'dark' ? 'light' : 'dark')
   })
 </script>

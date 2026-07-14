@@ -1,12 +1,6 @@
 ---
 import BaseLayout from '~/layouts/BaseLayout.astro'
-import PublisherSidebar from '~/components/publishers/PublisherSidebar.astro'
-import FlavorHero from '~/components/publishers/FlavorHero.astro'
-import DocTypeGrid from '~/components/publishers/DocTypeGrid.vue'
-import ComponentsGrid from '~/components/publishers/ComponentsGrid.astro'
-import AlgebraTable from '~/components/publishers/AlgebraTable.astro'
-import StagesTable from '~/components/publishers/StagesTable.astro'
-import RelatedPublishers from '~/components/publishers/RelatedPublishers.astro'
+import FlavorPage from '~/components/publishers/FlavorPage.vue'
 import { publishers, type Publisher } from '~/data'
 
 export async function getStaticPaths() {
@@ -21,20 +15,7 @@ const { publisher } = Astro.props
 ---
 
 <BaseLayout title={`${publisher.name} — Publisher Schema`} description={publisher.description}>
-  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10 grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-8">
-    <aside class="hidden lg:block">
-      <div class="sticky top-20 max-h-[calc(100vh-6rem)] overflow-auto">
-        <PublisherSidebar />
-      </div>
-    </aside>
-
-    <article class="min-w-0">
-      <FlavorHero publisher={publisher} />
-      <DocTypeGrid publisher={publisher} client:visible />
-      <ComponentsGrid publisher={publisher} />
-      <AlgebraTable publisher={publisher} />
-      <StagesTable publisher={publisher} />
-      <RelatedPublishers publisher={publisher} />
-    </article>
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10">
+    <FlavorPage publisher={publisher} client:load />
   </div>
 </BaseLayout>

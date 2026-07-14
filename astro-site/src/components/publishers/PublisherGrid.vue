@@ -1,69 +1,69 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
-import { publishers, categoryLabels, type Category } from '~/data'
-import PublisherCard from './PublisherCard.vue'
+import { publishers } from '~/data'
+import { categoryLabels, type Category } from '~/data'
 
 const search = ref('')
 const activeCategory = ref<Category | 'all'>('all')
 
 const filtered = computed(() => {
-  let r = publishers
+  let result = publishers
   if (activeCategory.value !== 'all') {
-    r = r.filter(p => p.category === activeCategory.value)
+    result = result.filter(p => p.category === activeCategory.value)
   }
   if (search.value.trim()) {
     const q = search.value.toLowerCase()
-    r = r.filter(p =>
+    result = result.filter(p =>
       p.name.toLowerCase().includes(q) ||
       p.fullName.toLowerCase().includes(q) ||
-      p.flavor.toLowerCase().includes(q),
+      p.flavor.toLowerCase().includes(q)
     )
   }
-  return r
+  return result
 })
 
 const categories: (Category | 'all')[] = ['all', 'international', 'regional', 'national', 'industry']
-const categoryNames: Record<string, string> = { all: 'All', ...categoryLabels }
-
-function countFor(cat: Category | 'all'): number {
-  if (cat === 'all') return publishers.length
-  return publishers.filter(p => p.category === cat).length
+const categoryNames: Record<string, string> = {
+  all: 'All',
+  ...categoryLabels,
 }
 </script>
 
 <template>
   <div>
-    <div class="flex flex-wrap gap-2 mb-6">
+    <div class="category-tabs">
       <button
         v-for="cat in categories"
         :key="cat"
-        :class="[
-          'px-3 py-1.5 rounded-md text-sm font-medium transition-colors',
-          activeCategory === cat
-            ? 'bg-[var(--color-accent)] text-white'
-            : 'bg-[var(--color-bg-raised)] text-[var(--color-text-2)] hover:text-[var(--color-text)]',
-        ]"
+        :class="{ active: activeCategory === cat }"
+        class="tab-btn"
         @click="activeCategory = cat"
       >
         {{ categoryNames[cat] }}
-        <span class="ml-1.5 opacity-60">{{ countFor(cat) }}</span>
       </button>
     </div>
 
-    <div class="relative mb-8">
-      <span class="absolute left-3 top-1/2 -translate-y-1/2 text-[var(--color-text-3)]" aria-hidden="true">🔍</span>
-      <input
-        v-model="search"
-        placeholder="Search publishers..."
-        class="w-full pl-10 pr-3 py-2.5 rounded-md border border-[var(--color-border)] bg-[var(--color-bg-raised)] focus:outline-none focus:border-[var(--color-accent)] focus:ring-2 focus:ring-[var(--color-accent-soft)] text-sm"
-      />
+    <div class="search-bar">
+      <span class="search-icon">&#x1F50D;</span>
+      <input v-model="search" placeholder="Search publishers..." />
     </div>
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-      <PublisherCard v-for="p in filtered" :key="p.flavor" :publisher="p" />
+    <div class="publishers-grid">
+      <a v-for="p in filtered" :key="p.flavor" :href="'/publishers/' + p.flavor" class="publisher-card">
+        <div class="publisher-card-header">
+          <img v-if="p.logo" :src="p.logo" :alt="p.name + ' logo'" class="publisher-logo" />
+          <div v-else class="publisher-initials">{{ p.name.slice(0, 2) }}</div>
+          <h4>{{ p.name }}</h4>
+        </div>
+        <p class="full-name">{{ p.fullName }}</p>
+        <div class="meta">
+          <span class="badge" :class="p.category">{{ categoryLabels[p.category] }}</span>
+          <span class="badge count">{{ p.docTypes.length }} types</span>
+        </div>
+      </a>
     </div>
 
-    <p v-if="filtered.length === 0" class="text-center text-[var(--color-text-3)] py-12">
+    <p v-if="filtered.length === 0" style="text-align:center;color:var(--vp-c-text-3);padding:2rem;">
       No publishers found matching your criteria.
     </p>
   </div>

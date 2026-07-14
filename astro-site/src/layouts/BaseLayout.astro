@@ -28,9 +28,13 @@ const fullTitle = title === 'PubID' ? title : `${title} · PubID`
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary" />
     <script is:inline>
+      // Apply theme before paint to avoid flash. Sets BOTH data-theme
+      // attribute (Tailwind 4 @custom-variant) AND .dark class (ported theme.css).
       const t = localStorage.getItem('pubid-theme')
-      if (t === 'dark' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) {
+      const isDark = t === 'dark' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)
+      if (isDark) {
         document.documentElement.dataset.theme = 'dark'
+        document.documentElement.classList.add('dark')
       }
     </script>
   </head>

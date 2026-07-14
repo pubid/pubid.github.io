@@ -1,5 +1,6 @@
 ---
-import DocTypePage from '~/components/publishers/DocTypePage.astro'
+import BaseLayout from '~/layouts/BaseLayout.astro'
+import DocTypePage from '~/components/publishers/DocTypePage.vue'
 import { publishers } from '~/data'
 
 export async function getStaticPaths() {
@@ -16,6 +17,11 @@ export async function getStaticPaths() {
 }
 
 const { publisher, docType } = Astro.props
+const title = `${docType.title} · ${publisher.name}`
 ---
 
-<DocTypePage publisher={publisher} docType={docType} />
+<BaseLayout title={title} description={docType.description}>
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10">
+    <DocTypePage publisher={publisher} docType={docType} client:load />
+  </div>
+</BaseLayout>

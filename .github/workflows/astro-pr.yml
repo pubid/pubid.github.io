@@ -65,6 +65,15 @@ jobs:
             fi
           done
 
+      - name: Link Checker (lychee)
+        working-directory: astro-site
+        uses: lycheeverse/lychee-action@v2
+        with:
+          args: --config lychee.toml --root-dir "$PWD/dist" 'dist/**/*.html'
+          fail: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
