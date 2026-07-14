@@ -69,7 +69,7 @@ jobs:
         working-directory: astro-site
         uses: lycheeverse/lychee-action@v2
         with:
-          args: --config lychee.toml --root-dir "$PWD/dist" 'dist/**/*.html'
+          args: --config lychee.toml --root-dir ./dist "dist/**/*.html"
           fail: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
