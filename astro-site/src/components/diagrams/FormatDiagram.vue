@@ -1,88 +1,178 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 
-// FormatDiagram.vue — shows how a single identifier renders across formats
-// (Human, URN, JSON). Tab switching is animated.
-
-interface Format {
-  key: string
-  label: string
-  render: (id: { publisher: string; type?: string; number: string; year?: string; part?: string }) => string
+interface FormatComp { key: string; value: string; color: string }
+interface FormatGroup { label: string; accent: string; comps: FormatComp[] }
+interface FormatExample {
+  input: string
+  publisher: string
+  groups: FormatGroup[]
+  outputs: { label: string; abbr: string; value: string; accent: string }[]
 }
 
-const formats: Format[] = [
+const examples: FormatExample[] = [
   {
-    key: 'human',
-    label: 'Human',
-    render: (id) => [id.publisher, id.type, id.number + (id.part ? `-${id.part}` : ''), id.year].filter(Boolean).join(' '),
+    input: 'ISO 9001:2015',
+    publisher: 'ISO',
+    groups: [{
+      label: 'International Standard',
+      accent: '#4590cd',
+      comps: [
+        { key: 'Publisher', value: 'ISO', color: '#4590cd' },
+        { key: 'Number', value: '9001', color: '#e11d48' },
+        { key: 'Year', value: '2015', color: '#d97706' },
+        { key: 'Edition', value: '5', color: '#059669' },
+      ]
+    }],
+    outputs: [
+      { label: 'Human-Readable', abbr: 'PubID', value: 'ISO 9001:2015', accent: '#4590cd' },
+      { label: 'Short', abbr: 'Short', value: 'ISO 9001', accent: '#059669' },
+      { label: 'Machine-Readable', abbr: 'MR', value: 'ISO 9001:2015', accent: '#da9d76' },
+      { label: 'URN', abbr: 'URN', value: 'urn:iso:std:iso:9001:ed-5:en', accent: '#d97706' },
+      { label: 'JSON', abbr: 'JSON', value: '{"publisher":"ISO","number":"9001","year":2015}', accent: '#e11d48' },
+    ],
   },
   {
-    key: 'urn',
-    label: 'URN',
-    render: (id) => `urn:${id.publisher.toLowerCase()}:std:${id.number}${id.part ? `:-${id.part}` : ''}${id.year ? `:${id.year}` : ''}`,
+    input: 'NIST SP 800-53 Rev. 5',
+    publisher: 'NIST',
+    groups: [{
+      label: 'Special Publication',
+      accent: '#4590cd',
+      comps: [
+        { key: 'Publisher', value: 'NIST', color: '#4590cd' },
+        { key: 'Type', value: 'SP', color: '#059669' },
+        { key: 'Number', value: '800-53', color: '#e11d48' },
+        { key: 'Revision', value: '5', color: '#da9d76' },
+      ]
+    }],
+    outputs: [
+      { label: 'Full (Long)', abbr: 'Full', value: 'National Institute of Standards and Technology Special Publication 800-53 Revision 5', accent: '#4590cd' },
+      { label: 'Abbreviated', abbr: 'Abbr', value: 'Natl. Inst. Stand. Technol. Spec. Publ. 800-53 Rev. 5', accent: '#059669' },
+      { label: 'Short', abbr: 'Short', value: 'NIST SP 800-53 Rev. 5', accent: '#da9d76' },
+      { label: 'Machine-Readable', abbr: 'MR', value: 'NIST.SP.800-53.r5', accent: '#d97706' },
+      { label: 'URN', abbr: 'URN', value: 'urn:nist:pub:sp:800-53:r5', accent: '#e11d48' },
+    ],
   },
   {
-    key: 'json',
-    label: 'JSON',
-    render: (id) => JSON.stringify({
-      publisher: id.publisher,
-      type: id.type || null,
-      number: id.number,
-      part: id.part || null,
-      year: id.year ? parseInt(id.year, 10) : null,
-    }, null, 0),
+    input: 'ISO/IEC 17031-1:2020/Amd 1:2022',
+    publisher: 'ISO/IEC',
+    groups: [
+      {
+        label: 'Amendment',
+        accent: '#2dd4bf',
+        comps: [
+          { key: 'Type', value: 'Amd', color: '#2dd4bf' },
+          { key: 'Number', value: '1', color: '#e11d48' },
+          { key: 'Year', value: '2022', color: '#d97706' },
+        ]
+      },
+      {
+        label: 'Base Identifier',
+        accent: '#4590cd',
+        comps: [
+          { key: 'Publisher', value: 'ISO', color: '#4590cd' },
+          { key: 'Copublisher', value: 'IEC', color: '#da9d76' },
+          { key: 'Number', value: '17031', color: '#e11d48' },
+          { key: 'Part', value: '1', color: '#34d399' },
+          { key: 'Year', value: '2020', color: '#d97706' },
+        ]
+      },
+    ],
+    outputs: [
+      { label: 'Human-Readable', abbr: 'PubID', value: 'ISO/IEC 17031-1:2020/Amd 1:2022', accent: '#4590cd' },
+      { label: 'Short', abbr: 'Short', value: 'ISO/IEC 17031-1/Amd 1', accent: '#059669' },
+      { label: 'Machine-Readable', abbr: 'MR', value: 'ISO/IEC 17031-1:2020/Amd 1:2022', accent: '#da9d76' },
+      { label: 'URN', abbr: 'URN', value: 'urn:iso:std:iso-iec:17031:-1:ed-1:amd:1:v1', accent: '#d97706' },
+      { label: 'JSON', abbr: 'JSON', value: '{"base":{"publisher":"ISO","copublisher":"IEC",…},"supplement":{"type":"Amd",…}}', accent: '#e11d48' },
+    ],
   },
 ]
 
-const samples = [
-  { publisher: 'ISO', type: undefined, number: '9001', year: '2015', part: undefined },
-  { publisher: 'IEC', type: undefined, number: '61131', year: '2013', part: '3' },
-  { publisher: 'NIST', type: 'SP', number: '800-53', year: undefined, part: undefined },
-  { publisher: 'IEEE', type: 'Std', number: '802.3', year: '2018', part: undefined },
-]
-
-const activeSample = ref(0)
-const activeFormat = ref<Format>(formats[0])
-
-const rendered = computed(() => activeFormat.value.render(samples[activeSample.value]))
+const activeExample = ref(0)
+const current = computed(() => examples[activeExample.value])
 </script>
 
 <template>
-  <div class="rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-raised)] overflow-hidden">
-    <div class="flex border-b border-[var(--color-border)]">
+  <div class="fmt-diagram">
+    <!-- Example selector -->
+    <div class="fmt-tabs">
       <button
-        v-for="(fmt, i) in formats"
-        :key="fmt.key"
-        :class="[
-          'flex-1 py-2.5 text-sm font-medium transition-colors',
-          activeFormat.key === fmt.key
-            ? 'bg-[var(--color-bg)] text-[var(--color-accent)] border-b-2 border-[var(--color-accent)] -mb-px'
-            : 'text-[var(--color-text-2)] hover:text-[var(--color-text)]',
-        ]"
-        @click="activeFormat = formats[i]"
+        v-for="(ex, i) in examples"
+        :key="i"
+        class="fmt-tab"
+        :class="{ active: activeExample === i }"
+        @click="activeExample = i"
       >
-        {{ fmt.label }}
+        {{ ex.publisher }}
       </button>
     </div>
-    <div class="p-6">
-      <div class="flex flex-wrap gap-2 mb-4">
-        <button
-          v-for="(s, i) in samples"
-          :key="i"
-          :class="[
-            'px-2.5 py-1 rounded text-xs font-mono transition-colors',
-            activeSample === i
-              ? 'bg-[var(--color-accent)] text-white'
-              : 'bg-[var(--color-bg-inset)] text-[var(--color-text-2)] hover:text-[var(--color-text)]',
-          ]"
-          @click="activeSample = i"
+
+    <!-- Input -->
+    <div class="fmt-input-box">
+      <span class="fmt-input-label">Input Identifier</span>
+      <code class="fmt-input-code">{{ current.input }}</code>
+    </div>
+
+    <!-- Arrow down -->
+    <div class="fmt-arrow-down">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg>
+    </div>
+
+    <!-- Parsed Components -->
+    <div class="fmt-parsed-box">
+      <span class="fmt-parsed-label">Parsed Structure</span>
+      <div class="fmt-groups">
+        <div
+          v-for="(group, gi) in current.groups"
+          :key="gi"
+          class="fmt-group"
+          :style="{ '--group-accent': group.accent }"
         >
-          {{ formats[0].render(s) }}
-        </button>
+          <div class="fmt-group-label">{{ group.label }}</div>
+          <div class="fmt-comps">
+            <span
+              v-for="comp in group.comps"
+              :key="comp.key"
+              class="fmt-comp"
+              :style="{ '--comp-color': comp.color, background: comp.color + '0d', borderColor: comp.color + '25' }"
+            >
+              <span class="fmt-comp-key">{{ comp.key }}</span>
+              <span class="fmt-comp-val">{{ comp.value }}</span>
+            </span>
+          </div>
+        </div>
       </div>
-      <div class="p-4 rounded-lg bg-[var(--color-bg)] border border-[var(--color-border-subtle)]">
-        <code class="font-mono text-sm break-all">{{ rendered }}</code>
+    </div>
+
+    <!-- Arrow fan out -->
+    <div class="fmt-arrow-fan">
+      <div class="fmt-fan-line" />
+      <div class="fmt-fan-label">Lossless Rendering</div>
+      <div class="fmt-fan-branches">
+        <div v-for="n in current.outputs.length" :key="n" class="fmt-fan-branch" :style="{ '--branch-i': n, '--branch-total': current.outputs.length }" />
       </div>
+    </div>
+
+    <!-- Output formats -->
+    <div class="fmt-outputs">
+      <div
+        v-for="out in current.outputs"
+        :key="out.abbr"
+        class="fmt-output-card"
+        :style="{ '--out-accent': out.accent }"
+      >
+        <div class="fmt-output-head">
+          <span class="fmt-output-abbr">{{ out.abbr }}</span>
+          <span class="fmt-output-label">{{ out.label }}</span>
+        </div>
+        <code class="fmt-output-value">{{ out.value }}</code>
+      </div>
+    </div>
+
+    <!-- Bidirectional note -->
+    <div class="fmt-note">
+      <span class="fmt-note-icon">&#8644;</span>
+      All conversions are <strong>bidirectional</strong> &mdash; parse any output style and re-render in any other without information loss.
     </div>
   </div>
 </template>

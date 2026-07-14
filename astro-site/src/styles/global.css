@@ -1,6 +1,7 @@
 @import "tailwindcss";
 @import "@fontsource-variable/fraunces";
 @import "@fontsource-variable/inter-tight";
+@import "./theme.css";
 @plugin "@tailwindcss/typography";
 
 /* Tailwind 4 dark mode: use data-theme attribute on <html> as the dark
@@ -30,6 +31,7 @@
   --color-text-2: #52525b;
   --color-text-3: #a1a1aa;
   --color-text-inv: #fafafa;
+  --color-text-inv-2: #a1a1aa;
 
   /* Brand */
   --color-accent: #2978a1;
@@ -62,14 +64,34 @@
 }
 
 /* ───────────────────────────────────────────────────────────────
+   VitePress compatibility tokens — the ported theme.css references
+   these. Keeps the original CSS working without modification.
+   ─────────────────────────────────────────────────────────────── */
+:root {
+  --vp-font-family-mono: var(--font-mono);
+  --vp-font-family-base: var(--font-sans);
+  --vp-c-brand-1: var(--accent);
+  --vp-c-brand-2: var(--color-brand-2);
+  --vp-c-brand-3: var(--color-brand-3);
+  --vp-c-brand-soft: var(--accent-soft);
+  --vp-c-text-1: var(--text);
+  --vp-c-text-2: var(--text-2);
+  --vp-c-text-3: var(--text-3);
+  --vp-c-bg: var(--bg);
+  --vp-c-bg-soft: var(--bg-raised);
+  --vp-c-divider: var(--border);
+  --vp-c-gutter: var(--border);
+}
+
+/* ───────────────────────────────────────────────────────────────
    Base styles
    ─────────────────────────────────────────────────────────────── */
 
 html {
   scroll-behavior: smooth;
   font-family: var(--font-sans);
-  background: var(--color-bg);
-  color: var(--color-text);
+  background: var(--bg);
+  color: var(--text);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
@@ -77,6 +99,38 @@ html {
 body {
   margin: 0;
   min-height: 100vh;
+}
+
+/* Map our semantic tokens to the shorter names the ported theme uses */
+:root {
+  --bg: var(--color-bg);
+  --bg-raised: var(--color-bg-raised);
+  --bg-inset: var(--color-bg-inset);
+  --bg-dark: var(--color-bg-dark);
+  --border: var(--color-border);
+  --border-subtle: var(--color-border-subtle);
+  --text: var(--color-text);
+  --text-2: var(--color-text-2);
+  --text-3: var(--color-text-3);
+  --text-inv: var(--color-text-inv);
+  --text-inv-2: var(--color-text-inv-2);
+  --accent: var(--color-accent);
+  --accent-soft: var(--color-accent-soft);
+  --accent-hover: var(--color-accent-hover);
+  --accent-warm: var(--color-accent-warm);
+}
+
+[data-theme="dark"] {
+  --bg: var(--color-bg);
+  --bg-raised: var(--color-bg-raised);
+  --bg-inset: var(--color-bg-inset);
+  --border: var(--color-border);
+  --border-subtle: var(--color-border-subtle);
+  --text: var(--color-text);
+  --text-2: var(--color-text-2);
+  --text-3: var(--color-text-3);
+  --text-inv: var(--color-text-inv);
+  --text-inv-2: var(--color-text-inv-2);
 }
 
 /* ───────────────────────────────────────────────────────────────
