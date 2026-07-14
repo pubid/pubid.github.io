@@ -13,7 +13,8 @@
     "test:watch": "vitest",
     "test:integration": "vitest run src/__tests__",
     "migrate-data": "node scripts/migrate-data.mjs",
-    "patch-content": "node scripts/patch-content.mjs"
+    "patch-content": "node scripts/patch-content.mjs",
+    "links": "lychee --config lychee.toml --root-dir \"$(pwd)/dist\" 'dist/**/*.html'"
   },
   "dependencies": {
     "@astrojs/mdx": "^7.0.2",

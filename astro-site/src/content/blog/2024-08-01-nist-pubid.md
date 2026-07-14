@@ -139,5 +139,5 @@ Every publisher schema in PubID builds on this foundation. The NIST experience s
 - [NIST Publisher Schema](/publishers/nist) — Syntax, styles, and elements
 - [Introducing NIST PubID](https://www.metanorma.org/posts/2022-01-09-nist-pubid) — Original Metanorma blog post
 - [NIST CSWP PubID Mapping](https://www.relaton.org/posts/2023-08-23-nist-cswp-pubid/) — CSWP migration details
-- [nist-pubid on GitHub](https://github.com/metanorma/nist-pubid) — The original conversion tool
+- [nist-pubid on GitHub](https://github.com/metanorma/pubid-nist) — The original conversion tool
 - [NIST Tech Pubs metadata](https://github.com/usnistgov/NIST-Tech-Pubs) — Full catalog data
