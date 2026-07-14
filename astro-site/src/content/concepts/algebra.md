@@ -110,7 +110,7 @@ Multiple documents **bundled** together.
 
 ## Consolidated Version
 
-A base standard **with all amendments incorporated**. IEC uses the `CSV` suffix to mark these (see [Value-Added Publication](#value-added-publication)).
+A base standard **with all amendments incorporated**. IEC uses the `CSV` suffix to mark these (see [Value-Added Publication](/publishers/iec/vap_identifier)).
 
 | Publisher | Syntax | Example |
 |-----------|--------|---------|

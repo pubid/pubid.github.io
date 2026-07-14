@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 80">
+  <rect width="240" height="80" rx="6" fill="#0073cf"/>
+  <g transform="translate(18 36)">
+    <path d="M0 4 Q6 -4 12 4 T24 4 T36 4" stroke="#ffffff" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+    <path d="M0 12 Q6 4 12 12 T24 12 T36 12" stroke="#ffffff" stroke-width="2.5" fill="none" stroke-linecap="round" opacity="0.7"/>
+    <path d="M0 20 Q6 12 12 20 T24 20 T36 20" stroke="#ffffff" stroke-width="2.5" fill="none" stroke-linecap="round" opacity="0.45"/>
+  </g>
+  <text x="80" y="50" font-family="'Helvetica Neue', Arial, sans-serif" font-size="28" font-weight="700" letter-spacing="3" fill="#ffffff">IHO</text>
+</svg>

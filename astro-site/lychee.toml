@@ -1,0 +1,23 @@
+# Lychee config for the Astro site
+# Note: lychee 0.24.x deserializes many fields as strings (not ints/arrays).
+# Reference: https://github.com/lycheeverse/lychee/blob/lychee-v0.24.2/lychee.example.toml
+
+method = "get"
+user_agent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0 Safari/537.36"
+
+[header]
+accept = "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"
+
+# Infrastructure-pending URLs (regex, one per line). Excluded because they're
+# correct links awaiting repo moves / blog restorations.
+exclude_file = ".lycheeignore"
+
+# Timeouts (generous — some publisher sites are slow)
+timeout = "20"
+max_redirects = "10"
+
+# Use caching for repeat runs
+cache = "true"
+
+include = "https?://"
+no_progress = "true"
