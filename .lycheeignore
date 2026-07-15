@@ -29,3 +29,6 @@ assets
 javascript:.*
 .*@.*example.com
 (ht|f)tps?://.*\.?example\.(com|org).*
+^https://www\.w3c\.org/?$
+^https://www\.w3\.org/?$
+^https://www\.3gpp\.org/?$

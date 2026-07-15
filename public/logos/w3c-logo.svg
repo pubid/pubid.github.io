@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 80">
+  <rect width="240" height="80" rx="6" fill="#1a5276"/>
+  <text x="120" y="36" font-family="'Helvetica Neue', Arial, sans-serif" font-size="22" font-weight="700" letter-spacing="2" fill="#ffffff" text-anchor="middle">W3C</text>
+  <text x="120" y="58" font-family="'Helvetica Neue', Arial, sans-serif" font-size="10" font-weight="500" fill="#aed6f1" text-anchor="middle">World Wide Web Consortium</text>
+</svg>
