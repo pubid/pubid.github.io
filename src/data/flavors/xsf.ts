@@ -10,7 +10,7 @@ export const xsf: Publisher = {
   website: "https://xmpp.org",
   syntaxNotes: "XSF identifiers use a single document type: XEP (XMPP Extension Protocol). The identifier is 'XEP-<number>' where the number is zero-padded to 4 digits ('XEP-0001', not 'XEP-1'). The XSF never prints its publisher name in the identifier — the leading token is always 'XEP'.",
   urnPattern: "urn:xsf:xep:[number]",
-  relatedFlavors: ["iana", "w3c"],
+  relatedFlavors: ["ietf", "iana", "w3c"],
   docTypes: [
     {
       key: "xep",
