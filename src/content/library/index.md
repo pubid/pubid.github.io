@@ -38,7 +38,7 @@ gem install pubid
 - **Generate URNs** for machine interchange
 - **Serialize** to JSON, YAML, or Hash
 - **Validate** identifier syntax
-- **35+ publisher schemes** supported out of the box
+- **37+ publisher schemes** supported out of the box
 
 ## Quick Example
 

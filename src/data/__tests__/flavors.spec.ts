@@ -172,6 +172,22 @@ describe('specific flavor invariants', () => {
     expect(xsf?.docTypes[0]?.key).toBe('xep')
   })
 
+  it('ECMA has 3 doc types (Standard, Technical Report, Memento)', () => {
+    const ecma = publishers.find(p => p.flavor === 'ecma')
+    expect(ecma).toBeDefined()
+    expect(ecma?.docTypes).toHaveLength(3)
+    const keys = ecma?.docTypes.map(d => d.key) || []
+    expect(keys).toEqual(['standard', 'technical_report', 'memento'])
+  })
+
+  it('IETF has 5 doc types (RFC, BCP, STD, FYI, Internet-Draft)', () => {
+    const ietf = publishers.find(p => p.flavor === 'ietf')
+    expect(ietf).toBeDefined()
+    expect(ietf?.docTypes).toHaveLength(5)
+    const keys = ietf?.docTypes.map(d => d.key) || []
+    expect(keys).toEqual(['rfc', 'bcp', 'std', 'fyi', 'internet_draft'])
+  })
+
   it('PDF Association is not a flavor (not in pubid gem)', () => {
     const pdf = publishers.find(p => p.flavor === 'pdf' || p.flavor === 'pdf_association')
     expect(pdf).toBeUndefined()
