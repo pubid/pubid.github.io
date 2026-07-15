@@ -8,8 +8,8 @@ import type { Publisher, Category } from '~/data/types'
 
 describe('registry', () => {
   it('contains exactly the expected publisher count', () => {
-    // 37 = 35 (prior baseline) + ECMA + IETF (added 2026-07-15)
-    expect(publishers).toHaveLength(37)
+    // 38 = 37 (post-Astro-cutover baseline on main) + CalConnect (added 2026-07-16)
+    expect(publishers).toHaveLength(38)
   })
 
   it('publishers are sorted alphabetically by flavor', () => {
