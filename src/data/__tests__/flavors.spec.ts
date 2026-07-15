@@ -188,6 +188,13 @@ describe('specific flavor invariants', () => {
     expect(keys).toEqual(['rfc', 'bcp', 'std', 'fyi', 'internet_draft'])
   })
 
+  it('CalConnect has the Standard doc type', () => {
+    const cc = publishers.find(p => p.flavor === 'calconnect')
+    expect(cc).toBeDefined()
+    expect(cc?.docTypes).toHaveLength(1)
+    expect(cc?.docTypes[0]?.key).toBe('standard')
+  })
+
   it('PDF Association is not a flavor (not in pubid gem)', () => {
     const pdf = publishers.find(p => p.flavor === 'pdf' || p.flavor === 'pdf_association')
     expect(pdf).toBeUndefined()
