@@ -23,8 +23,8 @@ describe('per-flavor structural validation', () => {
         }
       })
 
-      it('flavor matches expected pattern (lowercase, hyphens)', () => {
-        expect(p.flavor).toMatch(/^[a-z]+(-[a-z]+)*$/)
+      it('flavor matches expected pattern (lowercase, hyphens, digits)', () => {
+        expect(p.flavor).toMatch(/^[a-z0-9]+(-[a-z0-9]+)*$/)
       })
 
       it('has at least one doc type', () => {
@@ -120,6 +120,56 @@ describe('specific flavor invariants', () => {
     const easc = publishers.find(p => p.flavor === 'easc')
     expect(easc).toBeDefined()
     expect(easc?.relatedFlavors).toContain('gost')
+  })
+
+  it('EASC has 2 doc types (PMG, RMG) — real implementation', () => {
+    const easc = publishers.find(p => p.flavor === 'easc')
+    expect(easc?.docTypes).toHaveLength(2)
+    const keys = easc?.docTypes.map(d => d.key) || []
+    expect(keys).toEqual(['pmg', 'rmg'])
+  })
+
+  it('BIPM has 4 doc types (Committee Document, Meeting, Metrologia, SI Brochure)', () => {
+    const bipm = publishers.find(p => p.flavor === 'bipm')
+    expect(bipm).toBeDefined()
+    expect(bipm?.docTypes).toHaveLength(4)
+  })
+
+  it('IANA has the Registry doc type', () => {
+    const iana = publishers.find(p => p.flavor === 'iana')
+    expect(iana).toBeDefined()
+    expect(iana?.docTypes[0]?.key).toBe('registry')
+  })
+
+  it('OASIS has the Standard doc type', () => {
+    const oasis = publishers.find(p => p.flavor === 'oasis')
+    expect(oasis).toBeDefined()
+    expect(oasis?.docTypes[0]?.key).toBe('standard')
+  })
+
+  it('OGC has the Document doc type', () => {
+    const ogc = publishers.find(p => p.flavor === 'ogc')
+    expect(ogc).toBeDefined()
+    expect(ogc?.docTypes[0]?.key).toBe('document')
+  })
+
+  it('3GPP has Technical Specification + Technical Report', () => {
+    const tgpp = publishers.find(p => p.flavor === 'tgpp')
+    expect(tgpp).toBeDefined()
+    const keys = tgpp?.docTypes.map(d => d.key) || []
+    expect(keys).toEqual(['technical_specification', 'technical_report'])
+  })
+
+  it('W3C has 11 doc types covering the full maturity lifecycle', () => {
+    const w3c = publishers.find(p => p.flavor === 'w3c')
+    expect(w3c).toBeDefined()
+    expect(w3c?.docTypes).toHaveLength(11)
+  })
+
+  it('XSF has the XEP doc type', () => {
+    const xsf = publishers.find(p => p.flavor === 'xsf')
+    expect(xsf).toBeDefined()
+    expect(xsf?.docTypes[0]?.key).toBe('xep')
   })
 
   it('PDF Association is not a flavor (not in pubid gem)', () => {
