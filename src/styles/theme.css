@@ -888,30 +888,58 @@ html.dark .flow-code code { color: var(--accent-warm); }
 }
 
 .anatomy-identifier {
+  position: relative;
+  overflow: hidden;
+  background: var(--bg-raised);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.35rem 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.anatomy-identifier::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 50% 80% at 100% 0%, color-mix(in srgb, var(--accent) 10%, transparent), transparent 70%);
+  pointer-events: none;
+}
+
+html.dark .anatomy-identifier {
+  background: rgba(0, 0, 0, 0.28);
+  border-color: rgba(255, 255, 255, 0.06);
+}
+
+.anatomy-identifier-label {
+  font-family: var(--vp-font-family-mono, monospace);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  margin-bottom: 0.65rem;
+  position: relative;
+}
+
+.anatomy-identifier-string {
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
   gap: 0;
-  font-family: var(--vp-font-family-mono);
-  font-size: 1.35rem;
+  font-family: var(--vp-font-family-mono, monospace);
+  font-size: clamp(1.1rem, 2.2vw, 1.45rem);
   font-weight: 600;
-  padding: 1.25rem 1.5rem;
-  background: var(--bg-raised);
-  border-radius: 10px;
-  border: 1px solid var(--border);
-  margin-bottom: 2rem;
-}
-
-html.dark .anatomy-identifier {
-  background: rgba(0, 0, 0, 0.25);
-  border-color: rgba(255, 255, 255, 0.06);
+  letter-spacing: -0.005em;
+  line-height: 1.45;
+  position: relative;
+  overflow-wrap: anywhere;
 }
 
 .anatomy-segment {
   color: var(--seg-color);
-  padding: 0.15rem 0.2rem;
+  padding: 0.1rem 0.25rem;
   border-radius: 4px;
-  transition: background 0.2s;
+  transition: background 0.18s var(--ease-pubid, ease);
 }
 
 .anatomy-segment:hover {
@@ -921,53 +949,67 @@ html.dark .anatomy-identifier {
 .anatomy-sep {
   color: var(--text-3);
   user-select: none;
+  padding: 0 0.05rem;
+  opacity: 0.55;
 }
 
+/* Legend — vertical annotated list (mobile-first, single column) */
 .anatomy-legend {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--border-subtle);
 }
 
 .anatomy-legend-item {
-  display: flex;
-  gap: 0.75rem;
-  align-items: flex-start;
-  padding: 0.9rem 1rem;
-  border-radius: 8px;
-  border: 1px solid transparent;
-  transition: border-color 0.2s, background 0.2s;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 1rem;
+  align-items: start;
+  padding: 1rem 0.75rem;
+  border-bottom: 1px solid var(--border-subtle);
+  border-left: 2px solid transparent;
+  transition: background 0.18s var(--ease-pubid, ease),
+              border-left-color 0.18s var(--ease-pubid, ease);
+  margin-left: -0.75rem;
+  margin-right: -0.75rem;
 }
 
 .anatomy-legend-item:hover {
-  border-color: var(--border);
-  background: var(--bg-raised);
+  background: color-mix(in srgb, var(--seg-color) 5%, transparent);
+  border-left-color: var(--seg-color);
 }
 
-html.dark .anatomy-legend-item:hover {
-  border-color: rgba(255, 255, 255, 0.06);
-  background: rgba(255, 255, 255, 0.02);
-}
-
-.anatomy-legend-chip {
+.anatomy-legend-marker {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: var(--seg-color);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--seg-color) 18%, transparent);
+  margin-top: 0.5rem;
   flex-shrink: 0;
-  font-size: 0.72rem;
+}
+
+.anatomy-legend-body {
+  min-width: 0;
+}
+
+.anatomy-legend-title {
+  font-family: var(--vp-font-family-base, inherit);
+  font-size: 0.74rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.1em;
   color: var(--seg-color);
-  background: color-mix(in srgb, var(--seg-color) 10%, transparent);
-  padding: 0.25rem 0.6rem;
-  border-radius: 5px;
-  min-width: 72px;
-  text-align: center;
-  margin-top: 0.1rem;
+  margin-bottom: 0.3rem;
+  line-height: 1.2;
 }
 
 .anatomy-legend-desc {
-  font-size: 0.85rem;
-  line-height: 1.55;
+  font-size: 0.93rem;
+  line-height: 1.6;
   color: var(--text-2);
+  max-width: 70ch;
 }
 
 .anatomy-legend-desc strong {
@@ -976,14 +1018,17 @@ html.dark .anatomy-legend-item:hover {
 }
 
 .anatomy-legend-desc code {
-  font-size: 0.82rem;
+  font-size: 0.85em;
+  font-family: var(--vp-font-family-mono, monospace);
   background: var(--bg-raised);
-  padding: 0.1rem 0.3rem;
+  padding: 0.1rem 0.35rem;
   border-radius: 3px;
+  border: 1px solid var(--border-subtle);
 }
 
 html.dark .anatomy-legend-desc code {
   background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.08);
 }
 
 /* Anatomy Mapping (Human → URN → JSON) */
