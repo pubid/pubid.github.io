@@ -412,60 +412,84 @@ onMounted(() => {
 
       <div class="anatomy-breakdown">
         <div class="anatomy-identifier">
-          <span class="anatomy-segment" style="--seg-color: #4590cd">ISO</span><span class="anatomy-sep">/</span>
-          <span class="anatomy-segment" style="--seg-color: #059669">IEC</span><span class="anatomy-sep">&nbsp;</span>
-          <span class="anatomy-segment" style="--seg-color: #f87171">17031</span><span class="anatomy-sep">-</span>
-          <span class="anatomy-segment" style="--seg-color: #34d399">1</span><span class="anatomy-sep">:</span>
-          <span class="anatomy-segment" style="--seg-color: #fbbf24">2020</span><span class="anatomy-sep">/</span>
-          <span class="anatomy-segment" style="--seg-color: #2dd4bf">Amd</span><span class="anatomy-sep">&nbsp;</span>
-          <span class="anatomy-segment" style="--seg-color: #2dd4bf">1</span><span class="anatomy-sep">:</span>
-          <span class="anatomy-segment" style="--seg-color: #2dd4bf">2022</span>
+          <div class="anatomy-identifier-label">Example — ISO/IEC with Amendment</div>
+          <div class="anatomy-identifier-string">
+            <span class="anatomy-segment" style="--seg-color: #4590cd">ISO</span><span class="anatomy-sep">/</span>
+            <span class="anatomy-segment" style="--seg-color: #059669">IEC</span><span class="anatomy-sep">&nbsp;</span>
+            <span class="anatomy-segment" style="--seg-color: #f87171">17031</span><span class="anatomy-sep">-</span>
+            <span class="anatomy-segment" style="--seg-color: #34d399">1</span><span class="anatomy-sep">:</span>
+            <span class="anatomy-segment" style="--seg-color: #fbbf24">2020</span><span class="anatomy-sep">/</span>
+            <span class="anatomy-segment" style="--seg-color: #2dd4bf">Amd</span><span class="anatomy-sep">&nbsp;</span>
+            <span class="anatomy-segment" style="--seg-color: #2dd4bf">1</span><span class="anatomy-sep">:</span>
+            <span class="anatomy-segment" style="--seg-color: #2dd4bf">2022</span>
+          </div>
         </div>
 
-        <div class="anatomy-legend">
-          <div class="anatomy-legend-item">
-            <div class="anatomy-legend-chip" style="--seg-color: #4590cd">Publisher</div>
-            <div class="anatomy-legend-desc">
-              <strong>The issuing organization</strong> — ISO, IEC, IEEE, NIST, BSI, etc. Joint publications list multiple publishers separated by slashes.
+        <ol class="anatomy-legend">
+          <li class="anatomy-legend-item" style="--seg-color: #4590cd">
+            <span class="anatomy-legend-marker" aria-hidden="true"></span>
+            <div class="anatomy-legend-body">
+              <div class="anatomy-legend-title">Publisher</div>
+              <div class="anatomy-legend-desc">
+                <strong>The issuing organization</strong> — ISO, IEC, IEEE, NIST, BSI, etc. Joint publications list multiple publishers separated by slashes.
+              </div>
             </div>
-          </div>
-          <div class="anatomy-legend-item">
-            <div class="anatomy-legend-chip" style="--seg-color: #059669">Copublisher</div>
-            <div class="anatomy-legend-desc">
-              <strong>Jointly published with</strong> — a second publisher sharing responsibility. Written after the primary publisher, e.g. <code>ISO/IEC</code>, <code>IEC/IEEE</code>.
+          </li>
+          <li class="anatomy-legend-item" style="--seg-color: #059669">
+            <span class="anatomy-legend-marker" aria-hidden="true"></span>
+            <div class="anatomy-legend-body">
+              <div class="anatomy-legend-title">Copublisher</div>
+              <div class="anatomy-legend-desc">
+                <strong>Jointly published with</strong> — a second publisher sharing responsibility. Written after the primary publisher, e.g. <code>ISO/IEC</code>, <code>IEC/IEEE</code>.
+              </div>
             </div>
-          </div>
-          <div class="anatomy-legend-item">
-            <div class="anatomy-legend-chip" style="--seg-color: #dc2626">Stage</div>
-            <div class="anatomy-legend-desc">
-              <strong>Where in its lifecycle</strong> — WD (Working Draft), CD (Committee Draft), DIS (Draft International Standard), FDIS (Final Draft). Encodes development progress directly in the identifier.
+          </li>
+          <li class="anatomy-legend-item" style="--seg-color: #dc2626">
+            <span class="anatomy-legend-marker" aria-hidden="true"></span>
+            <div class="anatomy-legend-body">
+              <div class="anatomy-legend-title">Stage</div>
+              <div class="anatomy-legend-desc">
+                <strong>Where in its lifecycle</strong> — WD (Working Draft), CD (Committee Draft), DIS (Draft International Standard), FDIS (Final Draft). Encodes development progress directly in the identifier.
+              </div>
             </div>
-          </div>
-          <div class="anatomy-legend-item">
-            <div class="anatomy-legend-chip" style="--seg-color: #f87171">Number</div>
-            <div class="anatomy-legend-desc">
-              <strong>The unique numeric ID</strong> — assigned by the publisher. May include sub-parts (<code>800-53</code>), letter suffixes (<code>9001</code>), or prefixed sections (<code>JIS A 0001</code>).
+          </li>
+          <li class="anatomy-legend-item" style="--seg-color: #f87171">
+            <span class="anatomy-legend-marker" aria-hidden="true"></span>
+            <div class="anatomy-legend-body">
+              <div class="anatomy-legend-title">Number</div>
+              <div class="anatomy-legend-desc">
+                <strong>The unique numeric ID</strong> — assigned by the publisher. May include sub-parts (<code>800-53</code>), letter suffixes (<code>9001</code>), or prefixed sections (<code>JIS A 0001</code>).
+              </div>
             </div>
-          </div>
-          <div class="anatomy-legend-item">
-            <div class="anatomy-legend-chip" style="--seg-color: #fbbf24">Year</div>
-            <div class="anatomy-legend-desc">
-              <strong>Publication or revision year</strong> — typically separated by a colon (<code>:2015</code>) or hyphen (<code>-2018</code> depending on publisher convention).
+          </li>
+          <li class="anatomy-legend-item" style="--seg-color: #fbbf24">
+            <span class="anatomy-legend-marker" aria-hidden="true"></span>
+            <div class="anatomy-legend-body">
+              <div class="anatomy-legend-title">Year</div>
+              <div class="anatomy-legend-desc">
+                <strong>Publication or revision year</strong> — typically separated by a colon (<code>:2015</code>) or hyphen (<code>-2018</code> depending on publisher convention).
+              </div>
             </div>
-          </div>
-          <div class="anatomy-legend-item">
-            <div class="anatomy-legend-chip" style="--seg-color: #2dd4bf">Supplement</div>
-            <div class="anatomy-legend-desc">
-              <strong>Amendment or Corrigendum</strong> — a supplement identifier <em>contains</em> the base identifier. <code>Amd 1:2023</code> wraps the base standard, adding its own number and year.
+          </li>
+          <li class="anatomy-legend-item" style="--seg-color: #2dd4bf">
+            <span class="anatomy-legend-marker" aria-hidden="true"></span>
+            <div class="anatomy-legend-body">
+              <div class="anatomy-legend-title">Supplement</div>
+              <div class="anatomy-legend-desc">
+                <strong>Amendment or Corrigendum</strong> — a supplement identifier <em>contains</em> the base identifier. <code>Amd 1:2023</code> wraps the base standard, adding its own number and year.
+              </div>
             </div>
-          </div>
-          <div class="anatomy-legend-item">
-            <div class="anatomy-legend-chip" style="--seg-color: #34d399">Language</div>
-            <div class="anatomy-legend-desc">
-              <strong>Publication language</strong> — <code>en</code> (English), <code>fr</code> (French), <code>ru</code> (Russian), etc. Not all publishers include this.
+          </li>
+          <li class="anatomy-legend-item" style="--seg-color: #34d399">
+            <span class="anatomy-legend-marker" aria-hidden="true"></span>
+            <div class="anatomy-legend-body">
+              <div class="anatomy-legend-title">Language</div>
+              <div class="anatomy-legend-desc">
+                <strong>Publication language</strong> — <code>en</code> (English), <code>fr</code> (French), <code>ru</code> (Russian), etc. Not all publishers include this.
+              </div>
             </div>
-          </div>
-        </div>
+          </li>
+        </ol>
       </div>
 
       <div class="anatomy-mapping">
