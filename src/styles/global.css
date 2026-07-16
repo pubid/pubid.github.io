@@ -1,7 +1,8 @@
 @import "tailwindcss";
 @import "@fontsource-variable/fraunces";
 @import "@fontsource-variable/inter-tight";
-@import "@fontsource-variable/newsreader";
+@import "@fontsource-variable/newsreader/opsz.css";
+@import "@fontsource-variable/newsreader/opsz-italic.css";
 @import "@fontsource-variable/jetbrains-mono";
 @import "./theme.css";
 @plugin "@tailwindcss/typography";
