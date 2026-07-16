@@ -19,26 +19,26 @@ const title = post.data.title || 'Untitled'
 ---
 
 <BaseLayout title={title} description={post.data.description || ''}>
-  <article class="mx-auto max-w-3xl px-6 py-16">
+  <article class="mx-auto max-w-3xl px-6 pt-20 pb-24">
     <header class="mb-10">
-      <div class="text-xs uppercase tracking-wide text-[var(--color-text-3)] mb-2">
+      <div class="eyebrow mb-3">
         <a href="/blog" class="hover:text-[var(--color-accent)]">Blog</a>
-        <span class="mx-2">·</span>
+        <span class="mx-2 text-[var(--color-text-3)]">·</span>
         <time datetime={date.toISOString()}>{formatDate(date)}</time>
-        <span class="mx-2">·</span>
+        <span class="mx-2 text-[var(--color-text-3)]">·</span>
         <span>{post.data.author}</span>
       </div>
-      <h1 class="font-display text-4xl font-bold tracking-tight">{title}</h1>
-      {post.data.description && <p class="text-lg text-[var(--color-text-2)] mt-2">{post.data.description}</p>}
+      <h1 class="font-display text-4xl font-semibold tracking-tight text-[var(--color-text)]">{title}</h1>
+      {post.data.description && <p class="text-lg text-[var(--color-text-2)] mt-3 leading-relaxed">{post.data.description}</p>}
     </header>
 
-    <div class="prose prose-pubid max-w-none">
+    <div class="prose max-w-none">
       <Content />
     </div>
 
     {post.data.tags.length > 0 && (
       <footer class="mt-12 pt-6 border-t border-[var(--color-border-subtle)]">
-        <div class="text-xs uppercase tracking-wide text-[var(--color-text-3)] mb-2">Tags</div>
+        <div class="eyebrow mb-3">Tags</div>
         <div class="flex flex-wrap gap-1.5">
           {post.data.tags.map(t => <span class="chip">{t}</span>)}
         </div>
