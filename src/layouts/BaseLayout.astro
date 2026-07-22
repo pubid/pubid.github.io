@@ -45,6 +45,9 @@ const fullTitle = title === 'PubID' ? title : `${title} · PubID`
     </main>
     <Footer />
     <script>
+      import '~/scripts/easter-eggs'
+    </script>
+    <script>
       const io = new IntersectionObserver(
         (entries) => {
           entries.forEach((e) => {
