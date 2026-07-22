@@ -11,9 +11,14 @@
  */
 
 import * as fx from './effects'
-import { EGGS, EGGS_BY_ID, type Egg, type EggContext } from './eggs'
+import { EGGS, type Egg, type EggContext } from './eggs'
+import { EGGS_EXTRA, EXTRA_HELPERS } from './eggs-extra'
 
 const ACCENT = '#2978a1'
+const ACCENT_2 = '#4193ac'
+
+const ALL_EGGS: Egg[] = [...EGGS, ...EGGS_EXTRA]
+const ALL_EGGS_BY_ID = new Map(ALL_EGGS.map(e => [e.id, e]))
 
 let _initialised = false
 let _busymax = false
@@ -25,7 +30,7 @@ function log(msg: string) {
 
 const ctx: EggContext = {
   fire: (id: string) => {
-    const egg = EGGS_BY_ID.get(id)
+    const egg = ALL_EGGS_BY_ID.get(id)
     if (!egg) {
       log(`unknown egg: ${id}`)
       return
@@ -47,10 +52,18 @@ const ctx: EggContext = {
 /* ─── Keyboard: typing sequences ─────────────────────────────── */
 const TYPING_PATTERNS: Array<{ pattern: string; egg: string }> = [
   { pattern: 'ISO 9001', egg: 'iso9001' },
+  { pattern: 'ISO 8601', egg: 'iso8601' },
+  { pattern: 'ISO 27001', egg: 'iso27001' },
+  { pattern: 'IEEE 754', egg: 'ieee754' },
   { pattern: 'RFC 1149', egg: 'rfc1149' },
+  { pattern: 'RFC 2324', egg: 'rfc2324' },
   { pattern: '802.11', egg: 'wifi' },
+  { pattern: 'W3C', egg: 'w3c' },
+  { pattern: 'ISBN', egg: 'isbn' },
+  { pattern: 'DOI', egg: 'doi' },
   { pattern: 'URN', egg: 'urn-morph' },
   { pattern: 'ERRATA', egg: 'errata' },
+  { pattern: 'TRAIL', egg: 'mouse-trail' },
 ]
 
 let _typingBuffer = ''
@@ -158,6 +171,12 @@ function bindTemporal() {
   if (now.getMonth() === 9 && now.getDate() === 14) {
     setTimeout(() => ctx.fire('world-standards-day'), 600)
   }
+  // Tea time — local 15:30 to 17:00
+  if (EXTRA_HELPERS.isCurrentlyTeaTime()) {
+    setTimeout(() => ctx.fire('tea-time'), 1200)
+  }
+  // Idle detector — arms the floating-fragment ambient egg
+  EXTRA_HELPERS.bindIdleHandler()
 }
 
 /* ─── Console API ────────────────────────────────────────────── */
@@ -168,43 +187,45 @@ interface PubidAPI {
   confetti: () => void
   spin: () => void
   shake: () => void
+  trail: (on?: boolean) => boolean
+  joke: () => void
+  fact: () => void
+  ascii: () => void
+  cow: (msg?: string) => void
+  parse: (id: string) => unknown
+  uuid: () => string
   version: string
 }
 
 function printHelp() {
-  const header =
-    '%c╔════════════════════════════════════════════════════════════╗\n' +
-    '%c║  PubID Easter Eggs                                         ║\n' +
-    '%c╚════════════════════════════════════════════════════════════╝'
   // eslint-disable-next-line no-console
   console.log(
-    header,
-    `color:${ACCENT};font-weight:700`,
-    `color:${ACCENT};font-weight:700`,
-    `color:${ACCENT};font-weight:700`
+    `%cPubID Easter Eggs — ${ALL_EGGS.length} hidden`,
+    `color:${ACCENT};font-weight:700;font-size:18px;letter-spacing:-0.01em`
   )
   // eslint-disable-next-line no-console
   console.log(
-    '%cTry these — they are themed around publication identifiers, standards bodies, and the PubID data model.',
+    '%cThemed around publication identifiers, standards bodies, and the PubID data model.\n',
     'color:#52525b;font-style:italic'
   )
 
-  const groups: Record<string, Egg[]> = {
-    'Keyboard sequences': EGGS.filter(e => e.category === 'keystroke'),
-    'Konami code': EGGS.filter(e => e.category === 'konami'),
-    Interactions: EGGS.filter(e => e.category === 'click'),
-    Temporal: EGGS.filter(e => e.category === 'temporal'),
-    'Console API': EGGS.filter(e => e.category === 'console'),
-  }
-  for (const [group, items] of Object.entries(groups)) {
+  const groups: Array<{ name: string; cats: Egg['category'][] }> = [
+    { name: 'Keyboard sequences', cats: ['keystroke'] },
+    { name: 'Konami code', cats: ['konami'] },
+    { name: 'Interactions', cats: ['click'] },
+    { name: 'Temporal (auto)', cats: ['temporal'] },
+    { name: 'Console API', cats: ['console'] },
+  ]
+  for (const g of groups) {
+    const items = ALL_EGGS.filter(e => g.cats.includes(e.category))
     if (items.length === 0) continue
     // eslint-disable-next-line no-console
-    console.log(`%c${group}`, `color:${ACCENT};font-weight:700;font-size:13px`)
+    console.log(`%c${g.name}`, `color:${ACCENT};font-weight:700;font-size:13px`)
     for (const egg of items) {
       // eslint-disable-next-line no-console
       console.log(
-        `  %c${egg.trigger.padEnd(22)}%c  ${egg.name}\n` +
-          `%c${' '.repeat(24)}${egg.description}%c`,
+        `  %c${egg.trigger.padEnd(24)}%c ${egg.name}\n` +
+          `%c${' '.repeat(26)}${egg.description}%c`,
         'color:#0b0d12;font-family:ui-monospace,Menlo,monospace;font-weight:600',
         'color:#52525b',
         'color:#a1a1aa;font-size:11px',
@@ -214,35 +235,34 @@ function printHelp() {
   }
 
   // eslint-disable-next-line no-console
-  console.log(
-    '%c\nProgrammatic:',
-    `color:${ACCENT};font-weight:700;font-size:13px`
-  )
-  // eslint-disable-next-line no-console
-  console.log(
-    '  %cpubid.help()%c        This message\n' +
-      '  %cpubid.list()%c        All eggs as data\n' +
-      '  %cpubid.fire(id)%c      Trigger by id (e.g. pubid.fire(\'pigeon\'))\n' +
-      '  %cpubid.confetti()%c    Burst confetti\n' +
-      '  %cpubid.spin()%c        Spin the logo\n' +
-      '  %cpubid.shake()%c       Shake the page',
-    'color:#0b0d12;font-family:ui-monospace,Menlo,monospace',
-    'color:#52525b',
-    'color:#0b0d12;font-family:ui-monospace,Menlo,monospace',
-    'color:#52525b',
-    'color:#0b0d12;font-family:ui-monospace,Menlo,monospace',
-    'color:#52525b',
-    'color:#0b0d12;font-family:ui-monospace,Menlo,monospace',
-    'color:#52525b',
-    'color:#0b0d12;font-family:ui-monospace,Menlo,monospace',
-    'color:#52525b',
-    'color:#0b0d12;font-family:ui-monospace,Menlo,monospace',
-    'color:#52525b'
-  )
+  console.log('%c\nProgrammatic:', `color:${ACCENT};font-weight:700;font-size:13px`)
+  const cmds = [
+    ['pubid.help()', 'This message'],
+    ['pubid.list()', `All eggs as data (${ALL_EGGS.length} total)`],
+    ['pubid.fire(id)', 'Trigger a specific egg by id'],
+    ['pubid.joke()', 'A standards joke'],
+    ['pubid.fact()', 'A standards-world fact'],
+    ['pubid.ascii()', 'ASCII-art wordmark'],
+    ['pubid.cow(msg?)', 'cowsay with an optional message'],
+    ['pubid.parse(id)', 'Parse an identifier into components'],
+    ['pubid.uuid()', 'Generate a UUID'],
+    ['pubid.trail(on?)', 'Toggle mouse-trail sparkles'],
+    ['pubid.confetti()', 'Burst confetti'],
+    ['pubid.spin()', 'Spin the logo'],
+    ['pubid.shake()', 'Shake the page'],
+  ]
+  for (const [cmd, desc] of cmds) {
+    // eslint-disable-next-line no-console
+    console.log(
+      `  %c${cmd.padEnd(22)}%c ${desc}`,
+      'color:#0b0d12;font-family:ui-monospace,Menlo,monospace',
+      'color:#52525b'
+    )
+  }
 
   // eslint-disable-next-line no-console
   console.log(
-    '%c\nReduced motion is respected — flashy eggs no-op when set.\nHave fun. ✨',
+    '%c\nReduced motion is respected. Keyboard sequences are ignored inside form fields.\nHave fun. ✨',
     'color:#52525b;font-style:italic'
   )
 }
@@ -250,20 +270,44 @@ function printHelp() {
 function installConsoleApi() {
   const api: PubidAPI = {
     help: printHelp,
-    list: () => EGGS.slice(),
+    list: () => ALL_EGGS.slice(),
     fire: (id: string) => ctx.fire(id),
     confetti: () => ctx.fire('confetti'),
     spin: () => ctx.fire('spin'),
     shake: () => ctx.fire('shake'),
-    version: '1.0.0',
+    trail: (on?: boolean) => {
+      EXTRA_HELPERS.bindTrailHandler()
+      return EXTRA_HELPERS.toggleTrail(on)
+    },
+    joke: () => ctx.fire('joke'),
+    fact: () => ctx.fire('fact'),
+    ascii: () => ctx.fire('ascii'),
+    cow: (msg?: string) => {
+      // eslint-disable-next-line no-console
+      console.log(
+        `%c${EXTRA_HELPERS.cowsay(msg)}`,
+        `color:${ACCENT_2};font-family:ui-monospace,Menlo,monospace`
+      )
+    },
+    parse: (id: string) => {
+      const result = EXTRA_HELPERS.parseIdentifier(id)
+      // eslint-disable-next-line no-console
+      console.log(result)
+      return result
+    },
+    uuid: () => {
+      const u = EXTRA_HELPERS.uuid()
+      // eslint-disable-next-line no-console
+      console.log(u)
+      return u
+    },
+    version: '2.0.0',
   }
   Object.defineProperty(window, 'pubid', {
     value: api,
     writable: false,
     configurable: true,
   })
-  // Alias `help` so typing `help` in console opens the directory.
-  // We only define it if no page-script helper already exists.
   if (!(window as unknown as { help?: unknown }).help) {
     Object.defineProperty(window, 'help', {
       value: printHelp,
