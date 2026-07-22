@@ -338,3 +338,315 @@ export function fadeOut(el: Element, duration = 240): Promise<void> {
 export const sleep = (ms: number) => new Promise<void>(r => setTimeout(r, ms))
 
 export const COLORS = { ACCENT, ACCENT_2, WARM, PALETTE }
+
+/* ─── Extra primitives for v2 eggs ─────────────────────────────── */
+
+/** Web Audio synth — simple sine/triangle/square beep. No-op if AudioContext unavailable. */
+let _audioCtx: AudioContext | null = null
+function audioCtx(): AudioContext | null {
+  if (_audioCtx) return _audioCtx
+  const w = window as unknown as {
+    AudioContext?: typeof AudioContext
+    webkitAudioContext?: typeof AudioContext
+  }
+  const Ctor = w.AudioContext || w.webkitAudioContext
+  if (!Ctor) return null
+  try {
+    _audioCtx = new Ctor()
+  } catch {
+    return null
+  }
+  return _audioCtx
+}
+
+export function beep(opts: {
+  freq?: number
+  duration?: number
+  type?: OscillatorType
+  volume?: number
+  delay?: number
+} = {}): void {
+  const {
+    freq = 880,
+    duration = 90,
+    type = 'sine',
+    volume = 0.05,
+    delay = 0,
+  } = opts
+  const ctx = audioCtx()
+  if (!ctx) return
+  if (ctx.state === 'suspended') void ctx.resume()
+  const start = ctx.currentTime + delay / 1000
+  const osc = ctx.createOscillator()
+  const gain = ctx.createGain()
+  osc.type = type
+  osc.frequency.setValueAtTime(freq, start)
+  gain.gain.setValueAtTime(0.0001, start)
+  gain.gain.exponentialRampToValueAtTime(volume, start + 0.005)
+  gain.gain.exponentialRampToValueAtTime(0.0001, start + duration / 1000)
+  osc.connect(gain).connect(ctx.destination)
+  osc.start(start)
+  osc.stop(start + duration / 1000 + 0.02)
+}
+
+/** A scan line that sweeps vertically or horizontally across the viewport. */
+export function scanLine(opts: {
+  direction?: 'vertical' | 'horizontal'
+  color?: string
+  duration?: number
+  thickness?: number
+  onProgress?: (p: number) => void
+}): { animation: Animation; el: HTMLElement } {
+  const {
+    direction = 'vertical',
+    color = ACCENT,
+    duration = 2200,
+    thickness = 2,
+    onProgress,
+  } = opts
+  const el = makeEl('div', {
+    position: 'fixed',
+    background:
+      direction === 'vertical'
+        ? `linear-gradient(180deg, transparent 0%, ${color} 50%, transparent 100%)`
+        : `linear-gradient(90deg, transparent 0%, ${color} 50%, transparent 100%)`,
+    boxShadow: `0 0 14px ${color}, 0 0 28px ${color}`,
+    opacity: '0.85',
+    zIndex: '10000',
+    pointerEvents: 'none',
+  })
+  if (direction === 'vertical') {
+    Object.assign(el.style, {
+      left: '0',
+      right: '0',
+      top: '0',
+      height: `${thickness}px`,
+    } as Style)
+  } else {
+    Object.assign(el.style, {
+      top: '0',
+      bottom: '0',
+      left: '0',
+      width: `${thickness}px`,
+    } as Style)
+  }
+  overlay().appendChild(el)
+  const distance =
+    direction === 'vertical' ? window.innerHeight : window.innerWidth
+  const keyframes =
+    direction === 'vertical'
+      ? [{ transform: 'translateY(0)' }, { transform: `translateY(${distance}px)` }]
+      : [{ transform: 'translateX(0)' }, { transform: `translateX(${distance}px)` }]
+  const animation = el.animate(keyframes, {
+    duration,
+    easing: 'linear',
+    fill: 'forwards',
+  })
+  if (onProgress) {
+    const tick = () => {
+      const t = Number(animation.currentTime ?? 0)
+      if (animation.playState === 'finished') {
+        onProgress(1)
+        return
+      }
+      onProgress(t / duration)
+      requestAnimationFrame(tick)
+    }
+    requestAnimationFrame(tick)
+  }
+  animation.onfinish = () => el.remove()
+  return { animation, el }
+}
+
+/** A single ripple expanding outward from a point. */
+export function ripple(opts: {
+  x: number
+  y: number
+  color?: string
+  duration?: number
+  maxScale?: number
+}): Animation {
+  const { x, y, color = ACCENT, duration = 1100, maxScale = 22 } = opts
+  const ring = makeEl('div', {
+    position: 'fixed',
+    left: `${x}px`,
+    top: `${y}px`,
+    width: '12px',
+    height: '12px',
+    marginLeft: '-6px',
+    marginTop: '-6px',
+    border: `2px solid ${color}`,
+    borderRadius: '999px',
+    pointerEvents: 'none',
+    zIndex: '10000',
+  })
+  overlay().appendChild(ring)
+  const anim = ring.animate(
+    [
+      { transform: 'scale(0)', opacity: 1 },
+      { transform: `scale(${maxScale})`, opacity: 0 },
+    ],
+    { duration, easing: 'cubic-bezier(0.2,0.8,0.2,1)', fill: 'forwards' }
+  )
+  anim.onfinish = () => ring.remove()
+  return anim
+}
+
+/** Card-style flip on the X axis, swapping text content at the midpoint. */
+export async function flipText(
+  el: HTMLElement,
+  newText: string,
+  opts: { color?: string; duration?: number } = {}
+): Promise<void> {
+  const { color, duration = 220 } = opts
+  await el.animate(
+    [
+      { transform: 'rotateX(0deg)', opacity: 1 },
+      { transform: 'rotateX(90deg)', opacity: 0 },
+    ],
+    { duration: duration / 2, easing: 'ease-in', fill: 'forwards' }
+  ).finished
+  el.textContent = newText
+  if (color) el.style.color = color
+  await el.animate(
+    [
+      { transform: 'rotateX(90deg)', opacity: 0 },
+      { transform: 'rotateX(0deg)', opacity: 1 },
+    ],
+    { duration: duration / 2, easing: 'ease-out', fill: 'forwards' }
+  ).finished
+}
+
+const FRAGMENTS = [
+  'ISO',
+  'IEC',
+  'IEEE',
+  'NIST',
+  'IETF',
+  'W3C',
+  'OASIS',
+  'ITU',
+  'BSI',
+  'ANSI',
+  'XSF',
+  '3GPP',
+  'BIPM',
+  'ECMA',
+  'OGC',
+  'CalConnect',
+  'Amd',
+  'Cor',
+  'DIS',
+  'FDIS',
+]
+
+/** Spawn a single floating identifier fragment that drifts upward. */
+export function floatingFragment(opts: {
+  x?: number
+  y?: number
+  text?: string
+  delay?: number
+  color?: string
+  size?: number
+  duration?: number
+} = {}): Animation {
+  const {
+    x,
+    y,
+    text = FRAGMENTS[Math.floor(Math.random() * FRAGMENTS.length)],
+    delay = 0,
+    color = 'rgba(41, 120, 161, 0.55)',
+    size = 12,
+    duration = 5200 + Math.random() * 2200,
+  } = opts
+  const startX = x ?? Math.random() * window.innerWidth
+  const startY = y ?? window.innerHeight + 20
+  const frag = makeEl(
+    'div',
+    {
+      position: 'fixed',
+      left: `${startX}px`,
+      top: `${startY}px`,
+      color,
+      fontFamily: 'ui-monospace, "SF Mono", Menlo, monospace',
+      fontSize: `${size}px`,
+      fontWeight: '500',
+      pointerEvents: 'none',
+      zIndex: '99',
+      willChange: 'transform,opacity',
+    },
+    text
+  )
+  overlay().appendChild(frag)
+  const drift = (Math.random() - 0.5) * 120
+  const rise = window.innerHeight + 100
+  const anim = frag.animate(
+    [
+      { transform: 'translate(0, 0)', opacity: 0 },
+      { transform: `translate(${drift / 2}px, -120px)`, opacity: 0.7, offset: 0.2 },
+      { transform: `translate(${drift}px, -${rise}px)`, opacity: 0 },
+    ],
+    { duration, delay, easing: 'linear', fill: 'forwards' }
+  )
+  anim.onfinish = () => frag.remove()
+  return anim
+}
+
+/** Static border "frame" that animates inward — used for ISO 27001 lockdown. */
+export function lockdownFrame(opts: {
+  color?: string
+  duration?: number
+} = {}): HTMLElement {
+  const { color = '#34d399', duration = 600 } = opts
+  const frame = makeEl('div', {
+    position: 'fixed',
+    inset: '0',
+    pointerEvents: 'none',
+    zIndex: '9998',
+    boxShadow: `inset 0 0 0 0 ${color}, inset 0 0 0 0 ${color}`,
+  })
+  overlay().appendChild(frame)
+  frame.animate(
+    [
+      { boxShadow: `inset 0 0 0 0 ${color}, inset 0 0 0px 0 ${color}33` },
+      {
+        boxShadow: `inset 0 0 0 3px ${color}, inset 0 0 40px 0 ${color}55`,
+      },
+    ],
+    { duration, easing: 'cubic-bezier(0.22,1,0.36,1)', fill: 'forwards' }
+  )
+  return frame
+}
+
+/** Apply a momentary glow to an arbitrary element. */
+export function glow(
+  target: Element,
+  opts: { color?: string; duration?: number } = {}
+) {
+  const { color = '#34d399', duration = 700 } = opts
+  const rect = target.getBoundingClientRect()
+  const glowEl = makeEl('div', {
+    position: 'fixed',
+    left: `${rect.left - 4}px`,
+    top: `${rect.top - 4}px`,
+    width: `${rect.width + 8}px`,
+    height: `${rect.height + 8}px`,
+    border: `2px solid ${color}`,
+    borderRadius: '4px',
+    pointerEvents: 'none',
+    zIndex: '9999',
+    opacity: '0',
+  })
+  overlay().appendChild(glowEl)
+  const anim = glowEl.animate(
+    [
+      { opacity: 0, transform: 'scale(1)' },
+      { opacity: 1, transform: 'scale(1)', offset: 0.3 },
+      { opacity: 0, transform: 'scale(1.04)' },
+    ],
+    { duration, easing: 'ease-out', fill: 'forwards' }
+  )
+  anim.onfinish = () => glowEl.remove()
+}
+
+export { FRAGMENTS }
