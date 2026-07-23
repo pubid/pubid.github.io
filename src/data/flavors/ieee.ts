@@ -8,7 +8,7 @@ export const ieee: Publisher = {
   category: "international",
   description: "IEEE is the world's largest technical professional organization for the advancement of technology. IEEE Standards Association (IEEE SA) develops standards across a wide range of industries including power and energy, telecommunications, computing, and more.",
   website: "https://standards.ieee.org",
-  syntaxNotes: "IEEE identifiers follow patterns like: IEEE Std [Number]-[Year], IEEE [Number]-[Year], IEEE [Draft Number]/D[DraftVersion]. Some include AIEE legacy identifiers.",
+  syntaxNotes: "IEEE identifiers follow patterns like: IEEE Std [Number]-[Year], IEEE [Number]-[Year], IEEE [Draft Number]/D[DraftVersion]. Some include AIEE legacy identifiers. Both /Amd and /Cor separators are flexible — slash, hyphen, and space variants are accepted and normalised.",
   urnPattern: "urn:ieee:std:[number]:[year]",
   relatedFlavors: ["iec", "iso", "csa", "bsi"],
   docTypes: [

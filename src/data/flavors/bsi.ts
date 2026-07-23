@@ -45,12 +45,30 @@ export const bsi: Publisher = {
     },
     {
       key: "aerospace_standard",
-      title: "Aerospace Standard",
+      title: "Aerospace Standard (Annex F series)",
       abbr: ["BS A", "BS Aerospace"],
-      description: "Standards for the aerospace industry.",
+      description: "Aerospace series standards — part of the BSI Annex F taxonomy covering automotive (BS AU), aerospace (BS A), and marine (BS MA) series designations.",
       examples: [
         { input: "BS A 242-A 245:1974+A1:2017" },
         { input: "BS A 246-A 249:1974+A1:2017" },
+    ],
+    },
+    {
+      key: "automotive_standard",
+      title: "Automotive Standard (Annex F series)",
+      abbr: ["BS AU"],
+      description: "Automotive series standards from BSI's Annex F taxonomy.",
+      examples: [
+        { input: "BS AU 50-1:1971" },
+    ],
+    },
+    {
+      key: "marine_standard",
+      title: "Marine Standard (Annex F series)",
+      abbr: ["BS MA"],
+      description: "Marine series standards from BSI's Annex F taxonomy.",
+      examples: [
+        { input: "BS MA 1:1967" },
     ],
     },
     {

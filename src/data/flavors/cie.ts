@@ -6,9 +6,9 @@ export const cie: Publisher = {
   name: "CIE",
   fullName: "International Commission on Illumination",
   category: "industry",
-  description: "The CIE (Commission Internationale de l'Eclairage) is an independent, non-profit organization devoted to international cooperation and exchange of information on matters related to light, lighting, and color.",
+  description: "The CIE (Commission Internationale de l'Eclairage) is an independent, non-profit organization devoted to international cooperation and exchange of information on matters related to light, lighting, and color. CIE identifier families include Standards (S), Technical Specifications (TS), Proceedings, and D-series discrete documents; every identifier is guaranteed a non-empty root number for relaton-index compatibility.",
   website: "https://www.cie.co.at",
-  syntaxNotes: "CIE identifiers use numeric identifiers: CIE [Number]:[Year], CIE [Number]-[Part]:[Year]. Joint publications include CIE ISO prefix.",
+  syntaxNotes: "CIE identifiers use numeric identifiers: CIE [Number]:[Year], CIE [Number]-[Part]:[Year]. Joint publications include CIE ISO prefix. Partial references with an optional trailing year are accepted.",
   relatedFlavors: ["iso"],
   docTypes: [
     {
@@ -19,6 +19,34 @@ export const cie: Publisher = {
       examples: [
         { input: "CIE 232:2019" },
         { input: "CIE 198-SP1.1:2011" },
+        { input: "CIE S 025" },
+    ],
+    },
+    {
+      key: "technical_specification",
+      title: "Technical Specification",
+      abbr: ["TS"],
+      description: "CIE Technical Specifications — provisional specifications published while technology is evolving.",
+      examples: [
+        { input: "CIE TS 220:2018" },
+    ],
+    },
+    {
+      key: "proceedings",
+      title: "Proceedings",
+      abbr: ["Proc"],
+      description: "CIE Session proceedings — collected papers from CIE biennial sessions.",
+      examples: [
+        { input: "CIE Proc 1:2023" },
+    ],
+    },
+    {
+      key: "d_series",
+      title: "D-Series Discrete Document",
+      abbr: ["D"],
+      description: "CIE D-series discrete documents — individual technical reports outside the numbered Standard series.",
+      examples: [
+        { input: "CIE D1:2018" },
     ],
     },
     {

@@ -6,9 +6,9 @@ export const nist: Publisher = {
   name: "NIST",
   fullName: "National Institute of Standards and Technology",
   category: "national",
-  description: "NIST is a physical sciences laboratory and a non-regulatory agency of the U.S. Department of Commerce. NIST was the first organization to adopt a multi-style, round-trippable PubID scheme with four defined rendering styles (full, abbreviated, short, machine-readable). The NIST PubID covers 19,333+ documents dating from 1901.",
+  description: "NIST is a physical sciences laboratory and a non-regulatory agency of the U.S. Department of Commerce. NIST was the first organization to adopt a multi-style, round-trippable PubID scheme with four defined rendering styles (full, abbreviated, short, machine-readable). The NIST PubID covers 19,333+ documents dating from 1901. Long-form prefixes (Rev.1, Part.1, Vol. 3) are normalised to canonical short form; \"Monograph\" is normalised to MONO; \"NIST Research Library (YYYY)\" is parsed as a one-off identifier.",
   website: "https://www.nist.gov",
-  syntaxNotes: "NIST identifiers use publisher abbreviations (NIST, NBS for pre-1988 documents) followed by a type abbreviation and number. NIST PubID defines four rendering styles: Full (Long), Abbreviated, Short, and Machine-Readable (MR). The MR style uses dot-separated fields and serves as the DOI suffix.",
+  syntaxNotes: "NIST identifiers use publisher abbreviations (NIST, NBS for pre-1988 documents) followed by a type abbreviation and number. NIST PubID defines four rendering styles: Full (Long), Abbreviated, Short, and Machine-Readable (MR). The MR style uses dot-separated fields and serves as the DOI suffix. Citation-form commas are stripped on parse; long-form \"Vol.\" / \"Part.\" / \"Rev.\" prefixes are accepted and normalised.",
   relatedFlavors: ["ansi", "ieee"],
   docTypes: [
     {
@@ -82,10 +82,11 @@ export const nist: Publisher = {
       key: "monograph",
       title: "Monograph",
       abbr: ["MONO"],
-      description: "NBS/NIST Monographs.",
+      description: "NBS/NIST Monographs. The long-form \"Monograph\" name is accepted and normalised to MONO.",
       examples: [
         { input: "NBS MONO 1" },
         { input: "NIST MONO 1" },
+        { input: "NIST Monograph 1" },
     ],
     },
     {
@@ -225,6 +226,15 @@ export const nist: Publisher = {
       description: "Low-volume NIST series present in the MODS publication dump.",
       examples: [
         { input: "NIST NWIRP 1" },
+    ],
+    },
+    {
+      key: "research_library",
+      title: "NIST Research Library",
+      abbr: ["Research Library"],
+      description: "One-off historical identifier for the NIST Research Library, identified by \"NIST Research Library (YYYY)\".",
+      examples: [
+        { input: "NIST Research Library (2023)" },
     ],
     },
 ],

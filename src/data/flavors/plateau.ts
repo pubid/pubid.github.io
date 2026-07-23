@@ -6,19 +6,20 @@ export const plateau: Publisher = {
   name: "PLATEAU",
   fullName: "PLATEAU (MLIT Japan)",
   category: "national",
-  description: "PLATEAU is a project by Japan's Ministry of Land, Infrastructure, Transport and Tourism (MLIT) that promotes the use of 3D city models for urban planning and management.",
+  description: "PLATEAU is a project by Japan's Ministry of Land, Infrastructure, Transport and Tourism (MLIT) that promotes the use of 3D city models for urban planning and management. Legacy Latin references (e.g. \"PLATEAU Handbook #00 v1.0\") are parsed and normalised to the canonical Japanese form (第X.X版).",
   website: "https://www.mlit.go.jp/plateau",
-  syntaxNotes: "PLATEAU identifiers follow: PLATEAU [Type] #[Number] [Edition]. Types include Handbook, Technical Report, Annex. Japanese edition numbering is used.",
+  syntaxNotes: "PLATEAU identifiers follow: PLATEAU [Type] #[Number] [Edition]. Types include Handbook, Technical Report, Annex. Japanese edition numbering is used (第X.X版). Legacy Latin references (\"v1.0\", \"Version 1.0\") are accepted and normalised.",
   relatedFlavors: ["jis"],
   docTypes: [
     {
       key: "handbook",
       title: "Handbook",
       abbr: ["Handbook"],
-      description: "PLATEAU Handbooks providing guidance on 3D city model usage.",
+      description: "PLATEAU Handbooks providing guidance on 3D city model usage. Legacy Latin edition forms are normalised to the canonical Japanese edition.",
       examples: [
         { input: "PLATEAU Handbook #00 第1.0版" },
         { input: "PLATEAU Handbook #00 第2.0版" },
+        { input: "PLATEAU Handbook #00 v1.0" },
     ],
     },
     {
