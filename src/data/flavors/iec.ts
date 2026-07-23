@@ -8,7 +8,7 @@ export const iec: Publisher = {
   category: "international",
   description: "The IEC is a global organization that prepares and publishes international standards for all electrical, electronic, and related technologies. IEC standards cover a vast range of technologies from power generation to nanotechnology.",
   website: "https://www.iec.ch",
-  syntaxNotes: "IEC identifiers follow the pattern: IEC [Type] [Number]-[Part]:[Year]. Many IEC identifiers include CISPR (Comité International Spécial des Perturbations Radioélectriques) designations. Value-added products (CSV, CMV, RLV, etc.) use suffixes.",
+  syntaxNotes: "IEC identifiers follow the pattern: IEC [Type] [Number]-[Part]:[Year]. Many IEC identifiers include CISPR (Comité International Spécial des Perturbations Radioélectriques) designations. Value-added products (CSV, CMV, RLV, etc.) use suffixes. IEC EE (System for Certification to Standards Relating to Electrical Equipment) publishes technical group TRFs — e.g. IECEE TRF 60335-2-4;7F:2012 — which are normalised to ampersand form. Undated references (\":--\") are accepted.",
   urnPattern: "urn:iec:std:iec:[number]:[edition]:[language]",
   relatedFlavors: ["iso", "ieee", "bsi", "cen-cenelec", "csa"],
   docTypes: [
@@ -22,6 +22,26 @@ export const iec: Publisher = {
         { input: "IEC 60950-1:2005+AMD1:2009+AMD2:2013 CSV" },
         { input: "CISPR 16-1-1:2019" },
         { input: "IEC 60034-1:2022 RLV" },
+    ],
+    },
+    {
+      key: "iecee_trf",
+      title: "IEC EE Test Report Form",
+      abbr: ["IECEE TRF"],
+      description: "Test Report Forms published under IEC EE (System for Certification to Standards Relating to Electrical Equipment). Format is \"IECEE TRF [base] [ edition]:[year]\"; semicolon separators are normalised to the ampersand form.",
+      examples: [
+        { input: "IECEE TRF 60335-2-4;7F:2012" },
+        { input: "IECEE TRF 60065:2014" },
+    ],
+    },
+    {
+      key: "technical_group",
+      title: "Technical Group Identifier",
+      abbr: ["IECEE", "IECEx", "IECRE"],
+      description: "Identifiers prefixed by an IEC conformity-assessment system (IECEE, IECEx, IECRE) for technical-group documents.",
+      examples: [
+        { input: "IECEE CTL 8" },
+        { input: "IECEx 2:2013" },
     ],
     },
     {

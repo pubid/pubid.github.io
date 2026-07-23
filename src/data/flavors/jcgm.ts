@@ -6,9 +6,9 @@ export const jcgm: Publisher = {
   name: "JCGM",
   fullName: "Joint Committee for Guides in Metrology",
   category: "international",
-  description: "The JCGM works to promote and harmonize metrology guidance, maintaining the Guide to the Expression of Uncertainty in Measurement (GUM) and the International Vocabulary of Metrology (VIM).",
+  description: "The JCGM works to promote and harmonize metrology guidance, maintaining the Guide to the Expression of Uncertainty in Measurement (GUM) and the International Vocabulary of Metrology (VIM). Bare GUM/VIM-3 guide references and partial references with an optional trailing date are accepted.",
   website: "https://www.bipm.org/en/committees/jc/jcgm",
-  syntaxNotes: "JCGM identifiers follow: JCGM [Number]:[Year] or JCGM GUM-[Part]:[Year]. The GUM guides use the GUM prefix.",
+  syntaxNotes: "JCGM identifiers follow: JCGM [Number]:[Year] or JCGM GUM-[Part]:[Year]. The GUM guides use the GUM prefix. Bare \"GUM\" / \"VIM-3\" forms are accepted and normalised; partial references (no year) and partial references with a trailing date are supported.",
   relatedFlavors: ["iso", "oiml"],
   docTypes: [
     {
@@ -21,16 +21,38 @@ export const jcgm: Publisher = {
         { input: "JCGM 101:2008" },
         { input: "JCGM 102:2011" },
         { input: "JCGM 200:2012" },
+        { input: "JCGM 100" },
+        { input: "JCGM 100 (2017)" },
     ],
     },
     {
       key: "gum_guide",
       title: "GUM Guide",
       abbr: ["GUM"],
-      description: "Specific GUM (Guide to the Expression of Uncertainty in Measurement) publications.",
+      description: "Specific GUM (Guide to the Expression of Uncertainty in Measurement) publications. Bare \"GUM\" is accepted and normalised.",
       examples: [
         { input: "JCGM GUM-1:2022-11-28" },
         { input: "JCGM GUM-6:2020" },
+        { input: "GUM" },
+        { input: "VIM-3" },
+    ],
+    },
+    {
+      key: "corrigendum",
+      title: "Corrigendum",
+      abbr: ["Cor"],
+      description: "Corrigendum suffix to a JCGM guide.",
+      examples: [
+        { input: "JCGM 100:2008/Cor 1:2010" },
+    ],
+    },
+    {
+      key: "committee_meeting",
+      title: "Committee / Meeting Identifier",
+      abbr: ["JCGM/WG"],
+      description: "JCGM working-group committee and meeting identifiers.",
+      examples: [
+        { input: "JCGM/WG 1" },
     ],
     },
     {

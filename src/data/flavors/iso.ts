@@ -6,9 +6,9 @@ export const iso: Publisher = {
   name: "ISO",
   fullName: "International Organization for Standardization",
   category: "international",
-  description: "ISO is an independent, non-governmental international organization that develops standards to ensure the quality, safety, and efficiency of products, services, and systems. ISO has published over 25,000 international standards covering almost all aspects of technology and manufacturing.",
+  description: "ISO is an independent, non-governmental international organization that develops standards to ensure the quality, safety, and efficiency of products, services, and systems. ISO has published over 25,000 international standards covering almost all aspects of technology and manufacturing. Undated references (\":--\" and the em-dash variant \":—\") are accepted.",
   website: "https://www.iso.org",
-  syntaxNotes: "ISO identifiers follow the pattern: [Copublisher/]ISO [Type] [Number][-Part]:[Year]. Joint publications use copublishers like ISO/IEC, ISO/ASTM, etc.",
+  syntaxNotes: "ISO identifiers follow the pattern: [Copublisher/]ISO [Type] [Number][-Part]:[Year]. Joint publications use copublishers like ISO/IEC, ISO/ASTM, etc. Undated references use \":--\" or \":—\" for the year placeholder.",
   urnPattern: "urn:iso:std:iso[:copublisher]:[number]:[edition]:[language]",
   relatedFlavors: ["iec", "astm", "bsi", "cen-cenelec", "ieee"],
   docTypes: [
@@ -16,12 +16,14 @@ export const iso: Publisher = {
       key: "international_standard",
       title: "International Standard",
       abbr: ["IS"],
-      description: "The primary deliverable of ISO. International Standards are documents that provide requirements, specifications, guidelines, or characteristics that can be used consistently to ensure materials, products, processes, and services are fit for their purpose.",
+      description: "The primary deliverable of ISO. International Standards are documents that provide requirements, specifications, guidelines, or characteristics that can be used consistently to ensure materials, products, processes, and services are fit for their purpose. Undated references are accepted.",
       examples: [
         { input: "ISO 9001:2015" },
         { input: "ISO/IEC 17031-1:2020" },
         { input: "ISO 14001:2015(en)" },
         { input: "ISO 9001:2015/Ed 5" },
+        { input: "ISO 9001:--" },
+        { input: "ISO 9001:—" },
     ],
     },
     {

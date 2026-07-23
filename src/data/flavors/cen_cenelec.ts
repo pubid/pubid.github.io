@@ -9,7 +9,7 @@ export const cen_cenelec: Publisher = {
   category: "regional",
   description: "CEN (European Committee for Standardization) and CENELEC (European Committee for Electrotechnical Standardization) are two distinct organizations managed by a single body, the CEN-CENELEC Management Centre (CCMC). They share a unified publishing system, identifier grammar, and catalogue. CEN cooperates with ISO (Vienna Agreement) and CENELEC cooperates with IEC (Frankfurt Agreement). Both are recognized by the EU and EFTA.",
   website: "https://www.cencenelec.eu",
-  syntaxNotes: "CEN-CENELEC identifiers use EN (European Norm) designations with CEN or CLC (CENELEC) publisher prefixes. Patterns: EN [Number]:[Year], CEN/TS [Number]:[Year], CLC/TR [Number]:[Year], CEN/CLC [Type] [Number]:[Year].",
+  syntaxNotes: "CEN-CENELEC identifiers use EN (European Norm) designations with CEN or CLC (CENELEC) publisher prefixes. Patterns: EN [Number]:[Year], CEN/TS [Number]:[Year], CLC/TR [Number]:[Year], CEN/CLC [Type] [Number]:[Year]. CENELEC ENs in the IEC number range (e.g. EN 6XXXX) implicitly adopt the corresponding IEC publication; parts break this implicit adoption and require an explicit BS EN IEC form.",
   urnPattern: "urn:cen:std:en:[number]:[year]",
   relatedFlavors: ["iso", "iec", "bsi"],
   docTypes: [
@@ -17,11 +17,12 @@ export const cen_cenelec: Publisher = {
       key: "european_norm",
       title: "European Norm",
       abbr: ["EN"],
-      description: "EN standards are European Standards that must be adopted by all CEN national members.",
+      description: "EN standards are European Standards that must be adopted by all CEN national members. CENELEC ENs in the IEC number range (e.g. EN 6XXXX) carry an implicit IEC adoption.",
       examples: [
         { input: "EN 196-3:2005+A1:2008" },
         { input: "EN 527-2:2016+A1:2019" },
         { input: "EN 1090-2:2018" },
+        { input: "EN 60034-1:2010" },
     ],
     },
     {

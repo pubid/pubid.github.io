@@ -6,9 +6,9 @@ export const ashrae: Publisher = {
   name: "ASHRAE",
   fullName: "American Society of Heating, Refrigerating and Air-Conditioning Engineers",
   category: "industry",
-  description: "ASHRAE is a global professional society advancing heating, ventilation, air conditioning, and refrigeration (HVAC&R) systems. ASHRAE Standards establish minimum requirements for energy efficiency, indoor air quality, and building systems.",
+  description: "ASHRAE is a global professional society advancing heating, ventilation, air conditioning, and refrigeration (HVAC&R) systems. ASHRAE Standards establish minimum requirements for energy efficiency, indoor air quality, and building systems. Bare \"ASHRAE [code]\" partial references are accepted.",
   website: "https://www.ashrae.org",
-  syntaxNotes: "ASHRAE identifiers follow patterns like: ASHRAE Standard [Number]-[Year], ASHRAE Guideline [Number]-[Year], with addenda appended.",
+  syntaxNotes: "ASHRAE identifiers follow patterns like: ASHRAE Standard [Number]-[Year], ASHRAE Guideline [Number]-[Year], with addenda appended. Bare partial references (just \"ASHRAE 90.1\" with no \"Standard\" keyword or year) are accepted and normalised.",
   relatedFlavors: ["ansi", "amca"],
   docTypes: [
     {
@@ -21,6 +21,7 @@ export const ashrae: Publisher = {
         { input: "ASHRAE Standard 90.1-2022" },
         { input: "ASHRAE Standard 62.1-2022" },
         { input: "ASHRAE Standard 55-2023" },
+        { input: "ASHRAE 90.1" },
     ],
     },
     {
