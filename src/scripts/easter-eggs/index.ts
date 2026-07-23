@@ -58,6 +58,7 @@ const TYPING_PATTERNS: Array<{ pattern: string; egg: string }> = [
   { pattern: 'RFC 1149', egg: 'rfc1149' },
   { pattern: 'RFC 2324', egg: 'rfc2324' },
   { pattern: '802.11', egg: 'wifi' },
+  { pattern: 'NIST', egg: 'nist' },
   { pattern: 'W3C', egg: 'w3c' },
   { pattern: 'ISBN', egg: 'isbn' },
   { pattern: 'DOI', egg: 'doi' },

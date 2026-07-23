@@ -507,6 +507,89 @@ const DOI_RESOLVE: Egg = {
 }
 
 /* ─────────────────────────────────────────────────────────────────
+ * NIST — Internet Time Service synchronization (time.nist.gov).
+ * ───────────────────────────────────────────────────────────────── */
+const NIST_SYNC: Egg = {
+  id: 'nist',
+  name: 'NIST Time Sync',
+  description:
+    'A synchronisation sweep contacts time.nist.gov and pins a live UTC clock to the corner.',
+  category: 'keystroke',
+  trigger: 'Type "NIST"',
+  async activate(ctx) {
+    ctx.log('Contacting time.nist.gov…')
+    fx.toast('Syncing to time.nist.gov…', { color: ACCENT, duration: 1500 })
+
+    const { animation } = fx.scanLine({
+      direction: 'vertical',
+      color: ACCENT,
+      duration: 1500,
+      thickness: 1,
+    })
+
+    // Tick-tick-tick during the sweep
+    for (let i = 0; i < 4; i++) {
+      fx.beep({
+        freq: 1000 + i * 220,
+        duration: 28,
+        delay: i * 380,
+        volume: 0.04,
+        type: 'square',
+      })
+    }
+
+    await animation.finished
+
+    const badge = document.createElement('div')
+    badge.style.cssText = `
+      position: fixed; top: 80px; right: 20px;
+      background: rgba(9,9,11,0.92);
+      color: #fafafa;
+      border: 1px solid ${ACCENT};
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+      opacity: 0;
+      min-width: 220px;
+      z-index: 10000;
+    `
+    badge.innerHTML = `
+      <div style="font-size:9px;color:#a1a1aa;letter-spacing:0.12em;margin-bottom:6px;">NIST INTERNET TIME SERVICE</div>
+      <div data-clock style="font-size:13px;font-weight:700;color:${ACCENT};font-variant-numeric:tabular-nums;">${new Date().toISOString()}</div>
+      <div style="display:flex;gap:8px;font-size:9px;margin-top:6px;color:${GREEN};">
+        <span>✓ stratum 1</span>
+        <span style="color:#a1a1aa;">±0.001s</span>
+      </div>
+    `
+    fx.overlay().appendChild(badge)
+    badge.animate(
+      [
+        { opacity: 0, transform: 'translateY(-8px) scale(0.96)' },
+        { opacity: 1, transform: 'translateY(0) scale(1)' },
+      ],
+      { duration: 320, easing: 'cubic-bezier(0.34,1.56,0.64,1)', fill: 'forwards' }
+    )
+
+    // Live-tick the clock for a few seconds
+    let ticks = 0
+    const clock = badge.querySelector('[data-clock]') as HTMLElement | null
+    const interval = window.setInterval(() => {
+      if (clock && clock.isConnected) clock.textContent = new Date().toISOString()
+      ticks++
+      if (ticks > 80) window.clearInterval(interval)
+    }, 80)
+
+    fx.toast('NIST ITS synchronised ✓', { color: GREEN, duration: 1800 })
+
+    await fx.sleep(5400)
+    window.clearInterval(interval)
+    await fx.fadeOut(badge, 300)
+  },
+}
+
+/* ─────────────────────────────────────────────────────────────────
  * ISO 27001 — ISMS security lockdown.
  * ───────────────────────────────────────────────────────────────── */
 const ISO_27001: Egg = {
@@ -996,6 +1079,7 @@ export const EGGS_EXTRA: Egg[] = [
   RFC_2324_TEAPOT,
   ISBN_SCANNER,
   DOI_RESOLVE,
+  NIST_SYNC,
   ISO_27001,
   W3C_VALIDATION,
   MOUSE_TRAIL,
