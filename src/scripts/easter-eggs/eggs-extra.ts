@@ -21,17 +21,109 @@ const GREEN = '#34d399'
 const RED = '#dc2626'
 
 /* ─────────────────────────────────────────────────────────────────
- * ISO 8601 — every date-like string flips into strict ISO 8601.
+ * ISO 8601 — always pin a live reference clock; also flip any dates
+ * found on the page. No more "No dates found" dead-end.
  * ───────────────────────────────────────────────────────────────── */
 const ISO_8601: Egg = {
   id: 'iso8601',
-  name: 'ISO 8601 Date Flip',
+  name: 'ISO 8601 Reference',
   description:
-    'Every date-looking string on the page flips into strict ISO 8601 (YYYY-MM-DDTHH:mm:ss.sssZ).',
+    'Pins a live ISO 8601 reference clock (extended, basic, date, time, week, day-of-year, local offset) to the corner — and flips any dates on the page into strict ISO 8601 form.',
   category: 'keystroke',
   trigger: 'Type "ISO 8601"',
   async activate(ctx) {
-    ctx.log('Canonicalising dates to ISO 8601…')
+    ctx.log('ISO 8601:2019 — live reference clock.')
+
+    // ── Always: pin the reference clock ────────────────────────
+    const clock = document.createElement('div')
+    clock.style.cssText = `
+      position: fixed; top: 84px; right: 20px;
+      background: rgba(9,9,11,0.94);
+      color: #fafafa;
+      border: 1px solid ${ACCENT};
+      border-radius: 10px;
+      padding: 14px 18px;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 12px;
+      box-shadow: 0 16px 40px rgba(0,0,0,0.32), 0 0 0 1px rgba(255,255,255,0.04);
+      opacity: 0;
+      min-width: 300px;
+      z-index: 10000;
+      transform: translateX(20px);
+    `
+    clock.innerHTML = `
+      <div style="font-size:9px;letter-spacing:0.16em;color:#a8adb8;text-transform:uppercase;margin-bottom:2px;">ISO 8601:2019</div>
+      <div style="font-size:10px;color:#6b7280;font-style:italic;margin-bottom:12px;line-height:1.3;">Date and time — Representations for information interchange</div>
+      <div data-main style="font-size:15px;font-weight:700;color:${ACCENT};font-variant-numeric:tabular-nums;letter-spacing:-0.01em;margin-bottom:14px;word-break:break-all;">…</div>
+      <div style="display:grid;grid-template-columns:54px 1fr;gap:5px 10px;font-size:11px;color:#a8adb8;">
+        <div style="color:#6b7280;font-weight:700;letter-spacing:0.08em;">DATE</div><div data-date style="font-variant-numeric:tabular-nums;">…</div>
+        <div style="color:#6b7280;font-weight:700;letter-spacing:0.08em;">TIME</div><div data-time style="font-variant-numeric:tabular-nums;">…</div>
+        <div style="color:#6b7280;font-weight:700;letter-spacing:0.08em;">BASIC</div><div data-basic style="font-variant-numeric:tabular-nums;">…</div>
+        <div style="color:#6b7280;font-weight:700;letter-spacing:0.08em;">WEEK</div><div data-week style="font-variant-numeric:tabular-nums;">…</div>
+        <div style="color:#6b7280;font-weight:700;letter-spacing:0.08em;">DOY</div><div data-doy style="font-variant-numeric:tabular-nums;">…</div>
+        <div style="color:#6b7280;font-weight:700;letter-spacing:0.08em;">LOCAL</div><div data-local style="font-variant-numeric:tabular-nums;">…</div>
+      </div>
+      <div style="margin-top:12px;padding-top:10px;border-top:1px solid rgba(255,255,255,0.07);font-size:9px;color:#6b7280;letter-spacing:0.1em;text-transform:uppercase;">✓ Live · strict ISO 8601</div>
+    `
+    fx.overlay().appendChild(clock)
+    clock.animate(
+      [
+        { opacity: 0, transform: 'translateX(24px) scale(0.96)' },
+        { opacity: 1, transform: 'translateX(0) scale(1)' },
+      ],
+      { duration: 380, easing: 'cubic-bezier(0.22,1,0.36,1)', fill: 'forwards' }
+    )
+
+    const isoWeek = (d: Date): string => {
+      const t = new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate()))
+      t.setUTCDate(t.getUTCDate() + 4 - (t.getUTCDay() || 7))
+      const yearStart = new Date(Date.UTC(t.getUTCFullYear(), 0, 1))
+      const weekNo = Math.ceil(((t.getTime() - yearStart.getTime()) / 86400000 + 1) / 7)
+      const dow = ((d.getUTCDay() + 6) % 7) + 1
+      return `${t.getUTCFullYear()}-W${String(weekNo).padStart(2, '0')}-${dow}`
+    }
+
+    const dayOfYear = (d: Date): number => {
+      const start = Date.UTC(d.getUTCFullYear(), 0, 0)
+      const now = Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate())
+      return Math.floor((now - start) / 86400000)
+    }
+
+    const totalDays = (year: number): number =>
+      (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0 ? 366 : 365
+
+    const pad2 = (n: number) => String(n).padStart(2, '0')
+
+    const mainEl = clock.querySelector('[data-main]') as HTMLElement
+    const dateEl = clock.querySelector('[data-date]') as HTMLElement
+    const timeEl = clock.querySelector('[data-time]') as HTMLElement
+    const basicEl = clock.querySelector('[data-basic]') as HTMLElement
+    const weekEl = clock.querySelector('[data-week]') as HTMLElement
+    const doyEl = clock.querySelector('[data-doy]') as HTMLElement
+    const localEl = clock.querySelector('[data-local]') as HTMLElement
+
+    const renderClock = () => {
+      if (!clock.isConnected) return false
+      const d = new Date()
+      const iso = d.toISOString()
+      mainEl.textContent = iso
+      dateEl.textContent = iso.slice(0, 10)
+      timeEl.textContent = iso.slice(11, 19) + 'Z'
+      basicEl.textContent = iso.replace(/[-:]/g, '').replace(/\.\d+Z$/, 'Z')
+      weekEl.textContent = isoWeek(d)
+      doyEl.textContent = `${dayOfYear(d)}/${totalDays(d.getUTCFullYear())}`
+      const offsetMin = -d.getTimezoneOffset()
+      const sign = offsetMin >= 0 ? '+' : '-'
+      const oh = pad2(Math.floor(Math.abs(offsetMin) / 60))
+      const om = pad2(Math.abs(offsetMin) % 60)
+      const localPart = `${d.getFullYear()}-${pad2(d.getMonth() + 1)}-${pad2(d.getDate())}T${pad2(d.getHours())}:${pad2(d.getMinutes())}:${pad2(d.getSeconds())}`
+      localEl.textContent = `${localPart}${sign}${oh}:${om}`
+      return true
+    }
+    renderClock()
+    const tick = window.setInterval(renderClock, 50)
+
+    // ── Bonus: flip any date-like strings on the page ──────────
     type Patch = { el: HTMLElement; original: string }
     const patches: Patch[] = []
 
@@ -70,37 +162,41 @@ const ISO_8601: Egg = {
       parent.replaceChild(span, tn)
       patches.push({ el: span, original: text })
 
-      const flip = async () => {
+      void (async () => {
         await fx.sleep(Math.random() * 400)
         await fx.flipText(span, iso(), { color: ACCENT, duration: 280 })
-      }
-      void flip()
+      })()
 
       if (patches.length >= 20) break
     }
 
-    if (patches.length === 0) {
-      fx.toast('No dates found on this page.', { color: WARM })
-      return
+    fx.toast(
+      patches.length > 0
+        ? `ISO 8601 strict · ${patches.length} timestamp${patches.length === 1 ? '' : 's'} canonicalised`
+        : 'ISO 8601:2019 · live reference clock',
+      { color: ACCENT, duration: 2400 }
+    )
+
+    await fx.sleep(6800)
+    window.clearInterval(tick)
+
+    // Revert flipped dates
+    if (patches.length > 0) {
+      patches.forEach((p, i) => {
+        setTimeout(() => {
+          void fx.flipText(p.el, p.original, { color: '', duration: 220 })
+        }, i * 30)
+      })
+      await fx.sleep(700)
+      patches.forEach(p => {
+        const parent = p.el.parentNode
+        if (!parent) return
+        parent.replaceChild(document.createTextNode(p.original), p.el)
+        parent.normalize()
+      })
     }
 
-    fx.toast(`ISO 8601 strict · ${patches.length} timestamp${patches.length === 1 ? '' : 's'}`, {
-      color: ACCENT,
-    })
-
-    await fx.sleep(3500)
-    patches.forEach((p, i) => {
-      setTimeout(() => {
-        void fx.flipText(p.el, p.original, { color: '', duration: 220 })
-      }, i * 30)
-    })
-    await fx.sleep(1500)
-    patches.forEach(p => {
-      const parent = p.el.parentNode
-      if (!parent) return
-      parent.replaceChild(document.createTextNode(p.original), p.el)
-      parent.normalize()
-    })
+    await fx.fadeOut(clock, 300)
   },
 }
 
