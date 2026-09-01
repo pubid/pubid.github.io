@@ -14,7 +14,7 @@ import { marked } from 'marked'
 const root = join(dirname(fileURLToPath(import.meta.url)), '..')
 const BLOG = join(root, 'src/content/blog')
 const OUT = join(root, 'dist/news-data')
-const SPOKE = { id: 'pubid', name: 'PubID', base: 'https://pubid.github.io' }
+const SPOKE = { id: 'pubid', name: 'PubID', base: 'https://www.pubid.com' }
 
 const parseFrontmatter = (raw) => {
   const m = raw.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n?/)
