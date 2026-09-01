@@ -52,6 +52,7 @@ const guid = (p) => `urn:ribose:news:${p.date}:${SPOKE.id}:${p.slug}`
 const toItemModel = (p, full) => ({
   itemMeta: {
     guid: guid(p), lang: 'en', version: 1, itemClass: 'ninat:text',
+    canonical: `${SPOKE.base}/blog/${p.date}-${p.slug}`,
     provider: { qcode: `nprov:${SPOKE.id}`, name: SPOKE.name },
     versionCreated: `${p.date}T00:00:00+00:00`,
   },
