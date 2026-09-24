@@ -97,5 +97,6 @@ IEEE maintains the richest set of explicit relationships, tracked as structured 
 ## See Also
 
 - [PubID Algebra](/concepts/algebra) — How identifiers compose
+- [Identifier Relations](/concepts/identifier-relations) — Editions, supplements, and supersession
 - [Components](/concepts/components) — The building blocks of identifiers
 - [URN Mapping](/concepts/urn) — Machine-readable canonical forms

@@ -25,6 +25,7 @@ export default defineConfig({
             { label: 'Components', link: '/concepts/components' },
             { label: 'PubID Algebra', link: '/concepts/algebra' },
             { label: 'Relationships', link: '/concepts/relationships' },
+            { label: 'Identifier Relations', link: '/concepts/identifier-relations' },
             { label: 'URN Mapping', link: '/concepts/urn' },
           ],
         },

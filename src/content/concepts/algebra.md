@@ -150,6 +150,7 @@ Working documents for **internal committee use**.
 
 ## See Also
 
+- [Identifier Relations](/concepts/identifier-relations) — Editions, supplements, and supersession
 - [Anatomy of a PubID](/concepts/anatomy)
 - [Common Elements](/concepts/components)
 - [URN Mapping](/concepts/urn)
