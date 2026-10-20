@@ -2,7 +2,7 @@
 import BaseLayout from '~/layouts/BaseLayout.astro'
 import { getCollection } from 'astro:content'
 
-const conceptOrder = ['anatomy', 'metaschema', 'components', 'algebra', 'relationships', 'identifier-relations', 'urn']
+const conceptOrder = ['anatomy', 'metaschema', 'components', 'algebra', 'relationships', 'identifier-relations', 'lossless-faces', 'dual-perspectives', 'draft-designator', 'stage-words', 'corpus', 'urn']
 const items = (await getCollection('concepts')).sort((a, b) =>
   conceptOrder.indexOf(a.id) - conceptOrder.indexOf(b.id))
 ---
