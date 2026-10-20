@@ -22,6 +22,7 @@
 ^https://www\.ansi\.org/?$
 ^https://www\.astm\.org/?$
 ^https://www\.csagroup\.org/?$
+^https://www\.fil-idf\.org/?$
 ^https://www\.iec\.ch/?$
 
 # Local-asset patterns from VitePress era (not used by Astro, but harmless).
