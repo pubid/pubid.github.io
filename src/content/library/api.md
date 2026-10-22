@@ -133,20 +133,14 @@ For example, ISO has:
 - `Pubid::Iso::Identifiers::Amendment`
 - etc.
 
-## Registry
+## Full Reference (generated)
 
-The `Pubid::IdentifierRegistry` provides lookup capabilities:
+The complete, generated references — every public entry point with its
+signature and docstring — are built from the sources themselves and
+cannot drift from the code (CI regenerates them on every change):
 
-```ruby
-# Find by flavor and type
-Pubid::IdentifierRegistry.find_by_type(:iso, :is)
-
-# Get all identifiers for a flavor
-Pubid::IdentifierRegistry.all_for_flavor(:iso)
-
-# Export as JSON
-Pubid::IdentifierRegistry.to_json
-```
+- [Ruby — the pubid gem (YARD)](/library/api-reference-ruby/)
+- [TypeScript — pubid-ts (TypeDoc)](/library/api-reference-ts/)
 
 ## See Also
 
