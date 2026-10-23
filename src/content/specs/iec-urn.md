@@ -1,9 +1,4 @@
 ---
 prev: /specs/iso-urn
+adoc: iec-urn-specification.adoc
 ---
-
-<script setup>
-import adocHtml from './iec-urn-specification.adoc'
-</script>
-
-<div class="adoc-content" v-html="adocHtml" />

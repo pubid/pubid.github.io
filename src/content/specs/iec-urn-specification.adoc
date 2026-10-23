@@ -549,7 +549,6 @@ Global.
 
 == References
 
-[bibliography]
 === Normative References
 
 * [[[ISODIR1,IEC/ISO Directives Part 1]]] -- Procedures for the
@@ -560,7 +559,6 @@ Global.
 * [[[RFC5234,RFC 5234]]] -- Crocker, D., Overell, P., "Augmented BNF
   for Syntax Specifications: ABNF", January 2008.
 
-[bibliography]
 === Informative References
 
 * IEC URI Model, version 2019-12-10 (internal IEC document).
