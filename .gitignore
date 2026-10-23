@@ -34,3 +34,4 @@ _archive-vitepress/.jekyll-cache/
 TODO*
 !TODO.astro/
 !TODO.improve-website/
+src/content/library/api-reference-ruby.md

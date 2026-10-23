@@ -1,6 +1,26 @@
 ---
+import fs from 'node:fs'
+import path from 'node:path'
 import BaseLayout from '~/layouts/BaseLayout.astro'
 import { getCollection, render } from 'astro:content'
+import Asciidoctor from '@asciidoctor/core'
+
+const adoc = Asciidoctor()
+
+function renderAdoc(dir: string | undefined, file: string): string {
+  if (!dir) return ''
+  return adoc.convert(fs.readFileSync(path.join(dir, file), 'utf-8'), {
+    standalone: false,
+    safe: 'unsafe',
+    attributes: {
+      showtitle: true,
+      toc: 'macro',
+      sectanchors: true,
+      'source-highlighter': 'highlight.js',
+      icons: 'font',
+    },
+  }) as string
+}
 
 export async function getStaticPaths() {
   const items = (await getCollection('specs'))
@@ -13,13 +33,19 @@ export async function getStaticPaths() {
 
 interface Props { item: any }
 const { item } = Astro.props
-const { Content } = await render(item)
 const title = item.data.title || 'Specification'
+// A spec entry renders its sibling .adoc converted at build time; the
+// VitePress-era wrapper bodies (a Vue script-setup import) never worked
+// under Astro and rendered as raw text.
+const html = item.data.adoc
+  ? renderAdoc(path.dirname(item.filePath ?? ''), item.data.adoc)
+  : undefined
+const { Content } = await render(item)
 ---
 
 <BaseLayout title={title} description={item.data.description || ''}>
   <article class="prose mx-auto max-w-4xl px-6 pt-20 pb-24">
     <p class="eyebrow mb-4">Specification</p>
-    <Content />
+    {html ? <div class="adoc-content" set:html={html} /> : <Content />}
   </article>
 </BaseLayout>

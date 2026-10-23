@@ -19,6 +19,7 @@
     "fetch:api": "node scripts/fetch-api-reference.mjs"
   },
   "dependencies": {
+    "@asciidoctor/core": "^2.2.8",
     "@astrojs/mdx": "^7.0.2",
     "@astrojs/rss": "^4.0.19",
     "@astrojs/sitemap": "^3.7.3",

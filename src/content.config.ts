@@ -38,6 +38,8 @@ const specs = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/specs' }),
   schema: baseSchema.extend({
     ord: z.number().default(0),
+    // the sibling .adoc the entry renders (converted at build time)
+    adoc: z.string().optional(),
   }),
 })
 
