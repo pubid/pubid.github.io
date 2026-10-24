@@ -2,9 +2,6 @@
 title: "URN Specifications"
 ---
 
-<script setup>
-</script>
-
 # URN Specifications
 
 Every PubID maps to a canonical URN (Uniform Resource Name) for machine interchange. These specifications define the URN namespaces for each standards publisher.

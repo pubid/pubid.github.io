@@ -29,6 +29,18 @@ description: "${description}"
 
 `;
 
+// the pubid version badge reads this at build time
+mkdirSync("src/data", { recursive: true });
+const versionUrl = "https://raw.githubusercontent.com/pubid/pubid/main/lib/pubid/version.rb";
+const versionRes = await fetch(versionUrl);
+const versionText = await versionRes.text();
+const versionMatch = versionText.match(/VERSION\s*=\s*"([^"]+)"/);
+writeFileSync(
+  "src/data/pubid-version.json",
+  JSON.stringify({ version: versionMatch ? versionMatch[1] : null, fetched_at: new Date().toISOString() }, null, 2) + "\n",
+);
+console.log("pubid version:", versionMatch ? versionMatch[1] : "NOT FOUND");
+
 mkdirSync("src/content/library", { recursive: true });
 for (const { repo, file, out, title, description } of SOURCES) {
   const url = `https://raw.githubusercontent.com/${repo}/main/${file}`;

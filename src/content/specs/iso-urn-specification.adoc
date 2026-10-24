@@ -243,9 +243,9 @@ project iteration.
 stage-00.00:: Preliminary work item
 stage-20.00:: New work item proposal
 stage-30.00:: Committee draft
-stage-40.00:: Draft (enquiry) -- DIS for an IS project, DAM for an
+stage-40.00:: Draft (enquiry) -- DIS for an IS project, DAM for an +
 amendment project, DTS for a TS project, ...
-stage-50.00:: Final draft -- FDIS for an IS project, FDAM for an
+stage-50.00:: Final draft -- FDIS for an IS project, FDAM for an +
 amendment project, FDTS for a TS project, ...
 stage-60.00:: Published (not emitted for published documents)
 
@@ -298,14 +298,14 @@ The slots after the type token, in order:
 
 [horizontal]
 supplnumber:: the supplement's own number (`Amd 1` carries 1)
-supplyear:: the supplement's own publication year (`Amd 1:2007`) --
+supplyear:: the supplement's own publication year (`Amd 1:2007`) -- +
 added by this specification; RFC 5141 has no slot for it
-supplversion:: the corrected version of the published supplement
-(`v2` = version corrected once); omitted when not stated, where the
+supplversion:: the corrected version of the published supplement +
+(`v2` = version corrected once); omitted when not stated, where the +
 reference is to the highest version per RFC 5141
-stage:: optionally, the supplement's own stage immediately BEFORE the
-type token (`stage-40.00:amd:1`) -- added by this specification; RFC
-5141's single `status` slot cannot separate a draft amendment from its
+stage:: optionally, the supplement's own stage immediately BEFORE the +
+type token (`stage-40.00:amd:1`) -- added by this specification; RFC +
+5141's single `status` slot cannot separate a draft amendment from its +
 published base
 
 ==== addition

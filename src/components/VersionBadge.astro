@@ -1,0 +1,31 @@
+---
+import data from '../data/pubid-version.json'
+
+const { version, fetched_at } = data
+const date = fetched_at ? new Date(fetched_at).toISOString().split('T')[0] : ''
+---
+
+<div class="version-badge" title={`Exported from pubid-ruby v${version ?? '?'} at ${date}`}>
+  <span class="vb-label">pubid-ruby</span>
+  {version && <span class="vb-version">v{version}</span>}
+  {date && <span class="vb-sep">&middot;</span>}
+  {date && <span class="vb-date">{date}</span>}
+</div>
+
+<style>
+  .version-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.35rem 0.75rem;
+    border: 1px solid var(--color-border, #d4d4d8);
+    border-radius: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--color-foreground, #3f3f46);
+    background: var(--color-background-muted, #fafafa);
+  }
+  .version-badge :global(.vb-label) { font-weight: 600; }
+  .version-badge :global(.vb-version) { font-family: var(--font-mono, monospace); }
+  .version-badge :global(.vb-sep) { opacity: 0.5; }
+  .version-badge :global(.vb-date) { opacity: 0.7; }
+</style>
