@@ -8,7 +8,7 @@ export const ieee: Publisher = {
   category: "international",
   description: "IEEE is the world's largest technical professional organization for the advancement of technology. IEEE Standards Association (IEEE SA) develops standards across a wide range of industries including power and energy, telecommunications, computing, and more.",
   website: "https://standards.ieee.org",
-  syntaxNotes: "IEEE identifiers follow patterns like: IEEE Std [Number]-[Year], IEEE [Number]-[Year], IEEE [Draft Number]/D[DraftVersion]. Some include AIEE legacy identifiers. Both /Amd and /Cor separators are flexible — slash, hyphen, and space variants are accepted and normalised.",
+  syntaxNotes: "IEEE identifiers follow two historic pattern series: the old Type I — {publisher} {type} {series} {number}{part}.{subpart}{year} {edition}/{conform}/{correction}, e.g. \"IEEE Std 802.11-2020\" with optional Edition/Conformance/Cor tails — and the new Type II, whose part/subpart/year elements join with a mix of separators. Both parse; the monogem's docs/flavors/ieee.md carries the full pattern record. A relationship clause — \"(Revision of IEEE Std 1613-2009)\" — parses into the relationships collection (11 types, including reaffirmation_of and redesignation_of) but is deliberately not re-embedded in to_s, because consumers use to_s as the document number and output filename (to_mr_string/to_slug supply the machine form, supplements joining with _). Drafts spell the draft word \"Draft\" alone and use the P prefix with a /D{n} draft number: \"IEEE P802.11-2020/D1, 2020\". AIEE/IRE predecessor identifiers (1884–1963) parse as their own classes.",
   urnPattern: "urn:ieee:std:[number]:[year]",
   relatedFlavors: ["iec", "iso", "csa", "bsi"],
   docTypes: [
@@ -171,6 +171,26 @@ export const ieee: Publisher = {
       description: "Standards identified with parenthetical information.",
       examples: [
         { input: "IEEE 1016-2009 (Revision of IEEE 1016-1998)" },
+    ],
+    },
+    {
+      key: "aiee",
+      title: "AIEE (predecessor, 1884–1963)",
+      abbr: ["AIEE No"],
+      description: "American Institute of Electrical Engineers identifiers, which merged into IEEE in 1963. Always uses \"No\"/\"No.\" (never \"Std\"); rendering profiles offer the short dash form and the long comma form with an optional month; the original parsed format is preserved by default and date_format: (:short|:long) overrides it. Transitional forms (IEEE-AIEE No. 56) parse as well.",
+      examples: [
+        { input: "AIEE No. 552, November 1955" },
+        { input: "AIEE No 18-1934 (ASA C55 1934)", output: "IEEE Std 18-1934 (ASA C55-1934)" },
+    ],
+    },
+    {
+      key: "ire",
+      title: "IRE (predecessor, 1912–1963)",
+      abbr: ["IRE"],
+      description: "Institute of Radio Engineers identifiers: year-first (unlike modern IEEE) with 2-digit years (12–63) expanded to 1912–1963 internally and rendered as parsed, and committee notation \"7.S2\" (committee 7, standard 2) or \"28 S1\". Compatible with relationship clauses.",
+      examples: [
+        { input: "52 IRE 7.S2" },
+        { input: "61 IRE 28 S1" },
     ],
     },
 ],
