@@ -73,22 +73,26 @@ export const iso: Publisher = {
     {
       key: "amendment",
       title: "Amendment",
-      abbr: ["Amd", "AM"],
-      description: "An Amendment modifies an existing International Standard by adding, changing, or deleting specified elements. It is published as a separate supplement to the base document and referenced using the base document ID.",
+      abbr: ["Amd", "AMD"],
+      description: "An Amendment modifies an existing International Standard by adding, changing, or deleting specified elements. It is published as a separate supplement to the base document and referenced using the base document ID. Draft amendments carry their own typed stages: DAM (40.xx, Draft Amendment) and FDAM (50.xx, Final Draft Amendment) — the historic long spellings \"DAmd\"/\"FDAmd\" parse but render canonically as DAM/FDAM.",
       examples: [
         { input: "ISO 9001:2015/Amd 1:2024" },
         { input: "ISO 14001:2015/Amd 1:2023" },
         { input: "ISO/IEC 17031-1:2020/Amd 1:2022" },
+        { input: "ISO 8601-1:2019/DAmd 1", output: "ISO 8601-1:2019/DAM 1" },
+        { input: "ISO 1234:2019/FDAM 1" },
     ],
     },
     {
       key: "corrigendum",
       title: "Corrigendum",
       abbr: ["Cor", "COR"],
-      description: "A Corrigendum corrects technical or editorial errors in an already published document. Unlike amendments, corrigenda do not add new content but fix mistakes.",
+      description: "A Corrigendum corrects technical or editorial errors in an already published document. Unlike amendments, corrigenda do not add new content but fix mistakes. Draft corrigenda carry typed stages with genuine long/short faces: DCor (40.xx) and FDCor (50.xx) render the long face, DCOR/FDCOR the short one; the historic spellings \"DIS Cor\"/\"FDIS Cor\" and \"FCOR\" also parse (canonicalized to the short face).",
       examples: [
         { input: "ISO 9001:2015/Cor 1:2016" },
         { input: "ISO 14001:2015/Cor 1:2016" },
+        { input: "ISO 1234:2019/DCor 1:2021" },
+        { input: "ISO 1234:2019/FCOR 1:2021", output: "ISO 1234:2019/FDCOR 1:2021" },
     ],
     },
     {
@@ -212,6 +216,13 @@ export const iso: Publisher = {
     { code: "95.20", abbr: "FPN", name: "Final Proposal for Withdrawal" },
     { code: "95.99", abbr: "WTH", name: "Withdrawal of International Standard" },
 ],
+  styles: [
+    { key: "canonical", name: "Canonical (default)", description: "The surface form detected from the parsed spelling — parse and render round-trip byte-exactly", example: "ISO 1234:2019/Amd 1:2021" },
+    { key: "short", name: "Short stage + single-letter language", description: "Rendering option lang_single: true — short stage abbreviations (AMD, DAM) and 1-letter language codes (E, F, R) when the identifier carries languages", example: "ISO 1234:2019/AMD 1:2021(E)" },
+    { key: "long", name: "Long stage", description: "Rendering option stage_format_long: true — the long supplement abbreviations (Amd, DCor, FDCor)", example: "ISO 1234:2019/Amd 1:2021" },
+    { key: "undated", name: "Undated", description: "Rendering option with_date: false — drops the copyright year (the historic :ref_undated format)", example: "ISO 1234/AMD 1" },
+    { key: "edition", name: "With edition", description: "Rendering option with_edition: true — appends the edition portion when the identifier carries one (on the base document); the language face then always uses the 2-letter ISO 639-1 form", example: "ISO 1234:2019 ED2/Amd 1:2021" },
+],
   components: [
     {
       name: "Publisher",
@@ -290,11 +301,11 @@ export const iso: Publisher = {
     },
     {
       name: "Typed Stage",
-      description: "Stage combined with document type (e.g., DTR for Draft Technical Report)",
+      description: "Stage combined with document type (e.g., DTR for Draft Technical Report). Supplements carry their own: DAM/FDAM for amendments, DCor/FDCor for corrigenda (long faces; short DCOR/FDCOR), WD Amd-style entries for the early stages",
       attribute: "typed_stage",
       dataType: "enum",
-      values: ["DTR", "DTS", "FDTR", "FDTS", "AWI", "NP", "PRF"],
-      format: "Optional. Combined stage+type abbreviation.",
+      values: ["WD", "CD", "DIS", "FDIS", "DTR", "DTS", "FDTR", "FDTS", "DAM", "FDAM", "DCor", "FDCor", "WD Amd", "PRF"],
+      format: "Optional. Combined stage+type abbreviation; looked up via Pubid::Iso.locate_stage.",
       example: "DTR",
     },
     {
