@@ -8,8 +8,10 @@ import type { Publisher, Category } from '~/data/types'
 
 describe('registry', () => {
   it('contains exactly the expected publisher count', () => {
-    // 38 = 37 (post-Astro-cutover baseline on main) + CalConnect (added 2026-07-16)
-    expect(publishers).toHaveLength(38)
+    // 44 = 38 (37 post-Astro-cutover baseline + CalConnect, 2026-07-16)
+    // + 6 flavors ported from the pubid 2 registry (doi, evs, gb, isbn,
+    // omg, un — 2026-11). 3GPP already had a page (flavor key "tgpp").
+    expect(publishers).toHaveLength(44)
   })
 
   it('publishers are sorted alphabetically by flavor', () => {

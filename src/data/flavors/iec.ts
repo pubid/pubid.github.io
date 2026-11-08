@@ -28,10 +28,23 @@ export const iec: Publisher = {
       key: "iecee_trf",
       title: "IEC EE Test Report Form",
       abbr: ["IECEE TRF"],
-      description: "Test Report Forms published under IEC EE (System for Certification to Standards Relating to Electrical Equipment). Format is \"IECEE TRF [base] [ edition]:[year]\"; semicolon separators are normalised to the ampersand form.",
+      description: "Test Report Forms published under IEC EE (System for Certification to Standards Relating to Electrical Equipment). Pattern: IECEE TRF {number-and-part}{trf-version}[{test-type}][:{year}]. Multiple parts join with & (the comma and semicolon separators parse and normalise to &). The version letter runs A, B, C… and can carry a string sub-version: F_II in \"IECEE TRF 61058-1F_II:2019\" — the full version is the whole string. An optional specialised test-type suffix follows: _EMC, _PS, _SOF (e.g. \"IECEE TRF 61000-3-33A_EMC:2019\").",
       examples: [
-        { input: "IECEE TRF 60335-2-4;7F:2012" },
+        { input: "IECEE TRF 60335-2-4;7F:2012", output: "IECEE TRF 60335-2-4&7F:2012" },
         { input: "IECEE TRF 60065:2014" },
+        { input: "IECEE TRF 60086-1&2A:2017" },
+        { input: "IECEE TRF 61058-1F_II:2019" },
+        { input: "IECEE TRF 61000-3-33A_EMC:2019" },
+    ],
+    },
+    {
+      key: "iecex_trf",
+      title: "IECEx Test Report Form",
+      abbr: ["IECEx TRF"],
+      description: "Test Report Forms published under IECEx (certification for explosive atmospheres). Pattern: IECEx TRF {number-and-part}{separator}{std-edition}{trf-version}. Multiple parts join with a comma. The separator between part and the standard's edition number is 'v' in the IEC Webstore (IECEx TRF 60079-15v1:2002) and '_' in the official IECEx identifier pattern — both parse. The version letter can carry a string sub-version (A_DS, Arev4_ds), the full version being the whole string.",
+      examples: [
+        { input: "IECEx TRF 60079-15v1:2002" },
+        { input: "IECEx TRF 60079-0_2A" },
     ],
     },
     {

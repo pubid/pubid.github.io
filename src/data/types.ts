@@ -52,7 +52,9 @@ export interface Publisher {
   urnPattern?: string
   relatedFlavors?: string[]
   syntaxNotes?: string
-  logo: string
+  // Optional: the hero renders a two-letter badge when a flavor has no logo
+  // asset yet.
+  logo?: string
   logos?: string[]
   // For publishers with separate light/dark brand assets (rendered against
   // dark/light backgrounds). When set, the layout picks the variant that
