@@ -7,7 +7,7 @@ export const doi: Publisher = {
   category: "international",
   description: "The DOI system provides an actionable, persistent identifier for digital objects. PubID parses DOI names — including NIST's DOI-based standard designations such as \"doi:10.6028/NIST.SP.800-53r5\" — as identifiers alongside the SDO schemes.",
   website: "https://www.doi.org",
-  syntaxNotes: "DOI syntax is \"doi:10.{prefix}/{suffix}\" (case-insensitive scheme, normalized to lowercase). PubID accepts the canonical \"doi:\" form, the bare \"10.x/suffix\" name, the \"DOI:\" upper-scheme spelling, and the resolver URL \"https://doi.org/10.x/suffix\" — all render canonical.",
+  syntaxNotes: "DOI syntax is \"doi:10.{prefix}/{suffix}\" (case-insensitive scheme, normalized to lowercase). PubID accepts the canonical \"doi:\" form, the bare \"10.x/suffix\" name, the \"DOI:\" upper-scheme spelling, and the resolver-URL form on the doi.org host — all render canonical.",
   urnPattern: "urn:pubid:doi:resource:prefix-{10.NNNN}:suffix-{suffix}",
   relatedFlavors: ["nist", "isbn"],
   docTypes: [
@@ -51,7 +51,7 @@ export const doi: Publisher = {
     },
 ],
   algebra: [
-    { type: "URL form", description: "The resolver URL parses and renders as the canonical DOI name", syntax: "https://doi.org/10.{prefix}/{suffix}", example: "https://doi.org/10.1000/182" },
+    { type: "URL form", description: "The resolver URL parses and renders as the canonical DOI name", syntax: "doi.org/10.{prefix}/{suffix}", example: "https://doi.org/10.1000/182" },
 ],
 }
 
