@@ -55,7 +55,8 @@ id.year         # => 2015
 id.to_s         # => "ISO 9001:2015"
 
 # URN
-id.to_urn       # => "urn:iso:std:iso:9001:ed-5:en"
+id.to_urn       # => "urn:iso:std:iso:9001"
+id.to_pubid_urn # => "urn:pubid:iso:is:9001:year-2015"
 
 # Serialize
 id.to_h         # => { publisher: "ISO", number: "9001", ... }
@@ -100,4 +101,5 @@ The library uses a layered architecture:
 - [Constructing Identifiers](/library/constructing-identifiers)
 - [Quick Start Guide](/library/quick-start)
 - [API Reference](/library/api)
+- [The pubid URN Scheme](/library/pubid-urn-scheme)
 - [Contributing](/library/contributing)

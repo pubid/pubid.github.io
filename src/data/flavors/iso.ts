@@ -74,7 +74,7 @@ export const iso: Publisher = {
       key: "amendment",
       title: "Amendment",
       abbr: ["Amd", "AMD"],
-      description: "An Amendment modifies an existing International Standard by adding, changing, or deleting specified elements. It is published as a separate supplement to the base document and referenced using the base document ID. Draft amendments carry their own typed stages: DAM (40.xx, Draft Amendment) and FDAM (50.xx, Final Draft Amendment) — the historic long spellings \"DAmd\"/\"FDAmd\" parse but render canonically as DAM/FDAM.",
+      description: "An Amendment modifies an existing International Standard by adding, changing, or deleting specified elements. It is published as a separate supplement to the base document and referenced using the base document ID. Draft amendments carry their own typed stages: DAM (40.xx, Draft Amendment) and FDAM (50.xx, Final Draft Amendment) — the historic long spellings \"DAmd\"/\"FDAmd\" parse but render canonically as DAM/FDAM. ISO requires a stage on supplements: rendering one whose typed stage was stripped (typed_stage = nil) raises ArgumentError — a supplement segment without a stage is malformed per ISO DIR composition (pubid#680).",
       examples: [
         { input: "ISO 9001:2015/Amd 1:2024" },
         { input: "ISO 14001:2015/Amd 1:2023" },
@@ -87,7 +87,7 @@ export const iso: Publisher = {
       key: "corrigendum",
       title: "Corrigendum",
       abbr: ["Cor", "COR"],
-      description: "A Corrigendum corrects technical or editorial errors in an already published document. Unlike amendments, corrigenda do not add new content but fix mistakes. Draft corrigenda carry typed stages with genuine long/short faces: DCor (40.xx) and FDCor (50.xx) render the long face, DCOR/FDCOR the short one; the historic spellings \"DIS Cor\"/\"FDIS Cor\" and \"FCOR\" also parse (canonicalized to the short face).",
+      description: "A Corrigendum corrects technical or editorial errors in an already published document. Unlike amendments, corrigenda do not add new content but fix mistakes. Draft corrigenda carry typed stages with genuine long/short faces: DCor (40.xx) and FDCor (50.xx) render the long face, DCOR/FDCOR the short one; the historic spellings \"DIS Cor\"/\"FDIS Cor\" and \"FCOR\" also parse (canonicalized to the short face). Like every ISO supplement, a corrigendum cannot render without its typed stage — stripping it raises ArgumentError (pubid#680).",
       examples: [
         { input: "ISO 9001:2015/Cor 1:2016" },
         { input: "ISO 14001:2015/Cor 1:2016" },
@@ -99,7 +99,7 @@ export const iso: Publisher = {
       key: "supplement",
       title: "Supplement",
       abbr: ["Suppl"],
-      description: "A Supplement adds additional content to a base standard, such as supplementary requirements or guidelines.",
+      description: "A Supplement adds additional content to a base standard, such as supplementary requirements or guidelines. Like every ISO supplement (amendment, corrigendum, addendum), it carries a typed stage and cannot render without one — a supplement whose typed stage was stripped raises ArgumentError on render (pubid#680).",
       examples: [
         { input: "ISO/IEC 17031-1:2020/Suppl:2021" },
     ],

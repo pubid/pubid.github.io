@@ -44,8 +44,40 @@ id.to_s  # => "ISO 9001:2015"
 Generate a URN representation.
 
 ```ruby
-id.to_urn  # => "urn:iso:std:iso:9001:ed-5:en"
+id.to_urn  # => "urn:iso:std:iso:9001"
 ```
+
+### `#to_pubid_urn`
+
+Generate a pubid-scheme URN — the machine form that always round-trips
+(the official `#to_urn` may be lossy):
+
+```ruby
+id = Pubid::Iso.parse("ISO 9001:2015")
+id.to_pubid_urn  # => "urn:pubid:iso:is:9001:year-2015"
+Pubid.parse_urn(id.to_pubid_urn).to_hash == id.to_hash  # => true
+```
+
+### `Pubid.parse_urn(string)` / `Pubid.parse_pubid_urn(string)`
+
+Parse a URN. `Pubid.parse_urn` detects the namespace and routes —
+`urn:pubid:…` to the shared codec, everything else to the flavor's URN
+parser. `Pubid.parse_pubid_urn` accepts a pubid-scheme URN and only that;
+an official URN raises `Pubid::Errors::UrnParseError`.
+
+### `Pubid.to_slug(source)` / `Pubid.from_slug(string)`
+
+The slug form — the pubid-scheme URN as an HTTP path
+(`iso/is/9001/year-2015`). Bijective: `from_slug` rebuilds the exact URN,
+so a slug round-trips like its URN.
+
+```ruby
+Pubid.to_slug(id)                    # => "iso/is/9001/year-2015"
+Pubid.from_slug("iso/is/9001/year-2015")  # => ISO 9001:2015
+```
+
+See [The pubid URN Scheme](/library/pubid-urn-scheme) for the grammar and
+the round-trip contract.
 
 ### `#to_h`
 
@@ -144,5 +176,6 @@ cannot drift from the code (CI regenerates them on every change):
 
 ## See Also
 
+- [The pubid URN Scheme](/library/pubid-urn-scheme)
 - [Quick Start](/library/)
 - [Contributing](/library/contributing)

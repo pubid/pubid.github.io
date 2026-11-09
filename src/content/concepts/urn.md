@@ -22,42 +22,45 @@ Each publisher maps their PubID syntax to a URN following their specific pattern
 ### ISO
 
 ```
-urn:iso:std:iso[:copublisher]:[number]:[edition]:[language]
+urn:iso:std:iso[:copublisher]:[number][:supplement ...]
 ```
 
 | PubID | URN |
 |-------|-----|
-| `ISO 9001:2015` | `urn:iso:std:iso:9001:ed-5:en` |
-| `ISO/IEC 17031-1:2020` | `urn:iso:std:iso-iec:17031:-1:ed-1` |
-| `ISO 9001:2015/Amd 1:2024` | `urn:iso:std:iso:9001:ed-5:amd:1:v1` |
+| `ISO 9001:2015` | `urn:iso:std:iso:9001` |
+| `ISO/IEC 17031-1:2020` | `urn:iso:std:iso-iec:17031:-1` |
+| `ISO 9001:2015/Amd 1:2024` | `urn:iso:std:iso:9001:amd:1:2024:v1` |
+
+The ISO URN grammar (RFC 5141-bis) carries no year or language — the
+official form is lossy by design.
 
 ### IEC
 
 ```
-urn:iec:std:iec[:copublisher]:[number]:[edition]:[language]
+urn:iec:std:iec[:copublisher]:[number][:edition][:supplement ...]
 ```
 
 | PubID | URN |
 |-------|-----|
-| `IEC 61131-3:2013` | `urn:iec:std:iec:61131:-3:ed-3` |
-| `IEC 60050-111/AMD1/FRAG1 ED2` | `urn:iec:std:iec:60050:111:ed-2:amd:1:frag:1` |
+| `IEC 61131-3:2013` | `urn:iec:std:iec:61131-3:2013:::` |
+| `IEC 60050-111/AMD1/FRAG1 ED2` | `urn:iec:std:iec:60050-111:::ed-2:::amd:1:` |
 
 ### IEEE
 
 ```
-urn:ieee:std:[number]:[year]
+urn:ieee:ieee:[number]:[year]
 ```
 
 ### NIST
 
 ```
-urn:nist:pub:[type]:[number]:[revision]
+urn:nist:[type]:[number]:[revision]
 ```
 
 | PubID | URN |
 |-------|-----|
-| `NIST SP 800-53 Rev. 5` | `urn:nist:pub:sp:800-53:r5` |
-| `NIST SP 800-57 Part 1 Rev. 4` | `urn:nist:pub:sp:800-57:pt1:r4` |
+| `NIST SP 800-53 Rev. 5` | `urn:nist:sp:800-53. Rev. 5.supp` |
+| `NIST SP 800-57 Part 1 Rev. 4` | `urn:nist:sp:800-57. Rev. 4.pt1.supp` |
 
 NIST also defines a **machine-readable (MR) style** used as the DOI suffix: `NIST.SP.800-53A` maps to `https://doi.org/10.6028/NIST.SP.800-53A`.
 
@@ -69,16 +72,16 @@ urn:oiml:pub:[type]:[number]:[year]
 
 ## Round-Trip Guarantee
 
-PubIDs are designed for **round-trip fidelity**: parse a string, serialize it back, and get identical output. This applies to both human-readable PubID strings and URN representations.
+PubIDs are designed for **round-trip fidelity**: parse a string, serialize it back, and get identical output. This applies to the human-readable PubID string and — by contract, corpus-wide — to the **pubid-scheme URN** (`urn:pubid:…`). Official URNs follow each organization's registered grammar and may be lossy (the ISO URN grammar carries no year, so `ISO 9001:2015` renders `urn:iso:std:iso:9001`); some flavors' official forms still carry legacy quirks. The always-round-trip machine form is the [pubid URN scheme](/library/pubid-urn-scheme):
 
 ```
 Input:  "ISO 9001:2015"
   ↓ Parse
-Object: { publisher: "ISO", number: "9001", year: 2015, edition: 5 }
+Object: { publisher: "ISO", number: "9001", year: 2015 }
   ↓ Render (PubID)
 Output: "ISO 9001:2015"  ✓ identical
-  ↓ Render (URN)
-URN:    "urn:iso:std:iso:9001:ed-5:en"
+  ↓ Render (pubid-scheme URN)
+URN:    "urn:pubid:iso:is:9001:year-2015"  ✓ round-trips by value
 ```
 
 This same principle applies across all output formats. For NIST, a single identifier can round-trip through four distinct styles:
@@ -93,8 +96,6 @@ Output: "NIST SP 800-53A"  ✓
 Output: "National Institute of Standards and Technology Special Publication 800-53A"
   ↓ Render (MR/DOI)
 Output: "NIST.SP.800-53A"
-  ↓ Render (URN)
-URN:    "urn:nist:pub:sp:800-53a"
 ```
 
 ## Benefits of URN Mapping
@@ -106,21 +107,22 @@ URN:    "urn:nist:pub:sp:800-53a"
 
 ## Implementation
 
-The PubID Ruby library generates URNs through the `to_urn` method:
+The PubID Ruby library generates URNs through the `to_urn` method, and the
+round-trippable pubid-scheme URN through `to_pubid_urn`:
 
 ```ruby
 require 'pubid'
 
 id = Pubid::Iso.parse("ISO 9001:2015")
-id.to_urn  # => "urn:iso:std:iso:9001:ed-5:en"
-
-id = Pubid::Iec.parse("IEC 61131-3:2013")
-id.to_urn  # => "urn:iec:std:iec:61131:-3:ed-3"
+id.to_urn        # => "urn:iso:std:iso:9001"
+id.to_pubid_urn  # => "urn:pubid:iso:is:9001:year-2015"
+Pubid.to_slug(id)  # => "iso/is/9001/year-2015"
 ```
 
 ## See Also
 
 - **[URN Specifications](/specs/)** — Full ABNF grammar and reference documentation for ISO (RFC 5141-bis) and IEC URN namespaces
+- **[The pubid URN Scheme](/library/pubid-urn-scheme)** — the round-trippable `urn:pubid:` scheme and the slug form
 - [The Metaschema](/concepts/metaschema)
 - [Common Elements](/concepts/components)
 - [Library Quick Start](/library/quick-start)
