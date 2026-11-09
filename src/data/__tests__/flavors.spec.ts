@@ -86,6 +86,25 @@ describe('specific flavor invariants', () => {
     expect(keys).toContain('nwirp')
   })
 
+  it('NIST carries the six bare series references (the NBS CS ruling, pubid 2.0.15)', () => {
+    const nist = publishers.find(p => p.flavor === 'nist')!
+    const keys = nist.docTypes.map(d => d.key)
+    for (const k of ['commercial_standard', 'commercial_standards_monthly',
+      'commercial_standard_emergency', 'consumer_information_series',
+      'voluntary_product_standards', 'data_collection_instruments']) {
+      expect(keys, k).toContain(k)
+    }
+    // each bare series reference is the first example of its doc type,
+    // with the emergency form spelled CS-E (not CSE)
+    const first = (k: string) => nist.docTypes.find(d => d.key === k)!.examples[0].input
+    expect(first('commercial_standard')).toBe('NBS CS')
+    expect(first('commercial_standards_monthly')).toBe('NBS CSM')
+    expect(first('commercial_standard_emergency')).toBe('NBS CS-E')
+    expect(first('consumer_information_series')).toBe('NBS CIS')
+    expect(first('voluntary_product_standards')).toBe('NIST PS')
+    expect(first('data_collection_instruments')).toBe('NIST DCI')
+  })
+
   it('OIML has the Bulletin doc type', () => {
     const oiml = publishers.find(p => p.flavor === 'oiml')
     expect(oiml?.docTypes.find(d => d.key === 'bulletin')).toBeDefined()

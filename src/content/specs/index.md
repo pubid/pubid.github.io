@@ -39,10 +39,8 @@ The PubID Ruby library implements URN generation and parsing for all supported p
 require 'pubid'
 
 id = Pubid::Iso.parse("ISO 9001:2015")
-id.to_urn  # => "urn:iso:std:iso:9001:ed-5:en"
-
-id = Pubid::Iec.parse("IEC 61131-3:2013")
-id.to_urn  # => "urn:iec:std:iec:61131:-3:ed-3"
+id.to_urn        # => "urn:iso:std:iso:9001"
+id.to_pubid_urn  # => "urn:pubid:iso:is:9001:year-2015"
 ```
 
 ## See Also

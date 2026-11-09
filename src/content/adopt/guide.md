@@ -309,7 +309,7 @@ ISO 9001:2015(fr)    → French
 ISO 9001:2015(ru)    → Russian
 ```
 
-Language codes follow ISO 639-1. In URNs: `urn:iso:std:iso:9001:ed-5:en`.
+Language codes follow ISO 639-1. In the machine-readable style: `ISO:9001:2015(E)`.
 
 **CIE language patterns:**
 
@@ -341,14 +341,14 @@ A single PubID should render into multiple formats without information loss. Thi
 | **Abbreviated** | Space-constrained references | — | `Natl. Inst. Stand. Technol. Spec. Publ. 800-53 Rev. 5` |
 | **Short** | Inline citations, running text | `ISO 9001:2015` | `NIST SP 800-53 Rev. 5` |
 | **Machine-readable** | DOI suffix, databases, file naming | `ISO:9001:2015` | `NIST.SP.800-53.r5` |
-| **URN** | Machine interchange, resolution | `urn:iso:std:iso:9001:ed-5:en` | `urn:nist:pub:sp:800-53:r5` |
+| **URN** | Machine interchange, resolution | `urn:pubid:iso:is:9001:year-2015` | `urn:nist:sp:800-53. Rev. 5.supp` |
 | **JSON** | API responses, structured data | `{"publisher":"ISO","number":"9001",...}` | `{"publisher":"NIST","series":"SP",...}` |
 
 **Design principle — lossless interchange:**
 
 ```
                     ┌─────────────┐
-  "ISO 9001:2015"──▶│             │──▶ urn:iso:std:iso:9001:ed-5:en
+  "ISO 9001:2015"──▶│             │──▶ urn:pubid:iso:is:9001:year-2015
                     │  Parsed     │
   ISO:9001:2015 ───▶│  Components │──▶ {"publisher":"ISO","number":"9001",...}
                     │             │──▶ ISO 9001 (short form)
@@ -380,10 +380,10 @@ urn:{publisher}:{class}:{type}:{number}:{part}:{edition}:{language}
 **Examples:**
 
 ```
-urn:iso:std:iso:9001:ed-5:en
-urn:iso:std:iso-iec:17031:-1:ed-1:amd:1:v1
-urn:nist:pub:sp:800-53:r5
-urn:ieee:std:802.3:2018
+urn:iso:std:iso:9001
+urn:iso:std:iso-iec:17031:-1
+urn:pubid:iso:is:9001:year-2015
+urn:ieee:ieee:802.3:2018
 ```
 
 **URN design principles:**
@@ -391,7 +391,7 @@ urn:ieee:std:802.3:2018
 - Use lowercase throughout
 - Use stable, unchanging components
 - Include enough information for unambiguous resolution
-- Ensure round-trip: `URN → parse → to_urn → URN` is identity
+- Ensure round-trip — the `urn:pubid:` scheme guarantees `URN → parse → to_pubid_urn → URN` is identity
 - Define how each metaschema element maps to URN path segments
 
 **Design questions:**

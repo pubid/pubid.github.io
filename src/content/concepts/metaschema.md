@@ -84,7 +84,7 @@ The PubID metaschema supports rendering a single identifier into multiple output
 | Output Format | Used For | Example |
 |---------------|----------|---------|
 | Human-readable string | Citations, references | `ISO 9001:2015` |
-| URN | Machine interchange, resolution | `urn:iso:std:iso:9001:ed-5:en` |
+| URN | Machine interchange, resolution | `urn:pubid:iso:is:9001:year-2015` |
 | JSON | API responses, databases | `{"publisher":"ISO","number":"9001","year":2015}` |
 | Full style (NIST) | Title page, bibliography | `National Institute of Standards and Technology Special Publication 800-53A` |
 | Short style (NIST) | Inline citations | `NIST SP 800-53A` |
