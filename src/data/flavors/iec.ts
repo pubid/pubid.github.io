@@ -8,7 +8,7 @@ export const iec: Publisher = {
   category: "international",
   description: "The IEC is a global organization that prepares and publishes international standards for all electrical, electronic, and related technologies. IEC standards cover a vast range of technologies from power generation to nanotechnology.",
   website: "https://www.iec.ch",
-  syntaxNotes: "IEC identifiers follow the pattern: IEC [Type] [Number]-[Part]:[Year]. Many IEC identifiers include CISPR (Comité International Spécial des Perturbations Radioélectriques) designations. Value-added products (CSV, CMV, RLV, etc.) use suffixes. IEC EE (System for Certification to Standards Relating to Electrical Equipment) publishes technical group TRFs — e.g. IECEE TRF 60335-2-4;7F:2012 — which are normalised to ampersand form. Undated references (\":--\") are accepted.",
+  syntaxNotes: "IEC identifiers follow the pattern: IEC [Type] [Number]-[Part]:[Year]. Many IEC identifiers include CISPR (Comité International Spécial des Perturbations Radioélectriques) designations. Value-added products (CSV, CMV, RLV, etc.) use suffixes. IEC EE (System for Certification to Standards Relating to Electrical Equipment) publishes technical group TRFs — e.g. IECEE TRF 60335-2-4;7F:2012 — which are normalised to ampersand form. Undated references (\":--\") are accepted. Serialization note: wrapper types (VAP, Consolidated, Sheet, Fragment) carry the wrapped document's date (month/day/undated) only once — inside the nested base — never as a duplicated top-level key in to_hash or the pubid-scheme URN (pubid #692).",
   urnPattern: "urn:iec:std:iec:[number]:[edition]:[language]",
   relatedFlavors: ["iso", "ieee", "bsi", "cen-cenelec", "csa"],
   docTypes: [
@@ -50,10 +50,9 @@ export const iec: Publisher = {
     {
       key: "technical_group",
       title: "Technical Group Identifier",
-      abbr: ["IECEE", "IECEx", "IECRE"],
-      description: "Identifiers prefixed by an IEC conformity-assessment system (IECEE, IECEx, IECRE) for technical-group documents.",
+      abbr: ["IECEx", "IECRE"],
+      description: "Identifiers prefixed by an IEC conformity-assessment system (IECEx, IECRE) for technical-group documents.",
       examples: [
-        { input: "IECEE CTL 8" },
         { input: "IECEx 2:2013" },
     ],
     },
@@ -100,10 +99,11 @@ export const iec: Publisher = {
       key: "amendment",
       title: "Amendment",
       abbr: ["AMD", "AM"],
-      description: "Modifies an existing standard by adding, changing, or deleting specified elements.",
+      description: "Modifies an existing standard by adding, changing, or deleting specified elements. A supplement can also stand alone — written without its base as 'IEC/FDAM 60038-1' (or 'IEC FDAM 60038-1') — and serializes, URNs and round-trips (parse == from_hash) like any attached supplement (pubid #693).",
       examples: [
         { input: "IEC 61131-3:2013/AMD1:2019" },
         { input: "IEC 60050-111/AMD1/FRAG1 ED2" },
+        { input: "IEC/FDAM 60038-1", output: "IEC FDAM 60038-1" },
     ],
     },
     {
@@ -140,10 +140,11 @@ export const iec: Publisher = {
       key: "working_document",
       title: "Working Document",
       abbr: ["WD"],
-      description: "Internal working documents for IEC committee use.",
+      description: "Internal working documents for IEC committee use. Two forms: the committee-document form '<TC>/<number>/<stage>' (optionally '(<Lang>)' — '100/3705(F)/FDIS'), keyed by the document number, and the work-programme form 'PNW <TC>-<item> ED<n>', keyed by the committee. Since pubid #687 both serialize their full identity (technical committee, number, stage, language), and the pubid-scheme URN is per document with tc-/wdlang-/wdstage- atoms: '1/2457/FDIS' → 'urn:pubid:iec:wd:2457:tc-1:wdstage-FDIS' (previously every working document shared the type-only 'urn:pubid:iec:wd').",
       examples: [
-        { input: "IEC 2/2102/CDV" },
-        { input: "IEC 2/2103/NP" },
+        { input: "1/2457/FDIS" },
+        { input: "100/3705(F)/FDIS" },
+        { input: "PNW 65-915 ED1" },
     ],
     },
     {
@@ -207,28 +208,25 @@ export const iec: Publisher = {
       key: "sheet_identifier",
       title: "Sheet Identifier",
       abbr: ["Sheet"],
-      description: "Individual sheet within a multi-sheet standard.",
+      description: "Individual sheet within a multi-sheet standard, cited with the slash notation '<number>/<sheet>[:<year>]' — e.g. 'IEC 60335-2-6/1:1994'.",
       examples: [
-        { input: "IEC 60335-2-6:2002 Sheet 1" },
+        { input: "IEC 60335-2-6/1:1994" },
+        { input: "IEC 60335-2-6/1" },
     ],
     },
     {
       key: "societal_technology_trend_report",
       title: "Societal Technology Trend Report",
       abbr: ["STTR"],
-      description: "Reports analyzing technology trends and their societal impact.",
-      examples: [
-        { input: "IEC STTR 1:2020" },
-    ],
+      description: "Reports analyzing technology trends and their societal impact. The class exists (URN type 'pubid:iec:sttr') but no printed-input spelling is in the parse grammar yet — build via the constructor or from_hash.",
+      examples: [],
     },
     {
       key: "white_paper",
       title: "White Paper",
       abbr: ["WP"],
-      description: "IEC white papers exploring emerging technology topics.",
-      examples: [
-        { input: "IEC WP AAL:2022" },
-    ],
+      description: "IEC white papers exploring emerging technology topics. The class exists (URN type 'pubid:iec:white-paper'; from_hash renders 'IEC White Paper AAL') but no printed-input spelling is in the parse grammar yet — build via the constructor or from_hash.",
+      examples: [],
     },
 ],
   stages: [

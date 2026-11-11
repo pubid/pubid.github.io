@@ -19,7 +19,7 @@ right grammar is chosen even when the caller does not know the flavor:
 require 'pubid'
 
 Pubid.parse("ISO 8601-1:2019").class   # => Pubid::Iso::Identifiers::InternationalStandard
-Pubid.parse("JIS Z 8301:2019").class   # => Pubid::Jis::Identifier
+Pubid.parse("JIS Z 8301:2019").class   # => Pubid::Jis::Identifiers::JapaneseIndustrialStandard
 ```
 
 When the flavor is known, name it directly: `Pubid::Iso.parse("ISO 9001:2015")`.

@@ -79,12 +79,14 @@ Pubid.from_slug("iso/is/9001/year-2015")  # => ISO 9001:2015
 See [The pubid URN Scheme](/library/pubid-urn-scheme) for the grammar and
 the round-trip contract.
 
-### `#to_h`
+### `#to_hash`
 
-Serialize to a Hash.
+Serialize to a Hash — the canonical form `Pubid.from_hash` rebuilds from
+(reading the `_type` key):
 
 ```ruby
-id.to_h  # => { publisher: "ISO", number: "9001", ... }
+id.to_hash
+# => { "_type" => "pubid:iso:international-standard", "number" => "9001", "year" => "2015" }
 ```
 
 ### `#to_json`
@@ -92,7 +94,7 @@ id.to_h  # => { publisher: "ISO", number: "9001", ... }
 Serialize to JSON.
 
 ```ruby
-id.to_json  # => '{"publisher":"ISO","number":"9001",...}'
+id.to_json  # => '{"_type":"pubid:iso:international-standard","number":"9001","year":"2015"}'
 ```
 
 ## Identifier Relations

@@ -29,7 +29,7 @@ These URN specifications are maintained as part of the PubID project. Each speci
 - **Resolution** mechanisms
 - **Gap analysis** against prior specifications (where applicable)
 
-The specifications are authored in AsciiDoc and rendered on this site using Asciidoctor. Source files are available in the [PubID repository](https://github.com/metanorma/pubid/tree/main/references).
+The specifications are authored in AsciiDoc and rendered on this site using Asciidoctor. Source files are available in the [PubID repository](https://github.com/pubid/pubid/tree/main/references).
 
 ## Implementation
 

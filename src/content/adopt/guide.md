@@ -491,7 +491,7 @@ identifier = standard / technical_report / new_type
 
 **c) New rendering styles without modification**
 
-New output formats are added as new serializer methods. Existing `to_s`, `to_urn`, `to_h` remain unchanged. A new `to_doi` method is simply added.
+New output formats are added as new serializer methods. Existing `to_s`, `to_urn`, `to_hash` remain unchanged. A new `to_doi` method is simply added.
 
 **Design questions:**
 
@@ -531,7 +531,7 @@ Once your scheme is designed, implement it in the PubID framework:
 3. **Write a PEG parser** — Parslet grammar rules for your syntax
 4. **Implement a Scheme** — Registry of types, stages, and typed stages
 5. **Add URN mapping** — URN generator and parser for round-trip
-6. **Write rendering** — Output styles (`to_s`, `to_urn`, `to_h`)
+6. **Write rendering** — Output styles (`to_s`, `to_urn`, `to_hash`)
 7. **Add tests** — Fixture files with real-world examples (pass + fail cases)
 8. **Register** — Add your flavor to the PubID module registry
 9. **Document** — Add a publisher page to the website with types, examples, and rendering styles
