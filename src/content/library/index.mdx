@@ -47,7 +47,7 @@ require 'pubid'
 id = Pubid::Iso.parse("ISO 9001:2015")
 
 # Access components
-id.publisher    # => "ISO"
+id.publisher.to_s  # => "ISO"
 id.number       # => "9001"
 id.year         # => 2015
 
@@ -59,7 +59,7 @@ id.to_urn       # => "urn:iso:std:iso:9001"
 id.to_pubid_urn # => "urn:pubid:iso:is:9001:year-2015"
 
 # Serialize
-id.to_h         # => { publisher: "ISO", number: "9001", ... }
+id.to_hash      # => { "_type" => "pubid:iso:international-standard", "number" => "9001", "year" => "2015" }
 id.to_json      # => JSON representation
 ```
 
@@ -94,7 +94,7 @@ The library uses a layered architecture:
 1. **Pre-parser** — Normalizes legacy/malformed identifiers via `update_codes.yaml`
 2. **Parser** — PEG grammar (Parslet) produces a parse tree
 3. **Builder** — Converts parse tree to an identifier object
-4. **Identifier** — Lutaml::Model object with `to_s`, `to_urn`, `to_h`
+4. **Identifier** — Lutaml::Model object with `to_s`, `to_urn`, `to_hash`
 
 ## Next Steps
 

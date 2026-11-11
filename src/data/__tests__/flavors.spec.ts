@@ -115,9 +115,11 @@ describe('specific flavor invariants', () => {
     expect(iala?.docTypes).toHaveLength(11)
   })
 
-  it('IHO has all 5 doc types', () => {
+  it('IHO has all 6 doc types (the five series + the S-4 spec citation, pubid #691)', () => {
     const iho = publishers.find(p => p.flavor === 'iho')
-    expect(iho?.docTypes).toHaveLength(5)
+    expect(iho?.docTypes).toHaveLength(6)
+    const keys = iho?.docTypes.map(d => d.key) || []
+    expect(keys).toContain('s4_specification')
   })
 
   it('Adobe has Publication + Technical Note', () => {

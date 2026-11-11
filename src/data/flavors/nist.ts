@@ -27,8 +27,11 @@ export const nist: Publisher = {
       key: "federal_information_processing_standards",
       title: "Federal Information Processing Standards",
       abbr: ["FIPS"],
-      description: "FIPS are U.S. government standards for computer systems, particularly for security and interoperability.",
+      description: "FIPS are U.S. government standards for computer systems, particularly for security and interoperability. NIST prints the series as \"FIPS PUB <number>\"; that spelling is a preprocessor alias (pubid #697) — it parses hash-, render-, URN- and MR-identical to the canonical \"NIST FIPS <number>\" face. Bare \"FIPS <number>\" (publisher not parsed) and NBS FIPS are untouched.",
       examples: [
+        { input: "FIPS PUB 199", output: "NIST FIPS 199" },
+        { input: "FIPS PUB 199 Rev. 1", output: "NIST FIPS 199 Rev. 1" },
+        { input: "NIST FIPS 199" },
         { input: "FIPS 197" },
         { input: "FIPS 180-4" },
         { input: "FIPS 202" },
@@ -278,8 +281,8 @@ export const nist: Publisher = {
     { code: "60.00", abbr: "Final", name: "Final Publication" },
 ],
   styles: [
-    { key: "full", name: "Full (Long)", description: "Used in title page and bibliography", example: "National Institute of Standards and Technology Special Publication 800-53A" },
-    { key: "abbrev", name: "Abbreviated", description: "Used in the Authority section", example: "Natl. Inst. Stand. Technol. Spec. Publ. 800-53A" },
+    { key: "full", name: "Full (Long)", description: "Used in title page and bibliography", example: "National Institute of Standards and Technology Special Publication 800-53 Part A" },
+    { key: "abbrev", name: "Abbreviated", description: "Used in the Authority section", example: "Natl. Inst. Stand. Technol. Spec. Publ. 800-53" },
     { key: "short", name: "Short", description: "Used for inline citations", example: "NIST SP 800-53A" },
     { key: "mr", name: "Machine-Readable", description: "Used for DOI suffix and machine interchange", example: "NIST.SP.800-53A" },
 ],
@@ -385,7 +388,7 @@ export const nist: Publisher = {
     { type: "Revision", description: "Revision of an existing document", syntax: "NIST SP [Number] Rev. [N]", example: "NIST SP 800-53 Rev. 5" },
     { type: "Part/Volume", description: "Multi-part or multi-volume document", syntax: "NIST [Type] [Number]-[Part] Vol. [N]", example: "NIST IR 8011 Vol. 3" },
     { type: "Draft", description: "Draft version of a document", syntax: "NIST [Type] [Number] (Draft)", example: "NIST SP 800-53 Rev. 5 (Draft)" },
-    { type: "Supplement", description: "Supplement to a base document", syntax: "NIST [Type] [Number] Suppl. [N]", example: "NIST SP 800-53 Suppl. 1" },
+    { type: "Supplement", description: "Supplement to a base document, cited with the n-sup suffix", syntax: "NBS [Type] [Number]<n>sup", example: "NBS CIRC 1sup" },
 ],
 }
 

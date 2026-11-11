@@ -29,11 +29,12 @@ puts id.to_s         # => "ISO 9001:2015"
 
 ```ruby
 id = Pubid::Iso.parse("ISO/IEC 17031-1:2020")
-puts id.publisher    # => "ISO"
-puts id.copublisher  # => "IEC"
-puts id.number       # => "17031"
-puts id.part         # => "1"
-puts id.year         # => 2020
+puts id.to_s           # => "ISO/IEC 17031-1:2020"
+puts id.publisher      # => "ISO/IEC" (joint publisher)
+puts id.publisher.copublisher.inspect  # => ["IEC"]
+puts id.number         # => "17031"
+puts id.part           # => "1"
+puts id.year           # => 2020
 ```
 
 ### With Supplements
@@ -68,8 +69,8 @@ id.to_pubid_urn  # => "urn:pubid:iso:is:9001:year-2015"
 id = Pubid::Iso.parse("ISO 9001:2015")
 
 # Hash
-id.to_h
-# => { publisher: "ISO", number: "9001", year: 2015, edition: 5, ... }
+id.to_hash
+# => { "_type" => "pubid:iso:international-standard", "number" => "9001", "year" => "2015" }
 
 # JSON
 id.to_json
