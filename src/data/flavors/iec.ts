@@ -8,7 +8,7 @@ export const iec: Publisher = {
   category: "international",
   description: "The IEC is a global organization that prepares and publishes international standards for all electrical, electronic, and related technologies. IEC standards cover a vast range of technologies from power generation to nanotechnology.",
   website: "https://www.iec.ch",
-  syntaxNotes: "IEC identifiers follow the pattern: IEC [Type] [Number]-[Part]:[Year]. Many IEC identifiers include CISPR (Comité International Spécial des Perturbations Radioélectriques) designations. Value-added products (CSV, CMV, RLV, etc.) use suffixes. IEC EE (System for Certification to Standards Relating to Electrical Equipment) publishes technical group TRFs — e.g. IECEE TRF 60335-2-4;7F:2012 — which are normalised to ampersand form. Undated references (\":--\") are accepted. Serialization note: wrapper types (VAP, Consolidated, Sheet, Fragment) carry the wrapped document's date (month/day/undated) only once — inside the nested base — never as a duplicated top-level key in to_hash or the pubid-scheme URN (pubid #692).",
+  syntaxNotes: "IEC identifiers follow the pattern: IEC [Type] [Number]-[Part]:[Year]. Many IEC identifiers include CISPR (Comité International Spécial des Perturbations Radioélectriques) designations. Value-added products (CSV, CMV, RLV, etc.) use suffixes. IEC EE (System for Certification to Standards Relating to Electrical Equipment) publishes technical group TRFs — e.g. IECEE TRF 60335-2-4;7F:2012 — which are normalised to ampersand form. Undated references (\":--\") are accepted. Serialization note: wrapper types (VAP, Consolidated, Sheet, Fragment) carry the wrapped document's date (month/day/undated) only once — inside the nested base — never as a duplicated top-level key in to_hash or the pubid-scheme URN (pubid #692). The legacy ballot faces print the stage before the base designation (IEC/FDAM 60038-1, ISO/IEC PDAM 2 10646:2012, ISO/IEC FPDAM 9075/1) and decode onto the modern on-base identity, the old slash-part spelling carrying the base's part.",
   urnPattern: "urn:iec:std:iec:[number]:[edition]:[language]",
   relatedFlavors: ["iso", "ieee", "bsi", "cen-cenelec", "csa"],
   docTypes: [
@@ -99,11 +99,12 @@ export const iec: Publisher = {
       key: "amendment",
       title: "Amendment",
       abbr: ["AMD", "AM"],
-      description: "Modifies an existing standard by adding, changing, or deleting specified elements. A supplement can also stand alone — written without its base as 'IEC/FDAM 60038-1' (or 'IEC FDAM 60038-1') — and serializes, URNs and round-trips (parse == from_hash) like any attached supplement (pubid #693).",
-      examples: [
-        { input: "IEC 61131-3:2013/AMD1:2019" },
-        { input: "IEC 60050-111/AMD1/FRAG1 ED2" },
-        { input: "IEC/FDAM 60038-1", output: "IEC FDAM 60038-1" },
+description: "Modifies an existing standard by adding, changing, or deleting specified elements. A supplement can also stand alone — written without its base — and serializes, URNs and round-trips (parse == from_hash) like any attached supplement (pubid #693). The legacy ballot faces print the stage before the base designation (IEC/FDAM 60038-1, ISO/IEC PDAM 12207); they decode onto the modern identity — the designation stays whole on the base, an unnumbered stage token means Amendment 1, and the modern on-base face is what renders.",
+examples: [
+  { input: "IEC 61131-3:2013/AMD1:2019" },
+  { input: "IEC 60050-111/AMD1/FRAG1 ED2" },
+  { input: "IEC/FDAM 60038-1", output: "IEC 60038-1/FDAM1" },
+  { input: "ISO/IEC PDAM 12207", output: "ISO/IEC 12207/PDAM1" },
     ],
     },
     {
