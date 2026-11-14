@@ -6,6 +6,10 @@
 ^https://github\.com/pubid/pubid/?$
 ^https://github\.com/pubid/pubid/issues/?$
 
+# The conormis/platform repo is private; the URL is correct for
+# authenticated browsers but 404s to anonymous checkers.
+^https://github\.com/conormis/platform/issues/406$
+
 # Metanorma blog post being restored; URL is the canonical target.
 ^https://www\.metanorma\.org/posts/2022-01-09-nist-pubid/?$
 
