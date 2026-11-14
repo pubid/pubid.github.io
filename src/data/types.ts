@@ -11,6 +11,9 @@ export interface Stage {
   code: string
   abbr: string
   name: string
+  // Deliverable types the stage applies to — IEC's correspondence table
+  // carries this column; optional since the ISO/NIST tables don't.
+  deliverables?: string
 }
 
 export interface FlavorComponent {
@@ -46,6 +49,8 @@ export interface Publisher {
   website?: string
   docTypes: DocType[]
   stages?: Stage[]
+  // Optional provenance line rendered with the Development Stages table.
+  stagesNote?: string
   styles?: PubIDStyle[]
   components: FlavorComponent[]
   algebra: AlgebraRelation[]

@@ -14,6 +14,8 @@ const dt = computed(() => props.docType)
 
 const typeSyntax = computed(() => getTypeSyntax(p.value.flavor, dt.value.key))
 
+const hasStageDeliverables = computed(() => p.value.stages?.some(s => s.deliverables))
+
 const dataTypeLabel: Record<string, string> = {
   enum: 'Enumeration',
   integer: 'Integer',
@@ -134,12 +136,16 @@ function enrich(comp: FlavorComponent) {
     <!-- Stages (if applicable) -->
     <div v-if="p.stages && p.stages.length > 0" style="margin-bottom:2rem;">
       <h2 id="stages">Development Stages</h2>
+      <p v-if="p.stagesNote" style="color:var(--vp-c-text-2);margin-bottom:1rem;font-size:0.85rem;">
+        {{ p.stagesNote }}
+      </p>
       <table class="stage-table">
         <thead>
           <tr>
             <th>Code</th>
             <th>Abbr</th>
             <th>Name</th>
+            <th v-if="hasStageDeliverables">Deliverable</th>
           </tr>
         </thead>
         <tbody>
@@ -147,6 +153,7 @@ function enrich(comp: FlavorComponent) {
             <td><span class="stage-code">{{ stage.code }}</span></td>
             <td><span class="stage-abbr">{{ stage.abbr }}</span></td>
             <td>{{ stage.name }}</td>
+            <td v-if="hasStageDeliverables" style="color:var(--vp-c-text-2);font-size:0.85rem;">{{ stage.deliverables }}</td>
           </tr>
         </tbody>
       </table>

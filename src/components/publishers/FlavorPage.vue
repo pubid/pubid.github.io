@@ -31,6 +31,7 @@ function toggleAll() {
 
 const hasRelated = computed(() => p.value.relatedFlavors && p.value.relatedFlavors.length > 0)
 const hasStages = computed(() => p.value.stages && p.value.stages.length > 0)
+const hasStageDeliverables = computed(() => p.value.stages?.some(s => s.deliverables))
 const hasStyles = computed(() => p.value.styles && p.value.styles.length > 0)
 const hasAlgebra = computed(() => p.value.algebra.length > 0)
 
@@ -242,12 +243,16 @@ const dataTypeLabel: Record<string, string> = {
       <p style="color:var(--vp-c-text-2);margin-bottom:1rem;font-size:0.92rem;">
         Lifecycle stages for {{ p.name }} documents:
       </p>
+      <p v-if="p.stagesNote" style="color:var(--vp-c-text-2);margin-bottom:1rem;font-size:0.85rem;">
+        {{ p.stagesNote }}
+      </p>
       <table class="stage-table">
         <thead>
           <tr>
             <th>Code</th>
             <th>Abbr</th>
             <th>Name</th>
+            <th v-if="hasStageDeliverables">Deliverable</th>
           </tr>
         </thead>
         <tbody>
@@ -255,6 +260,7 @@ const dataTypeLabel: Record<string, string> = {
             <td><span class="stage-code">{{ stage.code }}</span></td>
             <td><span class="stage-abbr">{{ stage.abbr }}</span></td>
             <td>{{ stage.name }}</td>
+            <td v-if="hasStageDeliverables" style="color:var(--vp-c-text-2);font-size:0.85rem;">{{ stage.deliverables }}</td>
           </tr>
         </tbody>
       </table>
