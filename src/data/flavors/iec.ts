@@ -103,8 +103,8 @@ description: "Modifies an existing standard by adding, changing, or deleting spe
 examples: [
   { input: "IEC 61131-3:2013/AMD1:2019" },
   { input: "IEC 60050-111/AMD1/FRAG1 ED2" },
-  { input: "IEC/FDAM 60038-1", output: "IEC 60038-1/FDAM1" },
-  { input: "ISO/IEC PDAM 12207", output: "ISO/IEC 12207/PDAM1" },
+  { input: "IEC/FDAM 60038-1", output: "IEC 60038-1/FDAM 1" },
+  { input: "ISO/IEC PDAM 12207", output: "ISO/IEC 12207/PDAM 1" },
     ],
     },
     {
