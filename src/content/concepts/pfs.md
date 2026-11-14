@@ -17,7 +17,7 @@ conformance set.
 
 The design was adopted in
 [pubid#706](https://github.com/pubid/pubid/issues/706), whose scripted
-declarability matrix measures all 44 flavors; the language reference is
+declarability matrix measured all 44 flavors; the language reference is
 [`definitions/README.md`](https://github.com/pubid/pubid-grammar/blob/main/definitions/README.md)
 in pubid-grammar, and the reference page for the `.pfs` language lives at
 [The .pfs Format Schema Language](/library/pfs).
@@ -43,38 +43,46 @@ definition's live test panel, not documentation.
 The same philosophy governs adoption: a flavor is ported to PFS only when
 the port reproduces the coded flavor byte-for-byte on every corpus row its
 model represents — and rejects what it cannot, with the boundary pinned as
-an explicit ledger (the cen port is the honest example: 55 rows absorbed,
-134 pinned). Drift is a failed port, never a fixture edit. The proof
-pattern is the
+an explicit ledger. The cen port ran that rule twice: it first shipped as
+the honest boundary (55 rows absorbed, 134 pinned as the ledger), and when
+the compiler grew the six declared-emission features, the definition
+absorbed the whole corpus — 189/189, zero pinned. The boundary moved by
+extending the language, never by editing fixtures. Drift is a failed port,
+never a fixture edit. The proof pattern is the
 [parity harness](https://github.com/pubid/pubid/blob/main/spec/pubid/doi_pfs/parity_spec.rb)
 each compiled flavor ships beside its coded sibling.
 
 ## The tier model
 
 The declarability matrix measured every flavor against what a declarative
-language can express. **27 of the 44 flavors (61%)** are expressible in v1
-today — publishers, type tokens, field patterns, canonical and alternate
-templates, typed-stage bindings — covering about 43,800 corpus fixtures.
-The v1 boundaries have narrowed since the matrix was drawn: the compiler
-now carries collection bindings, conditional render segments, the
+language can express: **27 of the 44 flavors (61%)** were expressible in
+v1 as drawn — publishers, type tokens, field patterns, canonical and
+alternate templates, typed-stage bindings — covering about 43,800 corpus
+fixtures. The boundaries have narrowed since the matrix was drawn: the
+compiler now carries collection bindings, conditional render segments, the
 edition-fold, supplement wrapper synthesis, int-kind URN cores, the
 declared URN-generator surface and the MR-slug hooks — the constructs the
-etsi bracket had pinned as the phase-3 backlog — and every grammar
-segment carries a semantic name. Twelve more flavors (tier B) become
-expressible through the extension catalog — the sub-numbering extension
-and the calendar binding have landed, vocabulary tables and the rest are
-declared-but-unbuilt — and through the module library below. Three
-flavors — BSI, IEEE, NIST — carry structural machinery that stays coded
-for now. ISO and IEC are out of scope as declared schemes by scoping;
-their *inner* formats, however, are exactly what the module library
-ships.
+etsi bracket had pinned as the phase-3 backlog — and the cen absorption
+added the six declared-emission features on top: multi-type emission, the
+draft stages, the wrapper shapes, the adopted-base dispatch with its coded
+hook, the publisher-type defaults and the fused URN segments. Every
+grammar segment — declared or generated — carries a semantic name, and an
+unnamed capture is a compile-time rejection: the grammar is
+self-understandable to the bodies reading it. Twelve more flavors (tier B)
+become expressible through the extension catalog — the sub-numbering
+extension and the calendar binding have landed, vocabulary tables and the
+rest are declared-but-unbuilt — and through the module library below.
+Three flavors — BSI, IEEE, NIST — carry structural machinery that stays
+coded for now. ISO and IEC are out of scope as declared schemes by
+scoping; their *inner* formats, however, are exactly what the module
+library ships.
 
 ## The module library
 
 National standards bodies do not invent identifier schemes — they adopt the
-ISO and IEC inner formats, and CEN overlays the European face. Today that
-machinery is hand-coded once per body. PFS ships it once: the library is
-live in pubid-grammar
+ISO and IEC inner formats, and CEN overlays the European face. That
+machinery used to be hand-coded once per body. PFS ships it once: the
+library is live in pubid-grammar
 ([`definitions/modules/*.pfsmod`](https://github.com/pubid/pubid-grammar/tree/main/definitions/modules))
 — six named, versioned modules a definition binds:
 
@@ -89,7 +97,9 @@ live in pubid-grammar
 
 A DIN-EN-ISO adoption is a handful of lines: bind the inner face, the
 adoption overlay and the national prefix, declare the publisher — the
-definition compiles green with the bound modules doing the machinery. Two
+definition compiles green with the bound modules doing the machinery, and
+the DIN, BS and NF variants are the same definition with a different
+`prefixes` value, all compiled against the shipped library. Two
 soundness rules are enforced at compile time: modules declare **identity**
 composition (an adoption is a wrapper with an adopted base, not a grammar
 soup), and they declare their **extension hooks** (a BS `+A1` national
@@ -110,15 +120,17 @@ zero redesign — the wizard emits the same file upstream consumes.
 ## Where it stands
 
 Four compiled flavors ship beside their coded siblings in the pubid gem
-(2.0.26) as dev-alias keys, each with its parity harness green on pubid
+(2.0.28) as dev-alias keys, each with its parity harness green on pubid
 main: `doi_pfs` — the smallest scheme, zero renderer branches, 55/55
 byte-identical; `etsi_pfs` — the largest corpus, 24,718/24,718 full byte
 parity after the compiler v2 closed the phase-2 pins; `calconnect_pfs` —
 the acceptance port, 400-example byte parity over the whole corpus with
 the sub-numbering extension and the calendar binding in; `cen_pfs` — the
-module-composition port, 55 corpus rows absorbed byte-identically with
-the 134 rows outside the composition's surface pinned as an explicit
-ledger, the measured boundary of the module library. Drift is a failed
+module-composition port grown into the full-absorption proof, 189/189
+corpus rows byte-identical with zero pins, the phase-2 boundary closed by
+the compiler's six declared-emission features
+([pubid-grammar#122](https://github.com/pubid/pubid-grammar/pull/122) +
+[pubid#721](https://github.com/pubid/pubid/pull/721)). Drift is a failed
 port, never a fixture edit. On the TypeScript side the compiled
 `doi_pfs`, `calconnect_pfs` and `etsi_pfs` flavors joined pubid-ts over
 the same baked artifacts
