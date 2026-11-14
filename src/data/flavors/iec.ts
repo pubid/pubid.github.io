@@ -99,12 +99,14 @@ export const iec: Publisher = {
       key: "amendment",
       title: "Amendment",
       abbr: ["AMD", "AM"],
-description: "Modifies an existing standard by adding, changing, or deleting specified elements. A supplement can also stand alone — written without its base — and serializes, URNs and round-trips (parse == from_hash) like any attached supplement (pubid #693). The legacy ballot faces print the stage before the base designation (IEC/FDAM 60038-1, ISO/IEC PDAM 12207); they decode onto the modern identity — the designation stays whole on the base, an unnumbered stage token means Amendment 1, and the modern on-base face is what renders.",
+description: "Modifies an existing standard by adding, changing, or deleting specified elements. A supplement can also stand alone — written without its base — and serializes, URNs and round-trips (parse == from_hash) like any attached supplement (pubid #693). The legacy ballot faces print the stage before the base designation (IEC/FDAM 60038-1, ISO/IEC PDAM 12207); they decode onto the modern identity — the designation stays whole on the base, an unnumbered stage token means Amendment 1, and the modern on-base face is what renders. Dotted sub-numbers survive: a supplement numbered 2.3 keeps its iteration (pubid #725), and a dotted base designation stays whole on the base.",
 examples: [
   { input: "IEC 61131-3:2013/AMD1:2019" },
   { input: "IEC 60050-111/AMD1/FRAG1 ED2" },
   { input: "IEC/FDAM 60038-1", output: "IEC 60038-1/FDAM 1" },
   { input: "ISO/IEC PDAM 12207", output: "ISO/IEC 12207/PDAM 1" },
+  { input: "IEC 60038-2/DAM 2.3:2022" },
+  { input: "IEC/FDAM 60038-2.3", output: "IEC 60038-2.3/FDAM 1" },
     ],
     },
     {
@@ -115,6 +117,7 @@ examples: [
       examples: [
         { input: "CISPR 16-1-3:2004/COR1:2006" },
         { input: "CISPR 16-1-5:2014/COR1:2020" },
+        { input: "IEC 60038-2/DCOR 1.3" },
     ],
     },
     {
