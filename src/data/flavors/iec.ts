@@ -222,15 +222,28 @@ examples: [
       key: "societal_technology_trend_report",
       title: "Societal Technology Trend Report",
       abbr: ["STTR"],
-      description: "Reports analyzing technology trends and their societal impact. The class exists (URN type 'pubid:iec:sttr') but no printed-input spelling is in the parse grammar yet — build via the constructor or from_hash.",
-      examples: [],
+      description: "Reports analyzing technology trends and their societal impact. The printed face spells the type out — \"IEC Trend Report <number>[:<year>]\" — and parses in both engines (URN type 'pubid:iec:sttr'); the STTR abbreviation is recognized on citation but the parse face is the spelled-out form.",
+      examples: [
+        { input: "IEC Trend Report 1:2020" },
+    ],
+    },
+    {
+      key: "technology_report",
+      title: "Technology Report",
+      abbr: ["Technology Report"],
+      description: "IEC technology reports on emerging technology topics. The printed face spells the type out — \"IEC Technology Report <number>[:<year>]\" — and parses in both engines (URN type 'pubid:iec:technology-report'; the pubid-scheme URN type token is 'tr2'). Letter-number citations like 'TEC' or 'DTEC' do not parse.",
+      examples: [
+        { input: "IEC Technology Report 1:2024" },
+    ],
     },
     {
       key: "white_paper",
       title: "White Paper",
       abbr: ["WP"],
-      description: "IEC white papers exploring emerging technology topics. The class exists (URN type 'pubid:iec:white-paper'; from_hash renders 'IEC White Paper AAL') but no printed-input spelling is in the parse grammar yet — build via the constructor or from_hash.",
-      examples: [],
+      description: "IEC white papers exploring emerging technology topics. The printed face spells the type out — \"IEC White Paper <alnum>[:<year>]\" (alphanumeric designations like AAL) — and parses in both engines (URN type 'pubid:iec:white-paper'); the WP abbreviation is recognized on citation but the parse face is the spelled-out form.",
+      examples: [
+        { input: "IEC White Paper AAL:2022" },
+    ],
     },
 ],
   stages: [
