@@ -7,7 +7,8 @@ description: "The PFS language reference: what a .pfs definition declares, what 
 
 A `.pfs` file is the data form of an identifier flavor: plain YAML that
 declares the scheme's publishers, type tokens, field patterns, canonical and
-alternate templates, typed-stage bindings, URN schema and — required, not
+alternate templates, typed-stage bindings, draft stages, the supplement
+wrappers, the adopted-base dispatch, URN schema and — required, not
 optional — its examples. The compiler
 ([`scripts/pfs`](https://github.com/pubid/pubid-grammar/blob/main/scripts/pfs)
 in [pubid-grammar](https://github.com/pubid/pubid-grammar)) generates the
@@ -128,10 +129,12 @@ The alternate accepts `WCS STD 101 2023` and normalizes it to the canonical
 | `modules` | no | the module-library bindings (name, pinned version, parameters) |
 | `grammar` | no | named lexical terms — PARG fragments the fields and templates reference; every segment carries a semantic name |
 | `date` | no | the calendar binding: fields folded into the shared `Components::Date` |
-| `types` | yes | the identifier types: semantic key, wire tag, typed-stage binding |
-| `fields` | yes | the captures: each a whole-pattern lexical rule with a kind (`string` or `list`), optional sub-numbering, builder-only folds |
+| `types` | yes | the identifier types — a scheme may declare many: semantic key, wire tag, typed-stage binding, the tokens that select the class, the publisher default |
+| `stages` | no | the draft stages: the accepted spellings and the official-URN stage code (the `prEN`/`FprEN` face) |
+| `fields` | yes | the captures: each a whole-pattern lexical rule with a kind (`string` or `list`), optional sub-numbering, token maps, builder-only folds |
 | `templates` | yes | the canonical render face and the alternate accept spellings |
-| `supplements` | no | the supplement run: synthesized amendment/corrigendum wrapper classes over the base |
+| `supplements` | no | the supplement run: synthesized wrapper classes over the base, with the wrapper shapes (optional ordinals, wrapper-owned dates, the consolidated bundle, the fragment face) |
+| `adopted` | no | the adopted-base dispatch: the builder-only capture carrying the adopted run and the coded hook that parses it |
 | `urn` | yes | the scheme's URN namespace, the official segment order, the pubid-scheme schema |
 | `mr` | no | the MR-slug hooks: the segments the shared MrString renderer reads from the columns |
 | `examples` | yes | the live test panel: positives that must parse and render, negatives that must fail |
@@ -148,11 +151,54 @@ the wire tag (defaulting to `pubid:<scheme>:<name>`), and an optional typed
 stage binding — the body-local `code`, the harmonized `stage_code`, and the
 parse-in `abbr` spellings. Two types may not claim the same key, the same
 wire tag, or the same stage abbreviation; either collision is a compile
-error citing both claimants. In v1 the generated Ruby flavor is
-single-type: a multi-type scheme models one type per definition (the CEN
-port models the EN face, its other classes staying coded). The one
-multi-class shape is the `supplements:` declaration, which synthesizes the
-wrapper classes itself (below) — those are not declared types.
+error citing both claimants.
+
+A definition may declare many types — the compiler emits one class per
+declared type. The shipped
+[`cen.pfs`](https://github.com/pubid/pubid-grammar/blob/main/definitions/cen.pfs)
+declares the nine CEN/CENELEC deliverable families (EN, TR, TS, CWA, HD,
+CR, ES, ENV, Guide) in one file. Three extra per-type keys drive the
+dispatch:
+
+- `tokens:` — the grammar spellings that select the class: a token in type
+  position (`CEN/TR 12101`) or publisher position (`CR 10313` — the
+  publisher types are the designation) routes to the type; a type with no
+  tokens is the scheme's default class (cen's `EN`);
+- `publisher_default:` — the token the publisher column defaults to when
+  the reference omits a publisher face (cen's `CR 954` prints `CR` as both
+  type and publisher; `to_hash` drops the publisher column when the value
+  equals the default); absent, the default is the organization's
+  publisher;
+- `adopted: true` — the type is an adoption wrapper the builder constructs
+  for a captured adopted run (cen's adopted European Norm; the run itself
+  is dispatched by the `adopted:` section, below).
+
+The one other multi-class shape is the `supplements:` declaration, which
+synthesizes the wrapper classes itself (below) — those are not declared
+types.
+
+### `stages:` — the draft stages
+
+A scheme whose draft documents carry their own head tokens declares them
+as draft stages — the accepted spellings, the serialized stage code and
+the official-URN stage code (cen's declaration):
+
+```yaml
+stages:
+  pren:
+    tokens: ["prEN"]
+    urn: proposal
+  fpren:
+    tokens: ["FprEN"]
+    urn: final_proposal
+```
+
+The serialized code is the key (`"stage" => "pren"` in the canonical
+hash), the tokens are the parse-in spellings, and the URN carries the
+declared code — `urn:cen:en:12464-1:2019:stage.proposal` and
+`...:stage.final_proposal` for the two cen drafts (verified against the
+compiled flavor). A stage field maps its captured token to the key via
+`map:` (below).
 
 ### `fields:` — the captures
 
@@ -179,6 +225,20 @@ Three pattern-level extensions ride on a field:
   and `ed.1` faces stay mutually exclusive at render time exactly as the
   grammar makes them at parse time. A fold requires a plain `into:` target
   and a collision-free `flag:`.
+
+A string field may also carry a **token map** — the captured token's
+stored value, its render spelling and its official-URN face, declared in
+one place (cen's `stage` field, which carries the draft tokens the
+`stages:` section declared):
+
+```yaml
+stage:
+  pattern: '("FprEN" / "prEN")'
+  kind: string
+  map: { FprEN: fpren, prEN: pren }
+  render: { fpren: FprEN, pren: prEN }
+  urn: { fpren: final_proposal, pren: proposal }
+```
 
 A `kind: list` field is a **collection binding**: it binds an `item:`
 capture per repetition. The etsi definition's `parts` field has pattern
@@ -268,6 +328,78 @@ Corrigendum(1, Amendment(1, Standard)). The wrappers carry the supplement
 suffix in the MR slug themselves, and the schema's wrapper rows carry the
 Integer ordinal as an int-kind core (below).
 
+The cen definition extends the same declaration to its wrapper shapes —
+string ordinals, an unnumbered item, wrapper-owned calendar columns, the
+consolidated bundle and the fragment face:
+
+```yaml
+supplements:
+  run: supplements
+  item: supplement
+  kind: supplement_kind
+  number: supplement_number
+  number_kind: string          # the ordinal column is a string ("AC2")
+  date: [year, month]          # the wrapper-owned calendar columns
+  wrappers:
+    amendment:
+      face: "A"
+      tag: "pubid:cencenelec:amendment"
+      title: "Amendment"
+      fields: [year]           # the wrapper carries its own year
+      mr: [amd, number, year]
+      urn: [amd, number, year]
+    corrigendum:
+      face: "AC"
+      tag: "pubid:cencenelec:corrigendum"
+      title: "Corrigendum"
+      fields: [year, month]
+      number_optional: true    # the unnumbered "/AC"
+      mr: [cor, number, date]
+      urn: [cor, number, date]
+  consolidated:                # the plus run ("+AC:2009+AC2:2009")
+    tag: "pubid:cencenelec:consolidated-identifier"
+    title: "Consolidated identifier"
+  fragment:                    # the trailing FRAG face
+    face: "FRAG"
+    field: fragment_number
+    tag: "pubid:cencenelec:fragment"
+    title: "Fragment"
+    mr: [frag, number]
+    urn: [frag, number]
+```
+
+(the cen declaration). The slash run folds into the standalone wrapper
+chain, the plus run into the consolidated bundle: `EN 285:2015+A1` binds
+as the consolidated bundle over the base and its amendment
+(`ConsolidatedIdentifier([EN 285, Amendment 1])`), and
+`EN 60038/A1 FRAG2` yields the URN
+`urn:cen:en:60038:amd:1:frag:2` (verified against the compiled flavor).
+The `number_kind` default is `integer` — the etsi ordinals; cen's are
+strings.
+
+### `adopted:` — the coded escape hatch
+
+Some machinery is deliberately not declarable: parsing an adopted
+document's identifier requires the OWNING schemes' flavors. The
+`adopted:` section names the builder-only capture carrying the adopted
+run and the coded hook the generated builder calls:
+
+```yaml
+adopted:
+  field: adopted
+  hook: coded
+```
+
+(the cen declaration). `coded` is the only declared value: the hook is
+vendored beside the generated flavor
+(`lib/pubid/cen_pfs/adopted_base.rb` in the pubid gem), and the builder
+calls it at two explicit points — the captured adopted run, and the
+hook's implicit probe. The cen hook parses the adopted string with
+`Pubid::Iso` / `Pubid::Iec`, switches the ENV adoption to the prestandard
+class, and owns the implicit IEC-range adoption. Explicit, never
+implicit: the declaration names the escape hatch; the code lives beside
+the flavor it serves.
+
 ### `date:` — the calendar binding
 
 `date: {fields: [year, month, day]}` folds the named fields into the shared
@@ -279,8 +411,9 @@ a plain string attribute.
 
 `namespace` is the scheme's official URN namespace; `official` declares the
 official URN's ordered segments — absent fields leave no segment. A segment
-is a field (optionally `lower:`cased), a fused date group joined with `-`,
-or one of the composition surfaces:
+is a field (optionally `lower:`cased, with an `affix:` and an
+`edition_affix:` that replaces the affix while the fold flag holds), a
+fused date group joined with `-`, or one of the composition surfaces:
 
 ```yaml
 official:
@@ -298,6 +431,29 @@ generator's output): a `compose:` glues slots into one segment; an `affix:`
 prefixes the field's value, and `edition_affix:` replaces the affix while
 the fold flag holds — `V1.5.1` yields the `v1.5.1` segment, `ed.1` the
 `ed.1` segment.
+
+The cen definition adds the fused shapes — a publisher group, the adopted
+document's MR string and the draft-stage code:
+
+```yaml
+official:
+  - { pub_group: { glue: "-" } }
+  - { adopted_mr: true }
+  - compose:
+      - { field: number }
+      - { field: part, glue: "-" }
+  - { date: [year] }
+  - { stage_code: { field: stage } }
+```
+
+`pub_group:` fuses the publisher column with the copublishers list,
+downcased (`CEN/CLC/ETSI/TR 101551:2026` →
+`urn:cen:cen-clc-etsi:101551:2026`); `adopted_mr:` emits the adopted
+document's MR string with its separators fused to colons
+(`EN ISO 12100:2010` → `urn:cen:en:iso:12100:2010`); `stage_code:` emits
+`stage.` plus the declared stage URN code, draft rows only
+(`prEN 12464-1:2019` → `urn:cen:en:12464-1:2019:stage.proposal`). All
+verified against the compiled flavor.
 
 `schema` is the pubid-scheme schema (`PubidUrn.define`): `atoms` (path +
 prefix, optionally `kind: list`) and `types` (wire tag, token, positional
@@ -389,15 +545,19 @@ $ ruby scripts/pfs compile din.pfs --as din_pfs \
     --grammar-out grammars/din_pfs.parg --artifact-out artifacts/din_pfs.json \
     --parsanol-version 1.3.126
 compiled din.pfs (pfs:1) -> grammars/din_pfs.parg
-baked -> artifacts/din_pfs.json (checksum sha256:77e5a..., compiler 1.3.126)
+baked -> artifacts/din_pfs.json (checksum sha256:ace3b..., compiler 1.3.126)
 examples: 2 positives, 3 negatives — verified against the baked artifact
 ```
 
-The shipped
+The same composition carries the national-prefix story end to end:
+`BS EN ISO 9001`, `NF EN ISO 9001` and `DIN EN ISO 9001` are one
+definition composed with the same modules and a different `prefixes`
+value — the `BS`, `NF` and `DIN` variants all compile green against the
+shipped library. (The shipped
 [`cen.pfs`](https://github.com/pubid/pubid-grammar/blob/main/definitions/cen.pfs)
-composition port mirrors the same composition. `BS EN ISO 9001`,
-`NF EN ISO 9001` and `DIN EN ISO 9001` are one definition composed with
-the same modules and a different `prefixes` value.)
+began as this composition's proof — the EN face, 55 rows — and now
+declares the whole coded surface directly; the composition above is what
+a national body binds today.)
 
 Modules declare **identity** composition, not just grammar: an NSB
 identifier is a wrapper-with-adopted — the adopted document is the base —
@@ -452,9 +612,7 @@ major may reinterpret, and compilers refuse definitions newer than they
 support — fail-closed, the engine's `binding_version` precedent. The same
 rule applies per module: a definition pinned to a newer module major than
 the library ships is refused, and so is a stale pin. The remaining
-declared-but-unbuilt v1 surfaces — multiple declared `types:` per
-generated flavor (the supplements declaration is the one multi-class
-shape), free-standing `stages:` maps, semantic decode rules, field kinds
+declared-but-unbuilt v1 surfaces — semantic decode rules, field kinds
 beyond `string` and `list` — fail closed rather than compiling halfway: a
 definition using them stops at the error, never at a half-compiled flavor.
 
@@ -511,7 +669,7 @@ and the coded one must agree byte-for-byte on `to_s` / `to_hash` / `to_urn`
 error class. The harness's own rule bears quoting: *drift is a defect in the
 definition or the compiler, never a reason to relax an expectation here.*
 
-The landed proofs — all four harnesses green on pubid main (2.0.26):
+The landed proofs — all four harnesses green on pubid main (2.0.28):
 
 - `doi_pfs` — the smallest scheme, zero renderer branches: 55/55
   byte-identical;
@@ -521,29 +679,31 @@ The landed proofs — all four harnesses green on pubid main (2.0.26):
 - `calconnect_pfs` — the acceptance port: **400-example byte parity over
   the whole corpus** (every payload row's canonical hash, human and urn
   forms, aliases and round trip, plus every negative);
-- `cen_pfs` — the module-composition port: **55 corpus rows absorbed
-  byte-identically, 134 pinned** as the unabsorbed ledger — the measured
-  boundary of the module library, whose six coded-machinery blockers are
-  documented in the definition's header.
+- `cen_pfs` — the module-composition port grown into the **full-absorption
+  proof: 189/189 corpus rows byte-identical, zero pinned**
+  ([pubid-grammar#122](https://github.com/pubid/pubid-grammar/pull/122) +
+  [pubid#721](https://github.com/pubid/pubid/pull/721)). The phase-2
+  composition carried 55 rows and pinned 134; the six declared-emission
+  features — multi-type emission, the draft stages, cen's wrapper shapes,
+  the adopted-base dispatch, the publisher-type defaults, the fused URN
+  segments — absorbed the rest. The boundary moved by extending the
+  language, never by editing fixtures.
 
-cen's harness additionally pins the per-file row totals, so a compiler
-advance that starts absorbing former-gap rows turns the spec red and
-forces a conscious ledger update.
+cen's harness pins the per-file corpus conservation (189 rows across the
+14 payload files), so a corpus addition — or a regression that un-absorbs
+a row — turns the spec red and forces a conscious ledger update.
 
 ## v1 boundaries
 
-The compiler v2 narrowed these from the phase-1 list — collection
+The compiler v2 narrowed the phase-1 list twice over — collection
 bindings, conditional render segments, the fold, supplement wrappers,
 int-kind URN cores, the declared URN-generator surface, the MR hooks and
-the named-segments rule are all declarations now. What still fails closed,
-stated plainly, so a definition stops at the error instead of compiling
-halfway:
+the named-segments rule are all declarations now; the cen absorption added
+multi-type emission, the draft stages, the wrapper shapes, the
+adopted-base dispatch, the publisher-type defaults and the fused URN
+segments. What still fails closed, stated plainly, so a definition stops
+at the error instead of compiling halfway:
 
-- multiple `types:` per generated Ruby flavor — the PARG grammar handles
-  the general shape, the generated flavor is single-type (the supplements
-  declaration is the one multi-class shape, and its wrapper classes are
-  synthesized, not declared);
-- free-standing `stages:` maps — body→harmonized mappings without a type;
 - field kinds beyond `string` and `list`;
 - semantic decode rules — the vintage-dependent decode problem stays a v2
   concern; alternates are spelling-only, per the facets ruling.
@@ -560,3 +720,6 @@ formats living on as the module library.
 - [pubid-grammar `definitions/`](https://github.com/pubid/pubid-grammar/tree/main/definitions) — the shipped definitions (`doi`, `etsi`, `calconnect`, `cen`) and modules
 - [pubid#706](https://github.com/pubid/pubid/issues/706) — the adopted design and the declarability matrix
 - [pubid#714](https://github.com/pubid/pubid/pull/714) — the CalConnect and cen_cenelec proof ports (merged)
+- [pubid#721](https://github.com/pubid/pubid/pull/721) — the cen_pfs full byte-parity proof (merged)
+- [pubid-grammar#119](https://github.com/pubid/pubid-grammar/pull/119) — the compiler v2: the six gaps and the named-segments rule (merged)
+- [pubid-grammar#122](https://github.com/pubid/pubid-grammar/pull/122) — the cen absorption: the six declared-emission features (merged)
