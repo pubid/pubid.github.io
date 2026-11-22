@@ -122,13 +122,48 @@ describe('specific flavor invariants', () => {
     expect(keys).toContain('s4_specification')
   })
 
-  it('WMO has the Publication, Standard and Annex doc types (pubid #763)', () => {
+  it('WMO has the six doc types of the widened flavor (pubid #763 + the 2.0.49 widening)', () => {
     const wmo = publishers.find(p => p.flavor === 'wmo')
     expect(wmo).toBeDefined()
     const keys = wmo?.docTypes.map(d => d.key) || []
-    expect(keys).toEqual(['publication', 'standard', 'annex'])
+    expect(keys).toEqual(['publication', 'technical_document', 'jcomm_report',
+      'gaw_report', 'standard', 'annex'])
     expect(wmo?.relatedFlavors).toContain('iho')
     expect(wmo?.relatedFlavors).toContain('iala')
+    // the MRN pattern carries the widening series slugs and segments
+    expect(wmo?.urnPattern).toContain('wmo-td-')
+    expect(wmo?.urnPattern).toContain('jcomm-tr-')
+    expect(wmo?.urnPattern).toContain('gaw-')
+    expect(wmo?.urnPattern).toContain('[:vol-')
+    expect(wmo?.urnPattern).toContain('[:status-')
+    expect(wmo?.urnPattern).toContain('[:updated-')
+  })
+
+  it('WMO carries the widening faces (the 2.0.49 volume/compound-edition rows)', () => {
+    const wmo = publishers.find(p => p.flavor === 'wmo')!
+    const inputs = wmo.docTypes.find(d => d.key === 'publication')!.examples
+      .map(e => e.input)
+    // the volume faces — roman and the face-order row (volume before edition)
+    expect(inputs).toContain('WMO-No. 8, Volume I')
+    expect(inputs).toContain('WMO-No. 306, Volume I.1, 2020 edition')
+    // the compound editions — the year pair, the updated-in year, the status word
+    expect(inputs).toContain('WMO-No. 8, 2021/2018 edition')
+    expect(inputs).toContain('WMO-No. 1364, 2023 edition, updated in 2025')
+    expect(inputs).toContain('WMO-No. 8, Provisional 2026 edition')
+  })
+
+  it('WMO names the technical-document series and the prefix law in its prose', () => {
+    const wmo = publishers.find(p => p.flavor === 'wmo')!
+    // each new series is a doc type whose first example is the attested head
+    const first = (k: string) => wmo.docTypes.find(d => d.key === k)!.examples[0].input
+    expect(first('technical_document')).toBe('WMO/TD-No. 196')
+    expect(first('jcomm_report')).toBe('JCOMM Technical Report No. 14')
+    expect(first('gaw_report')).toBe('GAW Report No. 312')
+    // the prefix law: series parse only under their publisher prefix
+    expect(wmo.syntaxNotes).toContain('prefix law')
+    expect(wmo.syntaxNotes).toContain('WMO/TD-No.')
+    expect(wmo.syntaxNotes).toContain('JCOMM Technical Report No.')
+    expect(wmo.syntaxNotes).toContain('GAW Report No.')
   })
 
   it('Adobe has Publication + Technical Note', () => {
