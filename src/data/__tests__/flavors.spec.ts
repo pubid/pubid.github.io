@@ -122,6 +122,15 @@ describe('specific flavor invariants', () => {
     expect(keys).toContain('s4_specification')
   })
 
+  it('WMO has the Publication, Standard and Annex doc types (pubid #763)', () => {
+    const wmo = publishers.find(p => p.flavor === 'wmo')
+    expect(wmo).toBeDefined()
+    const keys = wmo?.docTypes.map(d => d.key) || []
+    expect(keys).toEqual(['publication', 'standard', 'annex'])
+    expect(wmo?.relatedFlavors).toContain('iho')
+    expect(wmo?.relatedFlavors).toContain('iala')
+  })
+
   it('Adobe has Publication + Technical Note', () => {
     const adobe = publishers.find(p => p.flavor === 'adobe')
     expect(adobe).toBeDefined()

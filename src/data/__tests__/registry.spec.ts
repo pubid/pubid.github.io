@@ -12,7 +12,8 @@ describe('registry', () => {
     // + 6 flavors ported from the pubid 2 registry (doi, evs, gb, isbn,
     // omg, un — 2026-11). 3GPP already had a page (flavor key "tgpp").
     // + 2 new pubid 2.0.44 flavors (eu, arxiv — pubid#752/#753, 2026-11).
-    expect(publishers).toHaveLength(46)
+    // + the pubid 2.0.48 WMO flavor (pubid#763, 2026-11).
+    expect(publishers).toHaveLength(47)
   })
 
   it('publishers are sorted alphabetically by flavor', () => {
