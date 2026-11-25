@@ -55,6 +55,9 @@ export interface Publisher {
   components: FlavorComponent[]
   algebra: AlgebraRelation[]
   urnPattern?: string
+  // Optional: path of the flavor's URN scheme reference page, linked from
+  // the publisher page's URN Mapping section.
+  urnDocs?: string
   relatedFlavors?: string[]
   syntaxNotes?: string
   // Optional: the hero renders a two-letter badge when a flavor has no logo

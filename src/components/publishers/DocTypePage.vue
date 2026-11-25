@@ -166,6 +166,11 @@ function enrich(comp: FlavorComponent) {
         <span class="label">Pattern</span>
         <code class="syntax-pattern">{{ p.urnPattern }}</code>
       </div>
+      <div v-if="p.urnDocs" class="related-links" style="margin-top:0.5rem;">
+        <a :href="p.urnDocs" class="related-link">
+          {{ p.name }} URN scheme reference <span class="link-arrow">&rarr;</span>
+        </a>
+      </div>
     </div>
 
     <!-- Related -->
