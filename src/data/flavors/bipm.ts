@@ -12,6 +12,7 @@ export const bipm: Publisher = {
   website: "https://www.bipm.org",
   syntaxNotes: "BIPM identifiers come in four families with distinct shapes: Committee Document — '<Group> <Type> [N] (<Year>[, <Lang>])' (e.g., 'CIPM REC 1 (1927)'; the spelled English long form leads with the group, 'CGPM Resolution 1 (1927)', and the French long form is body-prefixed, 'Décision CIPM/111-10 (2022)'); Meeting — '<Group> <n><ord> Meeting (<Year>)' (e.g., 'CGPM 1st Meeting (1889)'); Metrologia article — 'Metrologia <Volume>[ <Issue>[ <Article>]]' (e.g., 'Metrologia 51 1 128'); SI Brochure — 'BIPM SI Brochure <Edition>e [v<Version>] [(<Years>[, <Lang>])]' (e.g., 'BIPM SI Brochure 9e v3.01 (2019/2024, E)'). Loose printed forms — bare-number brochure editions ('SI Brochure 9', 'SI Brochure 9 (2024) (F)'), the ordinal edition spelling ('SI Brochure 9th edition (2019)'), the publisher-prefixed committee form ('BIPM DECN CIPM/101-1 (2012, EN)') and the connective French spellings — parse and normalize onto the canonical faces; the leading 'BIPM ' is optional on input.",
   urnPattern: "urn:bipm:v1:{group}:{type-word}:{identifier}[:{year}]  (committee: urn:bipm:v1:cipm:decision:110-17:2021 · meeting: urn:bipm:v1:cgpm:meeting:17:1983 · Metrologia: urn:bipm:v1:metrologia:51:1:128 · SI Brochure: urn:bipm:v1:bipm:si-brochure:9:3.01:2024)",
+  urnDocs: "/specs/bipm-urn",
   relatedFlavors: ["iso", "jcgm", "oiml"],
   docTypes: [
     {

@@ -9,7 +9,8 @@ export const oasis: Publisher = {
   description: "OASIS is a global nonprofit consortium that drives the development, convergence, and adoption of open standards for the information society. Founded in 1993 as SGML Open, OASIS produces some of the most widely deployed standards in the world, including SAML (federated identity), DocBook (technical documentation), OpenDocument (ODF — office document format), AMQP (messaging), DITA (technical publishing), and a large family of cybersecurity, privacy, and emergency-management standards. OASIS standards are developed through an open, multi-stage process: Committee Specifications → Candidate OASIS Standards → OASIS Standard (the normative, ratified form).",
   website: "https://www.oasis-open.org",
   syntaxNotes: "OASIS identifiers are slug-based with inconsistent internal structure (spec name + version + approval stage + part + label, in varying order). The PubID schema preserves the exact printed slug verbatim in `original` (which alone drives `to_s`); the remaining component fields (spec, version, stage, part) are best-effort decomposition for relaton querying and may be nil.",
-  urnPattern: "urn:oasis:[spec]:[version]",
+  urnPattern: "urn:oasis:[specification-identifier]",
+  urnDocs: "/specs/oasis-urn",
   relatedFlavors: ["iso", "w3c", "ogc"],
   docTypes: [
     {

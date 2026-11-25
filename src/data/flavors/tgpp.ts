@@ -10,6 +10,7 @@ export const tgpp: Publisher = {
   website: "https://www.3gpp.org",
   syntaxNotes: "3GPP identifiers use a type prefix (TS for Technical Specification, TR for Technical Report) followed by a dotted number, optional letter suffix (U, dcs, ext), 1-2 hyphenated parts, release token (REL-N, Ph1, UMTS, Release 2000), and three-part version (X.Y.Z). Default form has no publisher token; with_publisher=true adds '3GPP ' prefix.",
   urnPattern: "urn:3gpp:[type]:[number]:[release]:[version]",
+  urnDocs: "/specs/tgpp-urn",
   relatedFlavors: ["etsi", "ieee", "itu"],
   docTypes: [
     {
