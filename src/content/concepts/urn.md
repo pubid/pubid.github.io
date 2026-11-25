@@ -121,7 +121,7 @@ Pubid.to_slug(id)  # => "iso/is/9001/year-2015"
 
 ## See Also
 
-- **[URN Specifications](/specs/)** — Full ABNF grammar and reference documentation for ISO (RFC 5141-bis) and IEC URN namespaces
+- **[URN Specifications](/specs/)** — Full ABNF grammar and reference documentation for the ISO (RFC 5141-bis), IEC, IALA (R1023/G1143/G1164) and IHO URN namespaces
 - **[The pubid URN Scheme](/library/pubid-urn-scheme)** — the round-trippable `urn:pubid:` scheme and the slug form
 - [The Metaschema](/concepts/metaschema)
 - [Common Elements](/concepts/components)
