@@ -122,11 +122,28 @@ G1164 defines how organization identifiers are assigned and managed:
 
 ## Status in PubID
 
-The PubID `iala` flavor emits and parses these MRNs; its emission is being
-revamped to this official scheme of the three authoritative documents
-(pubid branch `iala/urn-revamp`). The flavor's pre-revamp emission named
-coded publications by their zero-padded series code; the revamp aligns
-emission and parsing with the official documents documented on this page.
+The PubID `iala` flavor emits and parses these MRNs, aligned with the
+official scheme of the three authoritative documents — the revamp is
+**landed** (gem 2.0.53/2.0.54, pubid#777 and pubid#780). What the revamp
+brought, each attested in the corpus round frozen at that gem
+(testsuite #125; 899 of 905 rows pass):
+
+- **The MRN emission.** Coded publications name themselves by the
+  lowercase managed-namespace code (`urn:mrn:iala:pub:r1023:ed1.0`,
+  `urn:mrn:iala:pub:s1070:ed2.0`), not the pre-revamp zero-padded
+  series-code form.
+- **The product-specification type.** The S-100-family product
+  specifications IHO granted IALA — the S-201..S-299 range — parse and
+  emit with the hyphenated code (`S-201 2.0.0` →
+  `urn:mrn:iala:pub:s-201:ed2.0.0`); 21 pass fixtures attest the type
+  and its dotted three-part edition.
+- **Annex sub-numbers.** The annex letter takes an optional sub-number
+  (`S-201 ANNEX B2` → `urn:mrn:iala:pub:s-201:annex-b2`).
+- **The grant boundary.** Product specification numbers outside the
+  granted range are rejected — the corpus records six such rejects
+  (`S-30`, `S-101`, `S-200`, `S-411`, `S-2011`, the incomplete
+  `S-201 Ed`), keeping the flavor from minting MRNs for documents IALA
+  does not own.
 
 ## See Also
 

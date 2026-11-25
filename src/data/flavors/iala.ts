@@ -10,7 +10,7 @@ export const iala: Publisher = {
   category: "international",
   description: "IALA is an international technical association that gathers marine aids to navigation authorities, industry manufacturers and consultants to harmonize and improve marine aids to navigation worldwide. IALA Recommendations and Standards guide lighthouse authorities, vessel traffic services, and e-Navigation implementations across more than 90 member countries.",
   website: "https://www.iala.int",
-  syntaxNotes: "IALA identifiers use a single-letter type prefix followed by a 4-digit zero-padded number: IALA {S|R|G|M|C|A|L|GA|X|P}[Number][ Ed [Edition]][ ([LangLetter])]. General Assembly resolutions use a dotted series.index form (GA01.01).",
+  syntaxNotes: "IALA identifiers use a single-letter type prefix followed by a 4-digit zero-padded number: IALA {S|R|G|M|C|A|L|GA|X|P}[Number][ Ed [Edition]][ ([LangLetter])]. General Assembly resolutions use a dotted series.index form (GA01.01). Two further faces exist: the S-100-family product specifications IHO granted IALA use the hyphenated S-201..S-299 range with a dotted three-part edition (S-201 2.0.0 — no type letter, the S is part of the code), and codeless publications carry a lowercase slug as their whole identity (IALA arctic-seminar-report (E)).",
   urnPattern: "urn:mrn:iala:pub:<managed name spaces>[:ed<edition>]",
   urnDocs: "/specs/iala-urn",
   relatedFlavors: ["iso", "iho", "iec"],
@@ -101,10 +101,34 @@ export const iala: Publisher = {
       key: "annex",
       title: "Annex",
       abbr: ["Annex"],
-      description: "Annex to an IALA base publication (typically a Guideline). The \"Annex\"/\"ANNEX\" marker case is preserved verbatim, with an optional single-letter suffix (A–D).",
+      description: "Annex to an IALA base publication (typically a Guideline or product specification). The \"Annex\"/\"ANNEX\" marker case is preserved verbatim, with an optional letter suffix (A–D) that itself takes an optional sub-number (ANNEX B2).",
       examples: [
         { input: "IALA G1045 Annex Ed 1" },
         { input: "IALA G1128 ANNEX A Ed 1.6" },
+        { input: "IALA S-201 ANNEX B2" },
+    ],
+    },
+    {
+      key: "product_specification",
+      title: "Product Specification",
+      abbr: ["S-2xx"],
+      description: "IALA S-100-family product specifications — the S-201..S-299 range IHO granted IALA (per iala.int's \"IALA S-200 Product Specification and Development Status\"). No type letter: the S is part of the hyphenated code. The edition is the dotted three-part form (S-201 2.0.0). Numbers outside the granted range (S-30, S-101, S-200, S-411, S-2011) are refused — IALA does not own them.",
+      examples: [
+        { input: "IALA S-201" },
+        { input: "IALA S-201 2.0.0" },
+        { input: "IALA S-247 0.2.0 (E)" },
+        { input: "urn:mrn:iala:pub:s-201:ed2.0.0" },
+    ],
+    },
+    {
+      key: "publication",
+      title: "Codeless Publication",
+      abbr: ["slug"],
+      description: "Codeless publications carry a lowercase slug as their whole identity (IALA arctic-seminar-report (E)) — symposium and conference reports with no series code. With no coded identity there is no URN emission; the slug form parses and renders only.",
+      examples: [
+        { input: "IALA arctic-seminar-report" },
+        { input: "IALA 14th-iala-symposium-report" },
+        { input: "IALA 13th-vts-symposium-sustainable-safe-navigation-august-2016-report (E)" },
     ],
     },
     {
@@ -135,7 +159,7 @@ export const iala: Publisher = {
       description: "Single-letter type code (S, R, G, M, C, A, L, GA, X, P)",
       attribute: "type_letter",
       dataType: "enum",
-      values: ["S (Standard)", "R (Recommendation)", "G (Guideline)", "M (Manual)", "C (Model Course)", "A (Advice)", "L (Letter)", "GA (General Assembly)", "X (Report)", "P (Resolution)"],
+      values: ["S (Standard)", "R (Recommendation)", "G (Guideline)", "M (Manual)", "C (Model Course)", "A (Advice)", "L (Letter)", "GA (General Assembly)", "X (Report)", "P (Resolution)", "none for S-2xx product specifications (the S is part of the hyphenated code) and for codeless slug publications"],
       example: "R",
     },
     {
@@ -175,7 +199,7 @@ export const iala: Publisher = {
   algebra: [
     { type: "Edition", description: "Cover-page vs listing-page edition forms", syntax: "IALA [Type][Number] Ed [X.Y] | IALA [Type][Number]:ed[X.Y]", example: "IALA R1016 Ed 2.0" },
     { type: "Sub-part", description: "Sub-part within a numbered publication", syntax: "IALA [Type][Number]-[SubPart] Ed [X.Y]", example: "IALA C0103-1 Ed 3.0" },
-    { type: "Annex", description: "Wraps a base publication with an annex marker", syntax: "IALA [Type][Number] Annex [A-D] Ed [X.Y]", example: "IALA G1128 ANNEX A Ed 1.6" },
+    { type: "Annex", description: "Wraps a base publication with an annex marker", syntax: "IALA [Type][Number] Annex [A-D][sub-number] Ed [X.Y]", example: "IALA G1128 ANNEX A Ed 1.6" },
     { type: "Language", description: "Translation suffix as a parenthesised letter", syntax: "IALA [Type][Number] Ed [X.Y] ([Lang])", example: "IALA R1016 Ed 2.0 (F)" },
 ],
 }

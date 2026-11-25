@@ -58,8 +58,10 @@ urn:mrn:iho:pub:<type>:<name-or-number>:<edition>[:<correction>[:<clarification>
 |---|---|---|
 | `urn:mrn:iho:pub:spec:s57:3:1:supplement3` | S-57, edition 3, correction 1, supplement 3 | the worked example of the S-100WG4 guidance |
 | `urn:mrn:iho:pub:spec:s98:1.0.0` | S-98 Main Ed 1.0.0 | printed in the metadata block of S-98 Ed 1.0.0 — IHO's own precedent for the dotted edition |
-| `urn:mrn:iho:pub:spec:s158:1.0.0` | S-158 (Validation Checks — Introduction and Structure), Ed 1.0.0 | the S-158 framework publication; lands with the S-158 model (pubid#774) |
-| `urn:mrn:iho:pub:spec:s158-102:1.0.0` | S-158:102 (validation checks for S-102), Ed 1.0.0 | member publication of the S-158 series; lands with the S-158 model (pubid#774) |
+| `urn:mrn:iho:pub:spec:s158:1.0.0` | S-158 (Validation Checks — Introduction and Structure), Ed 1.0.0 | the S-158 framework publication; attested in the pubid testsuite corpus (testsuite #124) |
+| `urn:mrn:iho:pub:spec:s158-102:1.0.0` | S-158:102 (validation checks for S-102), Ed 1.0.0 | member publication of the S-158 series; attested in the pubid testsuite corpus (testsuite #124) |
+| `urn:mrn:iho:pub:reg:m2:sup-1` | M-2 Sup 1 | attested in the pubid testsuite corpus — the `reg` type on the M series (Miscellaneous) |
+| `urn:mrn:iho:pub:per:p5:vol-2024` | P-5 Vol. 2024 | attested in the pubid testsuite corpus — the `per` type on the P series (Periodic); the yearbook year is the volume |
 
 **Compound publication numbers.** The S-158 series is a framework
 publication defining a series of separate check specifications, each named
@@ -68,8 +70,8 @@ specifies the validation checks for the S-102 product). In the MRN, the
 member number hyphenates into the name segment (`s158-102`) rather than
 becoming a separate segment, so the edition keeps its canonical fourth
 colon-position after `urn:mrn:iho:pub`. This is the PubID extension of the
-guidance for compound publication numbers; it lands with the S-158 model
-(pubid#774).
+guidance for compound publication numbers; it is attested in the corpus
+since gem 2.0.52 (pubid#776).
 
 ## Product MRNs
 
@@ -105,13 +107,21 @@ IHO product specifications.
 
 ## Status in PubID
 
-The PubID `iho` flavor adopts this scheme as the IHO URN scheme; the
-S-158 series model (framework publication plus `s158-NNN` member check
-specifications) lands with the S-158 model (pubid#774). Pending the MRN
-adoption, PubID currently emits a positional scheme
-(`urn:iho:<series>:<number>:…`, e.g. `urn:iho:s:98:ed-1.0.0`) on `to_urn`
-— that shape is unattested in IHO publications and migrates away in
-favour of the `urn:mrn:iho` scheme documented here.
+The PubID `iho` flavor emits this scheme on `to_urn` — the migration is
+**landed** (gem 2.0.52, pubid#776, with the grammar artifact in
+pubid-grammar#147): every S/P/M identifier (the series the guidance gives
+a publication type) emits the guidance form
+`urn:mrn:iho:pub:<type>:<name>:…` with `spec` (S series),
+`reg` (M series) and `per` (P series). The S-158 series model (framework
+publication plus `s158-NNN` member check specifications) ships in the
+same release. The corpus round froze at that gem (testsuite #124): all
+S/P/M corpus URN rows — 164 across standard (133), publication (18) and
+miscellaneous (13) — emit the guidance form, and the S-158 compound
+number rides the hyphenated name segment (`s158-102`). The B series
+(bibliographic) and C series (circular letters) have no guidance type
+code, so they keep the legacy positional scheme
+(`urn:iho:<type>:<number>:…`, e.g. `urn:iho:b:4:ed-2.19.0`) — decodable
+for every series, never emitted for S/P/M.
 
 ## See Also
 
