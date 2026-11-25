@@ -9,7 +9,8 @@ export const ecma: Publisher = {
   description: "Ecma International (originally the European Computer Manufacturers Association, now officially Ecma International) is a standards organization for information and communication systems founded in 1961 and based in Geneva. Ecma is best known for the ECMAScript specification (the language behind JavaScript), the JSON data interchange format, the C# and Common Language Infrastructure specifications, the Office Open XML formats, and the Dart language. Ecma standards follow a simple numbering scheme (ECMA-N); the edition is part of the printed identifier as the glued suffix \" ed<N>\" (decimal editions like ed5.1 are real — ECMA-402), so each published edition keys its own index row.",
   website: "https://ecma-international.org",
   syntaxNotes: "ECMA identifiers follow three shapes depending on the document class. Standards: 'ECMA-<number>[-<part>][ ed<N>][ vol<N>]' (the publisher token joins the number directly with no space; part only appears for multi-part standards like ECMA-418-1; the edition is the glued ' ed<N>' suffix, rendered by default, and a volume segment exists for the ECMA-269 multi-volume set). The human edition spellings are pre-parse aliases (pubid #698): the case-insensitive cover form ('ECMA-262 Edition 5.1'), the dotted and spaced variants ('ed. 5.1', 'ed 5.1') and the bare trailing edition ('ECMA 262 5.1') all normalize onto 'ECMA-262 ed5.1'; the space separator form ('ECMA 6' → 'ECMA-6') keeps its number. Technical Reports: 'ECMA TR/<number>'. Mementos: 'ECMA MEM/<number>'.",
-  urnPattern: "urn:ecma:[type]:[number][:part-N][:ed-edition][:vol-volume]",
+  urnPattern: "urn:ecma:[type]:[number][:part-N][:ed-edition][:vol-volume]  (the tag segment is bare for standards, tr for technical reports and mem for mementos — e.g. urn:ecma:262:ed-5.1, urn:ecma:tr:114:ed-1, urn:ecma:mem:2026)",
+  urnDocs: "/specs/ecma-urn",
   relatedFlavors: ["iso", "ieee", "w3c"],
   docTypes: [
     {

@@ -9,6 +9,8 @@ export const bsi: Publisher = {
   description: "BSI is the UK's National Standards Body, producing technical standards for a wide range of products and services. BSI also provides certification and standards-related services.",
   website: "https://www.bsigroup.com",
   syntaxNotes: "BSI identifiers use BS prefix with various type indicators. Adoptions of international standards use patterns like BS ISO, BS EN, BS EN ISO.",
+  urnPattern: "urn:bsi:[publisher]:[prefix]:[number][:[-part]][:[-subpart]][:year][:month][:v[edition]][:type][:stage.[code]]  (a consolidated identifier appends :amd:[n]:[year] or :cor:[n]:[year] per attached supplement — e.g. urn:bsi:bs:60269:-3:2010:amd:2:2022)",
+  urnDocs: "/specs/bsi-urn",
   relatedFlavors: ["iso", "iec", "cen-cenelec"],
   docTypes: [
     {

@@ -9,6 +9,8 @@ export const asme: Publisher = {
   description: "ASME is a professional association that promotes the art, science, and practice of multidisciplinary engineering. ASME standards cover pressure technology, nuclear power, piping, and many other mechanical engineering applications.",
   website: "https://www.asme.org",
   syntaxNotes: "ASME identifiers follow patterns like: ASME [Code] [Number]-[Year], ASME [Section] [Number]-[Year]. Draft standards include revision notes.",
+  urnPattern: "urn:asme:[[special]:][publisher[-copubs]]:[number]:[year][:ed.[n]][:ptc-suffix.[n]|csa.[n]|pub1.[x]|code1.[x]|pub2.[x]|joint.[x]|reaff.[year]|revnote.[text]|prev.[text]]  (special leads as handbook|ptc|csa when the record is one — e.g. urn:asme:handbook:asme:A17.1:2010:csa.B44)",
+  urnDocs: "/specs/asme-urn",
   relatedFlavors: ["ansi", "astm"],
   docTypes: [
     {

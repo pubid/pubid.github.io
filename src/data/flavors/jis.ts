@@ -9,6 +9,8 @@ export const jis: Publisher = {
   description: "Japanese Industrial Standards (JIS) are national standards for industrial products and technologies in Japan. They are established by the Japanese Industrial Standards Committee (JISC) and published by the Japanese Standards Association.",
   website: "https://www.jsa.or.jp",
   syntaxNotes: "JIS identifiers follow the pattern: JIS [Letter] [Number]:[Year]. The letter indicates the industrial classification (A=Civil Engineering, B=Mechanical, C=Electrical, etc.).",
+  urnPattern: "urn:jis:[code]:[year][:language][:supplement-notation]  (the code is the classification letter + space + number, verbatim — e.g. urn:jis:A 0001:1999; the raw space is the flavor's known RFC 8141 non-conformance)",
+  urnDocs: "/specs/jis-urn",
   relatedFlavors: ["iso", "plateau"],
   docTypes: [
     {

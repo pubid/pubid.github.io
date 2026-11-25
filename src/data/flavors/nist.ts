@@ -9,6 +9,8 @@ export const nist: Publisher = {
   description: "NIST is a physical sciences laboratory and a non-regulatory agency of the U.S. Department of Commerce. NIST was the first organization to adopt a multi-style, round-trippable PubID scheme with four defined rendering styles (full, abbreviated, short, machine-readable). The NIST PubID covers 19,333+ documents dating from 1901. Long-form prefixes (Rev.1, Part.1, Vol. 3) are normalised to canonical short form; \"Monograph\" is normalised to MONO; \"NIST Research Library (YYYY)\" is parsed as a one-off identifier.",
   website: "https://www.nist.gov",
   syntaxNotes: "NIST identifiers use publisher abbreviations (NIST, NBS for pre-1988 documents) followed by a type abbreviation and number. NIST PubID defines four rendering styles: Full (Long), Abbreviated, Short, and Machine-Readable (MR). The MR style uses dot-separated fields and serves as the DOI suffix. Citation-form commas are stripped on parse; long-form \"Vol.\" / \"Part.\" / \"Rev.\" prefixes are accepted and normalised. The bare form of a named series (no number, no edition) is the series-reference identity — e.g. \"NBS CS\" — matching every member of the series as a wildcard query and rendering the MR face of the series table of record (data/nist/series.yaml).",
+  urnPattern: "urn:nist:[series]:[number][.qualifier-cluster][:language]  (the qualifier cluster is dot-joined: edition, volume, part, issue, version, update, stage, supplement, errata, addendum, draft, index, insert, section, appendix; e.g. urn:nist:sp:800-53.r5.supp, urn:nist:ir:8259.supp:por)",
+  urnDocs: "/specs/nist-urn",
   relatedFlavors: ["ansi", "ieee"],
   docTypes: [
     {
