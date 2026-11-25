@@ -9,7 +9,8 @@ export const calconnect: Publisher = {
   description: "CalConnect (The Calendaring and Scheduling Consortium) is a nonprofit organization founded in 2004 that develops open standards for calendaring and scheduling. CalConnect brings together vendors, developers, and users of calendar systems to coordinate interoperability of iCalendar (RFC 5545/7986), CalDAV, and related calendaring technologies. CalConnect standards address gaps in the iCalendar ecosystem: calendaring event metadata, scheduling protocols, time-zone handling, and event publishing. Member organizations include major technology vendors, universities, and government agencies.",
   website: "https://www.calconnect.org",
   syntaxNotes: "CalConnect identifiers follow the shape: CC[/<series>] <number>:<date>. The publisher token is always 'CC'. An optional series letter or token follows after a slash (A, WD, DIR, …). The number is a plain string (preserves leading zeros and sub-part separators like '0812-1' or '0707.1'). The date segment uses the ISO-style year format with optional month and day for full-date forms (e.g. 'CC/WD 51017:2024-07-23').",
-  urnPattern: "urn:cc:[series]:[number]:[year]",
+  urnPattern: "urn:calconnect:[series]:[number]:[date]  (the emitted namespace is urn:calconnect, not urn:cc — the publisher token CC never enters the URN; the series keeps its printed case and an absent segment is omitted — urn:calconnect:WD:51017:2024-07-23, urn:calconnect:18011)",
+  urnDocs: "/specs/calconnect-urn",
   relatedFlavors: ["ietf", "iso"],
   docTypes: [
     {

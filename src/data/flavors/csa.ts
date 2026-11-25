@@ -9,6 +9,8 @@ export const csa: Publisher = {
   description: "CSA Group is a global organization dedicated to safety, social good, and sustainability. CSA develops standards for a wide range of products and services, with particular strength in electrical, gas, and construction standards.",
   website: "https://www.csagroup.org",
   syntaxNotes: "CSA identifiers follow patterns: CSA [Number]:[Year], CAN/CSA-[Number]:[Year] (Canadian national), CSA-[Number]:[Year]. Combined identifiers use / separator.",
+  urnPattern: "urn:csa:[prefix]:[number][:no.[n]][:series.true][year][:reaff.[year]][:pkg.[n]][:format.dash][:french]  (a code-only record keeps an empty prefix segment — urn:csa::B651HB:18:format.dash; the CEC part dash-joins the number — urn:csa:csa:C22.2-286:no.286:23; wrapper forms raise on to_urn)",
+  urnDocs: "/specs/csa-urn",
   relatedFlavors: ["ieee", "iec", "bsi"],
   docTypes: [
     {

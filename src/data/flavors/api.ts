@@ -9,6 +9,8 @@ export const api: Publisher = {
   description: "API represents all segments of America's oil and natural gas industry. API Standards cover everything from drilling and production to refining and distribution of petroleum products.",
   website: "https://www.api.org",
   syntaxNotes: "API identifiers follow: API [Type] [Number]. Types include Std (Standard), RP (Recommended Practice), Spec (Specification), TR (Technical Report), Bull (Bulletin), Publ (Publication), MPMS (Manual of Petroleum Measurement Standards).",
+  urnPattern: "urn:api:std:[number][-part][:year]  (the type segment is hard-wired std for every class — RP, SPEC, TR, BULL, PUBL, MPMS and COS all ride it; e.g. urn:api:std:1104, urn:api:std:1:-08)",
+  urnDocs: "/specs/api-urn",
   relatedFlavors: ["ansi", "astm"],
   docTypes: [
     {
