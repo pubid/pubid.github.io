@@ -9,7 +9,7 @@ export const iso: Publisher = {
   description: "ISO is an independent, non-governmental international organization that develops standards to ensure the quality, safety, and efficiency of products, services, and systems. ISO has published over 25,000 international standards covering almost all aspects of technology and manufacturing. Undated references (\":--\" and the em-dash variant \":—\") are accepted.",
   website: "https://www.iso.org",
   syntaxNotes: "ISO identifiers follow the pattern: [Copublisher/]ISO [Type] [Number][-Part]:[Year]. Joint publications use copublishers like ISO/IEC, ISO/ASTM, etc. Undated references use \":--\" or \":—\" for the year placeholder.",
-  urnPattern: "urn:iso:std:iso[:copublisher]:[number]:[edition]:[language]",
+  urnPattern: "urn:iso:std:iso[:copublisher]:[number]:[edition]:[language][:supplement-chain]  (the DIR document family rides the doc namespace instead of std — urn:iso:doc:iso-iec:dir:1:2022, urn:iso:doc:iso-iec:jtc:1:dir)",
   urnDocs: "/specs/iso-urn",
   relatedFlavors: ["iec", "astm", "bsi", "cen-cenelec", "ieee"],
   docTypes: [

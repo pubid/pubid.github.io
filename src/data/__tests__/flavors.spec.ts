@@ -110,9 +110,15 @@ describe('specific flavor invariants', () => {
     expect(oiml?.docTypes.find(d => d.key === 'bulletin')).toBeDefined()
   })
 
-  it('IALA has all 11 doc types (S, R, G, M, C, A, GA, L, Annex, X, P)', () => {
+  it('IALA has all 13 doc types (S, R, G, M, C, A, GA, L, Annex, X, P + the S-2xx product specifications and the codeless publications, pubid 2.0.51/2.0.53)', () => {
     const iala = publishers.find(p => p.flavor === 'iala')
-    expect(iala?.docTypes).toHaveLength(11)
+    expect(iala?.docTypes).toHaveLength(13)
+    const keys = iala?.docTypes.map(d => d.key) || []
+    expect(keys).toContain('product_specification')
+    expect(keys).toContain('publication')
+    // the annex letter takes a sub-number (S-201 ANNEX B2, gem 2.0.53)
+    const annex = iala?.docTypes.find(d => d.key === 'annex')
+    expect(annex?.examples.map(e => e.input)).toContain('IALA S-201 ANNEX B2')
   })
 
   it('IHO has all 6 doc types (the five series + the S-4 spec citation, pubid #691)', () => {
