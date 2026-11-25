@@ -19,6 +19,14 @@ Every PubID maps to a canonical URN (Uniform Resource Name) for machine intercha
 | [CCSDS URN scheme (urn:ccsds)](/specs/ccsds-urn) | `urn:ccsds:` | RFC 7738 (January 2016) |
 | [IALA URN scheme (urn:mrn:iala)](/specs/iala-urn) | `urn:mrn:iala:` | R1023 (Normative) Ed 1.0, G1143 Ed 3.1, G1164 Ed 1.1 |
 | [IHO URN scheme (urn:mrn:iho)](/specs/iho-urn) | `urn:mrn:iho:` | S-100WG4 MRN Guidelines for IHO (2019) |
+| [3GPP URN scheme (urn:3gpp)](/specs/tgpp-urn) | `urn:3gpp:` | RFC 5279 (March 2013) |
+| [XSF URN scheme (urn:xmpp)](/specs/xsf-urn) | `urn:xmpp:` | RFC 4854 (April 2007) |
+| [ISBN URN scheme (urn:isbn)](/specs/isbn-urn) | `urn:isbn:` | RFC 3187 (January 2002) |
+| [DOI URN scheme (urn:doi)](/specs/doi-urn) | `urn:doi:` | IANA formal URN namespace template |
+| [OASIS URN scheme (urn:oasis)](/specs/oasis-urn) | `urn:oasis:` | RFC 3121 (January 2002) |
+| [OGC URN scheme (urn:ogc)](/specs/ogc-urn) | `urn:ogc:` | RFC 5165 (March 2008) |
+| [BIPM URN scheme (urn:bipm)](/specs/bipm-urn) | `urn:bipm:` | Guide of record (BIPM editor guides), adopted 2026-11-11 |
+| [WMO URN scheme (urn:mrn:wmo:pub)](/specs/wmo-urn) | `urn:mrn:wmo:pub:` | IALA-pattern MRN assigning-authority form (pubid#763) |
 
 ## Reference Documents
 
@@ -36,7 +44,7 @@ These URN specifications are maintained as part of the PubID project. Each speci
 - **Resolution** mechanisms
 - **Gap analysis** against prior specifications (where applicable)
 
-The ISO and IEC specifications are authored in AsciiDoc and rendered on this site using Asciidoctor; the per-flavor URN scheme pages (IALA, IHO, IEEE, ETSI, ITU, IETF and CCSDS) are reference pages in Markdown. Source files are available in the [PubID repository](https://github.com/pubid/pubid/tree/main/references).
+The ISO and IEC specifications are authored in AsciiDoc and rendered on this site using Asciidoctor; the per-flavor URN scheme pages (IALA, IHO, IEEE, ETSI, ITU, IETF, CCSDS, 3GPP, XSF, ISBN, DOI, OASIS, OGC, BIPM and WMO) are reference pages in Markdown. Source files are available in the [PubID repository](https://github.com/pubid/pubid/tree/main/references).
 
 ## Implementation
 

@@ -10,6 +10,7 @@ export const ogc: Publisher = {
   website: "https://www.ogc.org",
   syntaxNotes: "OGC identifiers are digit-leading: '<yy>-<nnn>[<revision>]'. The year is 2 digits, the number is 3 digits (zero-padded), and the optional revision suffix is the lowercased token including its separator letter: 'r1', 'c1', 'a', 'r3a', 'r12a'. The leading 'OGC ' publisher token is added only when with_publisher=true (default is bare).",
   urnPattern: "urn:ogc:[year]:[number]:[revision]",
+  urnDocs: "/specs/ogc-urn",
   relatedFlavors: ["iso", "iho", "ieee"],
   docTypes: [
     {

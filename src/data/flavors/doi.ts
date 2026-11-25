@@ -9,6 +9,7 @@ export const doi: Publisher = {
   website: "https://www.doi.org",
   syntaxNotes: "DOI syntax is \"doi:10.{prefix}/{suffix}\" (case-insensitive scheme, normalized to lowercase). PubID accepts the canonical \"doi:\" form, the bare \"10.x/suffix\" name, the \"DOI:\" upper-scheme spelling, and the resolver-URL form on the doi.org host — all render canonical.",
   urnPattern: "urn:pubid:doi:resource:prefix-{10.NNNN}:suffix-{suffix}",
+  urnDocs: "/specs/doi-urn",
   relatedFlavors: ["nist", "isbn"],
   docTypes: [
     {

@@ -8,6 +8,8 @@ export const isbn: Publisher = {
   description: "The ISBN identifies monographic publications (books). PubID parses both the legacy 10-digit form (with its check digit) and the current 13-digit form (EAN-13, prefixed 978 or 979), validating the check digit on parse.",
   website: "https://www.isbn-international.org",
   syntaxNotes: "ISBN identifiers follow: ISBN[][: ]{digits} with hyphens optional. The 10-digit form ends with a check character (0–9 or X); the 13-digit form (978/979 prefix) ends with a numeric check digit. At the flavor entry point (Pubid::Isbn.parse) a bare digit string parses without the \"ISBN\" token; global prefix routing requires the token.",
+  urnPattern: "urn:pubid:isbn:book:hyphenated-{isbn}:raw-{raw}",
+  urnDocs: "/specs/isbn-urn",
   relatedFlavors: ["doi"],
   docTypes: [
     {
