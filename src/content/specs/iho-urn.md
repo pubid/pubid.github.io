@@ -66,7 +66,12 @@ urn:mrn:iho:pub:<type>:<name-or-number>:<edition>[:<correction>[:<clarification>
 **Compound publication numbers.** The S-158 series is a framework
 publication defining a series of separate check specifications, each named
 by the official IHO product number whose checks it specifies (`S-158:102`
-specifies the validation checks for the S-102 product). In the MRN, the
+specifies the validation checks for the S-102 product). IHO words that
+number generically — "the official number assigned to an S-100-based data
+product" — and the model facet carries the same name: `product`, renamed
+from `checks_for` in gem 2.0.55 (pubid#783; the pubid-URN atom followed,
+`checks-102` → `product-102`; the MRN and the rendered identifier are
+unchanged). In the MRN, the
 member number hyphenates into the name segment (`s158-102`) rather than
 becoming a separate segment, so the edition keeps its canonical fourth
 colon-position after `urn:mrn:iho:pub`. This is the PubID extension of the
