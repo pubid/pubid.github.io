@@ -142,3 +142,4 @@ rulings that shaped them — is `docs/URN-SCHEMES.adoc` in the
 - [API Reference](/library/api)
 - [Constructing Identifiers](/library/constructing-identifiers)
 - [URN Mapping (concept)](/concepts/urn)
+- [IALA URN scheme (urn:mrn:iala)](/specs/iala-urn) and [IHO URN scheme (urn:mrn:iho)](/specs/iho-urn)

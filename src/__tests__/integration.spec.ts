@@ -99,6 +99,8 @@ describe('integration: build output has content pages', () => {
     'concepts/urn/index.html',
     'blog/2024-01-15-what-is-pubid/index.html',
     'specs/iso-urn/index.html',
+    'specs/iala-urn/index.html',
+    'specs/iho-urn/index.html',
     'library/api/index.html',
     'adopt/guide/index.html',
   ]
@@ -120,4 +122,47 @@ describe('integration: build output has content pages', () => {
     if (existsSync(dist)) countHtml(dist)
     expect(count).toBeGreaterThanOrEqual(250)
   })
+})
+
+describe('integration: URN scheme pages carry their schemes', () => {
+  // Positive content assertions on the IALA and IHO URN scheme reference
+  // pages: the built pages must contain the scheme segments and the
+  // attested examples, not just exist.
+  const dist = join(process.cwd(), 'dist')
+
+  const expectedContent: Record<string, string[]> = {
+    'specs/iala-urn/index.html': [
+      'urn:mrn:iala:pub',
+      'urn:mrn:iala:pub:r1023:ed1.0',
+      'urn:mrn:iala:pub:g1143:ed3.1',
+      'urn:mrn:iala:pub:ca:cg:ramn:2018',
+      'mrnregistry.org',
+      'IALA URN scheme',
+    ],
+    'specs/iho-urn/index.html': [
+      'urn:mrn:iho:pub',
+      'urn:mrn:iho:pub:spec:s57:3:1:supplement3',
+      'urn:mrn:iho:pub:spec:s98:1.0.0',
+      'urn:mrn:iho:pub:spec:s158-102:1.0.0',
+      '128 bytes',
+      'IHO URN scheme',
+    ],
+  }
+
+  for (const [page, needles] of Object.entries(expectedContent)) {
+    const html = (() => {
+      try {
+        return readFileSync(join(dist, page), 'utf8')
+      } catch {
+        return null
+      }
+    })()
+
+    for (const needle of needles) {
+      it(`dist/${page} contains ${needle}`, () => {
+        expect(html, `dist/${page} must be built`).not.toBeNull()
+        expect(html).toContain(needle)
+      })
+    }
+  }
 })
