@@ -33,6 +33,15 @@ Every PubID maps to a canonical URN (Uniform Resource Name) for machine intercha
 | [BSI URN scheme (urn:bsi)](/specs/bsi-urn) | `urn:bsi:` | PubID-invented to_urn emission (no IANA namespace) |
 | [ECMA URN scheme (urn:ecma)](/specs/ecma-urn) | `urn:ecma:` | PubID-invented to_urn emission (no IANA namespace) |
 | [ASME URN scheme (urn:asme)](/specs/asme-urn) | `urn:asme:` | PubID-invented to_urn emission (no IANA namespace) |
+| [CIE URN scheme (urn:cie)](/specs/cie-urn) | `urn:cie:` | PubID-invented to_urn emission (no IANA namespace) |
+| [ASTM URN scheme (urn:astm)](/specs/astm-urn) | `urn:astm:` | PubID-invented to_urn emission (no IANA namespace) |
+| [CSA URN scheme (urn:csa)](/specs/csa-urn) | `urn:csa:` | PubID-invented to_urn emission (no IANA namespace) |
+| [GOST URN scheme (urn:gost)](/specs/gost-urn) | `urn:gost:` | PubID-invented to_urn emission (base-standard collapse) |
+| [ANSI URN scheme (urn:ansi)](/specs/ansi-urn) | `urn:ansi:` | PubID-invented to_urn emission (no IANA namespace) |
+| [API URN scheme (urn:api)](/specs/api-urn) | `urn:api:std:` | PubID-invented to_urn emission (fixed `std` type segment) |
+| [CEN-CENELEC URN scheme (urn:cen)](/specs/cen_cenelec-urn) | `urn:cen:` | PubID-invented to_urn emission (no IANA namespace) |
+| [CalConnect URN scheme (urn:calconnect)](/specs/calconnect-urn) | `urn:calconnect:` | PubID-invented to_urn emission (not `urn:cc`) |
+| [EASC URN scheme (urn:easc)](/specs/easc-urn) | `urn:easc:` | PubID-invented to_urn emission (perfect round-trip sheet) |
 
 ## Reference Documents
 
@@ -50,7 +59,7 @@ These URN specifications are maintained as part of the PubID project. Each speci
 - **Resolution** mechanisms
 - **Gap analysis** against prior specifications (where applicable)
 
-The ISO and IEC specifications are authored in AsciiDoc and rendered on this site using Asciidoctor; the per-flavor URN scheme pages (IALA, IHO, IEEE, ETSI, ITU, IETF, CCSDS, 3GPP, XSF, ISBN, DOI, OASIS, OGC, BIPM, WMO, NIST, JIS, ASHRAE, BSI, ECMA and ASME) are reference pages in Markdown. Source files are available in the [PubID repository](https://github.com/pubid/pubid/tree/main/references).
+The ISO and IEC specifications are authored in AsciiDoc and rendered on this site using Asciidoctor; the per-flavor URN scheme pages (IALA, IHO, IEEE, ETSI, ITU, IETF, CCSDS, 3GPP, XSF, ISBN, DOI, OASIS, OGC, BIPM, WMO, NIST, JIS, ASHRAE, BSI, ECMA, ASME, CIE, ASTM, CSA, GOST, ANSI, API, CEN-CENELEC, CalConnect and EASC) are reference pages in Markdown. Source files are available in the [PubID repository](https://github.com/pubid/pubid/tree/main/references).
 
 ## Implementation
 

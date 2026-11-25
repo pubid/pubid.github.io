@@ -9,6 +9,8 @@ export const ansi: Publisher = {
   description: "ANSI oversees the creation, promulgation, and use of thousands of norms and guidelines that directly impact businesses in nearly every sector. ANSI is also actively engaged in accrediting programs that assess conformance to standards.",
   website: "https://www.ansi.org",
   syntaxNotes: "ANSI identifiers follow simple patterns: ANSI [Number]-[Year] or ANSI/[Developer] [Number]-[Year].",
+  urnPattern: "urn:ansi[-copubs]:[number]:[part]:[subpart]:[year][:rev-[r]][:stage]  (the co-publisher dash-joins the publisher segment after the lead — urn:ansi-ieee:1:1986, urn:ansi-tia:568.2:rev-D; the part keeps its dash — urn:ansi:X9.8:-1:2007)",
+  urnDocs: "/specs/ansi-urn",
   relatedFlavors: ["ieee", "astm", "asme", "nist"],
   docTypes: [
     {

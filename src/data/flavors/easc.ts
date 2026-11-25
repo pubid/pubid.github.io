@@ -9,7 +9,8 @@ export const easc: Publisher = {
   description: "The Euro-Asian Council for Standardization, Metrology and Certification (EASC, Межгосударственный совет по стандартизации, метрологии и сертификации / МГС) is the intergovernmental standards body of the Commonwealth of Independent States (CIS). Founded in 1992, the EASC is the successor to the Soviet State Standards Commission and serves as the regional standards body for Armenia, Azerbaijan, Belarus, Georgia, Kazakhstan, Kyrgyzstan, Moldova, Russia, Tajikistan, Turkmenistan, Uzbekistan, and Ukraine. The EASC issues GOST interstate standards (modeled separately as the 'gost' flavor) and the EASC-series documents: ПМГ (Interstate Rules on Standardization) and РМГ (Interstate Recommendations on Standardization).",
   website: "https://easc.org.by",
   syntaxNotes: "EASC identifiers follow the shape: <Series>[ В] <Number>[-<Year>]. Series is ПМГ (Latin: PMG) for Interstate Rules or РМГ (Latin: RMG) for Interstate Recommendations. The optional Cyrillic 'В' marks a defense-related variant (stored as Latin 'V' for cross-script consistency). Canonical render is Cyrillic per mgscatalog.by. Year separator accepts ASCII hyphen OR Unicode em-dash/en-dash (Russian typographic convention).",
-  urnPattern: "urn:easc:[series]:[number]:[year]",
+  urnPattern: "urn:easc:[series]:[variant]:[number]:[year]  (series and variant downcast to the Latin tokens — urn:easc:pmg:v:31:2001 for ПМГ В 31-2001; leading zeros kept — urn:easc:pmg:02:2008)",
+  urnDocs: "/specs/easc-urn",
   relatedFlavors: ["gost", "iso", "iec"],
   docTypes: [
     {

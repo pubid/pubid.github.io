@@ -9,6 +9,8 @@ export const astm: Publisher = {
   description: "ASTM International (formerly American Society for Testing and Materials) is one of the largest voluntary standards development organizations in the world. ASTM standards cover a wide range of materials, products, systems, and services.",
   website: "https://www.astm.org",
   syntaxNotes: "ASTM identifiers follow the pattern: ASTM [Type] [Number]-[Year]. Joint standards use ISO/ASTM prefix. Types include no prefix (Standard), TR (Technical Report), ADJ (Adjunct).",
+  urnPattern: "urn:astm:[type]:[code][-part][-subpart]:[year-2digit][:reapp.[year]][:e[edition]][:wk.[n]]  (every attested class rides the std tag — data series, manuals, monographs, RRs and WIPs included; the ISO/ASTM co-publications replace the lead — urn:iso/astm:std:52905; e.g. urn:astm:std:C1870:18:reapp.2024)",
+  urnDocs: "/specs/astm-urn",
   relatedFlavors: ["iso", "ansi"],
   docTypes: [
     {

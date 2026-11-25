@@ -9,7 +9,7 @@ export const gost: Publisher = {
   description: "GOST (ГОСТ, from Gosudarstvennyy Standart, 'State Standard') is the regional standards system administered by the Euro-Asian Council for Standardization, Metrology and Certification (МГС / EASC), covering the Russian Federation, Belarus, Kazakhstan, Armenia, Kyrgyzstan, Moldova, Tajikistan, Uzbekistan, and several other CIS member states. GOST standards cover industrial products, measurement systems, engineering, and technology — comparable to ISO standards in scope. GOST R (ГОСТ Р) denotes Russian Federation national standards. The PubID GOST schema models both classes plus Identical Adoptions (the IDT relationship, where a GOST is structurally and technically identical to an adopted foreign standard, e.g., ГОСТ 31610.18-2016/IEC 60079-18:2014).",
   website: "https://easc.org.by",
   syntaxNotes: "GOST identifiers follow the shape: GOST [R][ <Copublisher>][ <Subtype>] <Number>[-<Year>][/<Adopted>][ (<Reference>)]. The Cyrillic 'ГОСТ' and Latin 'GOST' forms are interchangeable; PubID canonicalizes to Latin-script 'GOST'. The slash form (GOST X/Y) denotes an Identical Adoption (IDT) — both halves are part of the identifier.",
-  urnPattern: "urn:gost:[type]:[number]:[year]",
+  urnPattern: "urn:gost:std[:r]:[number]:[year]  (the generator walks to the base standard, so adoptions and references collapse away — urn:gost:std:r:58904:2020 for GOST R 58904-2020/ISO/TR 25901-1:2016)",
   relatedFlavors: ["iso", "iec"],
   docTypes: [
     {

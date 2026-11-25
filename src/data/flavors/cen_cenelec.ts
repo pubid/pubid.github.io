@@ -10,7 +10,8 @@ export const cen_cenelec: Publisher = {
   description: "CEN (European Committee for Standardization) and CENELEC (European Committee for Electrotechnical Standardization) are two distinct organizations managed by a single body, the CEN-CENELEC Management Centre (CCMC). They share a unified publishing system, identifier grammar, and catalogue. CEN cooperates with ISO (Vienna Agreement) and CENELEC cooperates with IEC (Frankfurt Agreement). Both are recognized by the EU and EFTA.",
   website: "https://www.cencenelec.eu",
   syntaxNotes: "CEN-CENELEC identifiers use EN (European Norm) designations with CEN or CLC (CENELEC) publisher prefixes. Patterns: EN [Number]:[Year], CEN/TS [Number]:[Year], CLC/TR [Number]:[Year], CEN/CLC [Type] [Number]:[Year]. CENELEC ENs in the IEC number range (e.g. EN 6XXXX) implicitly adopt the corresponding IEC publication; parts break this implicit adoption and require an explicit BS EN IEC form.",
-  urnPattern: "urn:cen:std:en:[number]:[year]",
+  urnPattern: "urn:cen:<publisher>:[number]:[date][:amd|cor:[n]:[year]|plus:amd:[n]:[year]|frag:[n]][:stage.[code]]  (the lead is urn:cen for CEN and CENELEC alike — the flavor name never enters the URN; adoptions inline the adopted MR string — urn:cen:cen:iso:ts:21003-7:2019)",
+  urnDocs: "/specs/cen_cenelec-urn",
   relatedFlavors: ["iso", "iec", "bsi"],
   docTypes: [
     {

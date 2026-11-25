@@ -9,6 +9,8 @@ export const cie: Publisher = {
   description: "The CIE (Commission Internationale de l'Eclairage) is an independent, non-profit organization devoted to international cooperation and exchange of information on matters related to light, lighting, and color. CIE identifier families include Standards (S), Technical Specifications (TS), Proceedings, and D-series discrete documents; every identifier is guaranteed a non-empty root number for relaton-index compatibility.",
   website: "https://www.cie.co.at",
   syntaxNotes: "CIE identifiers use numeric identifiers: CIE [Number]:[Year], CIE [Number]-[Part]:[Year]. Joint publications include CIE ISO prefix. Partial references with an optional trailing year are accepted.",
+  urnPattern: "urn:cie:[dual-pub|identical|joint-pub|bundle|tut-bundle:][s:]<publisher>[:code][:year][:lang[:format]][:stage][:sep.[style]][:iec.[id]][:iso.[ref]][:doctype.[t]][:bundle.[ids]][:tut-bundle.[n]]  (e.g. urn:cie:identical:s:cie:006.1:1998:sep.slash:iso.16508:1999)",
+  urnDocs: "/specs/cie-urn",
   relatedFlavors: ["iso"],
   docTypes: [
     {
