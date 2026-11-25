@@ -107,11 +107,11 @@ IHO product specifications.
 
 The PubID `iho` flavor adopts this scheme as the IHO URN scheme; the
 S-158 series model (framework publication plus `s158-NNN` member check
-specifications) lands with the S-158 model (pubid#774). Before the MRN
-adoption, PubID emitted a positional scheme (`urn:iho:<series>:<number>:…`,
-e.g. `urn:iho:s:98:ed-1.0.0`) on `to_urn` — that shape is unattested in
-IHO publications and migrates away in favour of the `urn:mrn:iho` scheme
-documented here.
+specifications) lands with the S-158 model (pubid#774). Pending the MRN
+adoption, PubID currently emits a positional scheme
+(`urn:iho:<series>:<number>:…`, e.g. `urn:iho:s:98:ed-1.0.0`) on `to_urn`
+— that shape is unattested in IHO publications and migrates away in
+favour of the `urn:mrn:iho` scheme documented here.
 
 ## See Also
 
