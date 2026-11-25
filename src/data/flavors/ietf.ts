@@ -9,7 +9,7 @@ export const ietf: Publisher = {
   description: "The Internet Engineering Task Force (IETF) is the premier body for developing and promoting Internet standards. Organized as a large open international community of network designers, operators, vendors, and researchers, the IETF produces the Request for Comments (RFC) document series — the foundational specifications of the Internet, covering TCP/IP, DNS, TLS, HTTP, BGP, SMTP, and every other core Internet protocol. The IETF also maintains three sub-series overlays on top of RFCs: STD (Internet Standards — RFCs that have reached full standardization), BCP (Best Current Practices — RFCs documenting community-agreed practices), and FYI (For Your Information — RFCs providing introductory and explanatory material, now mostly historical).",
   website: "https://www.ietf.org",
   syntaxNotes: "IETF identifiers come in 5 shapes: RFC '<number>', BCP '<number>', STD '<number>', FYI '<number>', and Internet-Draft '<draft-name>-<version>'. Internet-Drafts are work-in-progress documents with a name like 'draft-giuliano-treedn' and an optional two-digit version suffix. RFCs/BCPs/STDs/FYIs share the same numbering space conceptually but each has its own sub-series index.",
-  urnPattern: "urn:ietf:[series]:[number]",
+  urnPattern: "urn:ietf:{rfc|bcp|std|fyi}:[number] · drafts: urn:ietf:id:[draft-name]:[version]",
   relatedFlavors: ["iana", "w3c"],
   docTypes: [
     {

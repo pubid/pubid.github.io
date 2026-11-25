@@ -9,6 +9,7 @@ export const ccsds: Publisher = {
   description: "CCSDS is a multinational forum for the development of communications and data systems standards for spaceflight. CCSDS standards are used by major space agencies worldwide.",
   website: "https://www.ccsds.org",
   syntaxNotes: "CCSDS identifiers follow the pattern: CCSDS [Number].[Issue]-[Category]-[Version]-[Status]. Categories include B (Blue Book = Recommended Standard), G (Green Book = Recommended Practice), M (Magenta Book = Report).",
+  urnPattern: "urn:ccsds:[number].[issue]-[category]-[version][-status][:cor.[n]]",
   relatedFlavors: ["iso"],
   docTypes: [
     {

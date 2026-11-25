@@ -9,7 +9,7 @@ export const xsf: Publisher = {
   description: "The XMPP Standards Foundation (XSF) is the foundation chartered to define and publish the open protocols of the Extensible Messaging and Presence Protocol (XMPP) — the XML-based instant-messaging and presence protocol that powers Jabber and many real-time communication systems. Founded in 2002 as the Jabber Software Foundation, the XSF publishes XMPP Extension Protocols (XEPs) that extend the core XMPP specifications (RFC 6120 and RFC 6121) with new features: multi-user chat, publish-subscribe, file transfer, voice/video signaling, and many others. XEPs follow a documented maturity process: Experimental → Proposed → Draft → Final (or Deprecated → Obsolete for retired extensions).",
   website: "https://xmpp.org",
   syntaxNotes: "XSF identifiers use a single document type: XEP (XMPP Extension Protocol). The identifier is 'XEP-<number>' where the number is zero-padded to 4 digits ('XEP-0001', not 'XEP-1'). The XSF never prints its publisher name in the identifier — the leading token is always 'XEP'.",
-  urnPattern: "urn:xsf:xep:[number]",
+  urnPattern: "urn:xmpp:[protocol-namespace]",
   relatedFlavors: ["ietf", "iana", "w3c"],
   docTypes: [
     {
