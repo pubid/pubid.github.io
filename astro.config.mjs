@@ -64,6 +64,12 @@ export default defineConfig({
             { label: 'OGC URN scheme', link: '/specs/ogc-urn' },
             { label: 'BIPM URN scheme', link: '/specs/bipm-urn' },
             { label: 'WMO URN scheme', link: '/specs/wmo-urn' },
+            { label: 'NIST URN scheme', link: '/specs/nist-urn' },
+            { label: 'JIS URN scheme', link: '/specs/jis-urn' },
+            { label: 'ASHRAE URN scheme', link: '/specs/ashrae-urn' },
+            { label: 'BSI URN scheme', link: '/specs/bsi-urn' },
+            { label: 'ECMA URN scheme', link: '/specs/ecma-urn' },
+            { label: 'ASME URN scheme', link: '/specs/asme-urn' },
           ],
         },
         {

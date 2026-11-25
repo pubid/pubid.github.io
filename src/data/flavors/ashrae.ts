@@ -9,6 +9,8 @@ export const ashrae: Publisher = {
   description: "ASHRAE is a global professional society advancing heating, ventilation, air conditioning, and refrigeration (HVAC&R) systems. ASHRAE Standards establish minimum requirements for energy efficiency, indoor air quality, and building systems. Bare \"ASHRAE [code]\" partial references are accepted.",
   website: "https://www.ashrae.org",
   syntaxNotes: "ASHRAE identifiers follow patterns like: ASHRAE Standard [Number]-[Year], ASHRAE Guideline [Number]-[Year], with addenda appended. Bare partial references (just \"ASHRAE 90.1\" with no \"Standard\" keyword or year) are accepted and normalised.",
+  urnPattern: "urn:ashrae:[number][:year]:[type][:suffix][:amd.[n]][:reaff.[year]][:copub.[org]][:add.[letter]|adds.[letters]|errata[.[date]]|interp|pkg.supplement-package]  (a supplement appends its marker to the base document's URN — e.g. urn:ashrae:62.1:2022:standard:copub.ansi/ashrae:add.ab)",
+  urnDocs: "/specs/ashrae-urn",
   relatedFlavors: ["ansi", "amca"],
   docTypes: [
     {

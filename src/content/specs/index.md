@@ -27,6 +27,12 @@ Every PubID maps to a canonical URN (Uniform Resource Name) for machine intercha
 | [OGC URN scheme (urn:ogc)](/specs/ogc-urn) | `urn:ogc:` | RFC 5165 (March 2008) |
 | [BIPM URN scheme (urn:bipm)](/specs/bipm-urn) | `urn:bipm:` | Guide of record (BIPM editor guides), adopted 2026-11-11 |
 | [WMO URN scheme (urn:mrn:wmo:pub)](/specs/wmo-urn) | `urn:mrn:wmo:pub:` | IALA-pattern MRN assigning-authority form (pubid#763) |
+| [NIST URN scheme (urn:nist)](/specs/nist-urn) | `urn:nist:` | PubID-invented to_urn emission (no IANA namespace) |
+| [JIS URN scheme (urn:jis)](/specs/jis-urn) | `urn:jis:` | PubID-invented to_urn emission (raw spaces, not RFC 8141-legal) |
+| [ASHRAE URN scheme (urn:ashrae)](/specs/ashrae-urn) | `urn:ashrae:` | PubID-invented to_urn emission (no IANA namespace) |
+| [BSI URN scheme (urn:bsi)](/specs/bsi-urn) | `urn:bsi:` | PubID-invented to_urn emission (no IANA namespace) |
+| [ECMA URN scheme (urn:ecma)](/specs/ecma-urn) | `urn:ecma:` | PubID-invented to_urn emission (no IANA namespace) |
+| [ASME URN scheme (urn:asme)](/specs/asme-urn) | `urn:asme:` | PubID-invented to_urn emission (no IANA namespace) |
 
 ## Reference Documents
 
@@ -44,7 +50,7 @@ These URN specifications are maintained as part of the PubID project. Each speci
 - **Resolution** mechanisms
 - **Gap analysis** against prior specifications (where applicable)
 
-The ISO and IEC specifications are authored in AsciiDoc and rendered on this site using Asciidoctor; the per-flavor URN scheme pages (IALA, IHO, IEEE, ETSI, ITU, IETF, CCSDS, 3GPP, XSF, ISBN, DOI, OASIS, OGC, BIPM and WMO) are reference pages in Markdown. Source files are available in the [PubID repository](https://github.com/pubid/pubid/tree/main/references).
+The ISO and IEC specifications are authored in AsciiDoc and rendered on this site using Asciidoctor; the per-flavor URN scheme pages (IALA, IHO, IEEE, ETSI, ITU, IETF, CCSDS, 3GPP, XSF, ISBN, DOI, OASIS, OGC, BIPM, WMO, NIST, JIS, ASHRAE, BSI, ECMA and ASME) are reference pages in Markdown. Source files are available in the [PubID repository](https://github.com/pubid/pubid/tree/main/references).
 
 ## Implementation
 
