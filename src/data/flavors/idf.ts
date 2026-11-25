@@ -9,6 +9,8 @@ export const idf: Publisher = {
   description: "The IDF is a source of scientific and technical expertise for the global dairy sector. IDF standards and methods of analysis are used internationally.",
   website: "https://www.fil-idf.org",
   syntaxNotes: "IDF identifiers follow: IDF [Type] [Number]-[Part]:[Year]. Types include no prefix (Standard), RM (Reviewed Method). Joint ISO/IDF publications exist.",
+  urnPattern: "urn:idf:[number]:[-part]:[year]:[stage-or-type-abbr]  (a typeless standard leaves the empty trailing segment — urn:idf:1:2010:; the part keeps its dash — urn:idf:124:-2:2005:; the stage downcasts — urn:idf:145:2023:dis — and a reviewed-method stage keeps its raw space — urn:idf:210:2024:awi rm)",
+  urnDocs: "/specs/idf-urn",
   relatedFlavors: ["iso"],
   docTypes: [
     {

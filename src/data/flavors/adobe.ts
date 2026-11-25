@@ -9,6 +9,8 @@ export const adobe: Publisher = {
   description: "Adobe publishes foundational technical specifications for digital typography, font formats, and document interchange — including the Adobe Glyph List, PostScript Language Reference, CIDFont specifications, and the Adobe-Japan/Korea/CJK character collections. These underpin modern text rendering engines and CJK font workflows.",
   website: "https://www.adobe.com",
   syntaxNotes: "Adobe identifiers use two shapes: slug-keyed publications (Adobe Glyph List, Adobe-Japan1-7) and numbered Technical Notes (Adobe Technical Note #5014, ATN5014).",
+  urnPattern: "urn:adobe:{tech-note:[number]|publication:[slug][:v{version}]}  (two shapes — urn:adobe:tech-note:5014, urn:adobe:publication:adobe-japan1:v7; the slug is verbatim and the version is v-prefixed)",
+  urnDocs: "/specs/adobe-urn",
   relatedFlavors: ["iso"],
   docTypes: [
     {

@@ -9,6 +9,8 @@ export const amca: Publisher = {
   description: "AMCA International is a not-for-profit association of the world's manufacturers of air movement, air control, and air conditioning equipment. AMCA develops standards and test methods for these products.",
   website: "https://www.amca.org",
   syntaxNotes: "AMCA identifiers follow: AMCA [Type] [Number]-[Year] or ANSI/AMCA [Number]-[Year] for ANSI-accredited standards.",
+  urnPattern: "urn:amca:[number]:[year]:[interp.[code]]:[rev.[n]]:[reaff.[year]]:[copub.[org]]:[type]  (the modifiers are dot-prefixed and omitted when absent — urn:amca:210:16:copub.ansi/amca:standard, urn:amca:99:interp.jw:copub.amca:interpretation; the interpretation code is identity-bearing)",
+  urnDocs: "/specs/amca-urn",
   relatedFlavors: ["ansi", "ashrae"],
   docTypes: [
     {

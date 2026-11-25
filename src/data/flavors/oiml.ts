@@ -11,6 +11,8 @@ export const oiml: Publisher = {
   description: "The International Organization of Legal Metrology (OIML, Organisation Internationale de Métrologie Légale) is an intergovernmental treaty organization founded in 1955 that develops model regulations, standards, and related documents for legal metrology — the discipline of measurement as it affects consumers, trade, regulation, and law. OIML Recommendations establish the requirements that measuring instruments (weighing scales, fuel pumps, taximeters, utility meters, medical devices) must satisfy to be legally placed on the market. Member states from over 60 countries commit to adopting OIML Recommendations into their national measurement systems, enabling mutual recognition of instrument approvals under the OIML-CS (MAA) framework.",
   website: "https://www.oiml.org",
   syntaxNotes: "OIML identifiers follow the pattern: OIML [Type] [Number]:[Year]. Types include R (Recommendation), D (Document), G (Guide), V (Vocabulary), B (Basic Publication).",
+  urnPattern: "urn:oiml:[type]:[code]:[year]:[stage]:[iteration]:[language]  (the type downcasts to its series letter — urn:oiml:r:106, urn:oiml:v:2:2013:e/f; a supplement rides its base — urn:oiml:r:138:2009:e; the Bulletin emits the structured YYYY-II-SS locator and the OIML-CS documents the family-number pair — urn:oiml:cs:pd-05)",
+  urnDocs: "/specs/oiml-urn",
   relatedFlavors: ["iso", "jcgm"],
   docTypes: [
     {

@@ -8,6 +8,8 @@ export const evs: Publisher = {
   description: "EVS is Estonia's national standardization body. It publishes national EVS standards and adopts European (EN) and international (ISO, ISO/IEC) standards under the EVS prefix — e.g. \"EVS-EN ISO 9001:2015\".",
   website: "https://www.evs.ee",
   syntaxNotes: "EVS identifiers follow: EVS[-EN][-ISO[/IEC]] [Number]:[Year] with supplements after a slash (\"/A1:2024\"). Types: EVS (national), EVS-EN (European adoption), EVS-EN ISO / EVS-EN ISO/IEC (international adoption via EN), EVS-TS (technical specification), EVS-TR (technical report).",
+  urnPattern: "urn:evs:[pr:][es|ts|tr|en|iso|iec]:[number]:[year][:na[:na-year]][:plus]:[amd|cor]:[n]:[year][:language]  (a national adoption delegates to the adopted CEN identifier's URN with the namespace swapped — urn:evs:en:iso-iec:27017:2026; the + separator emits plus — urn:evs:en:71-1:2011:plus:amd:1:2014; the draft prefix leads — urn:evs:pr:en:100:2026)",
+  urnDocs: "/specs/evs-urn",
   relatedFlavors: ["cen-cenelec", "iso", "iec"],
   docTypes: [
     {

@@ -9,6 +9,8 @@ export const sae: Publisher = {
   description: "SAE International is a global association of engineers and technical experts in the aerospace, automotive, and commercial vehicle industries. SAE standards cover ground vehicles, aerospace, and other mobility engineering fields.",
   website: "https://www.sae.org",
   syntaxNotes: "SAE identifiers follow: SAE [Type] [Number]. Types include J (Ground Vehicle), AS (Aerospace), ARP (Aerospace Recommended Practice), AMS (Aerospace Material Specification).",
+  urnPattern: "urn:sae:[type]:[designation]:[yyyy|yyyymm]  (the type is the downcased series code or bare std — urn:sae:j:3016, urn:sae:as:22520/45A; the designation is verbatim, slash, underscore and revision letter included — urn:sae:as:5259/7A_A1; the date is a year or the year-and-month edition date — urn:sae:j:3016:202104)",
+  urnDocs: "/specs/sae-urn",
   relatedFlavors: ["ansi", "astm"],
   docTypes: [
     {
