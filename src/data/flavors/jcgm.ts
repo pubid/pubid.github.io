@@ -9,6 +9,8 @@ export const jcgm: Publisher = {
   description: "The JCGM works to promote and harmonize metrology guidance, maintaining the Guide to the Expression of Uncertainty in Measurement (GUM) and the International Vocabulary of Metrology (VIM). Bare GUM/VIM-3 guide references and partial references with an optional trailing date are accepted.",
   website: "https://www.bipm.org/en/committees/jc/jcgm",
   syntaxNotes: "JCGM identifiers follow: JCGM [Number]:[Year] or JCGM GUM-[Part]:[Year]. The GUM guides use the GUM prefix. Bare \"GUM\" / \"VIM-3\" forms are accepted and normalised; partial references (no year) and partial references with a trailing date are supported.",
+  urnPattern: "urn:jcgm:[meeting]:[number|gum.N]:[-part]:[year]:[ed.[n]]:[iter.[n]][:amendment|corrigendum:[n]:[year]]:[languages]  (a meeting has its own path — urn:jcgm:meeting:17:2012; a supplement rides its base — urn:jcgm:100:2008:amendment:1:2026; the bare word forms emit themselves — urn:jcgm:GUM — and the languages comma-join into one segment — urn:jcgm:200:2012:en,fr)",
+  urnDocs: "/specs/jcgm-urn",
   relatedFlavors: ["iso", "oiml"],
   docTypes: [
     {

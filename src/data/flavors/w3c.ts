@@ -9,7 +9,8 @@ export const w3c: Publisher = {
   description: "The World Wide Web Consortium (W3C) is the main international standards organization for the World Wide Web, founded in 1994 by Tim Berners-Lee. W3C develops the foundational specifications of the Web — HTML, CSS, XML, SVG, WebAssembly, the Semantic Web stack, accessibility guidelines (WCAG), and dozens of others. Member organizations, a full-time staff, and the public collaborate via Working Groups to develop standards through a multi-stage maturity process: Working Draft (WD) → Candidate Recommendation (CR) → Proposed Recommendation (PR) → W3C Recommendation (REC). The W3C PubID schema models every stage of this lifecycle, plus notes, obsolete/superseded recommendations, and proposed edited recommendations of existing standards.",
   website: "https://www.w3.org",
   syntaxNotes: "W3C identifiers are slug-based with an optional type prefix indicating the document's maturity stage: WD (Working Draft), CR (Candidate Recommendation), CRD (Candidate Recommendation Draft), NOTE (Working Group Note), PR (Proposed Recommendation), PER (Proposed Edited Recommendation), REC (Recommendation), OBSL (Obsolete Recommendation), SPR (Superseded Recommendation). The slug carries the spec shortname and optional date suffix (YYYYMMDD).",
-  urnPattern: "urn:w3c:[type]:[code]",
+  urnPattern: "urn:w3c:[type]:[code]:[yyyymmdd]  (the track downcasts and the shortname keeps its case — urn:w3c:rec:CSS1:19990111; a typeless report emits no empty segment — urn:w3c:2dcontext; a date-less report omits the segment — urn:w3c:note:CDFsubmit)",
+  urnDocs: "/specs/w3c-urn",
   relatedFlavors: ["iso", "ieee", "oasis"],
   docTypes: [
     {

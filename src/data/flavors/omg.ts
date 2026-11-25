@@ -8,6 +8,8 @@ export const omg: Publisher = {
   description: "OMG is the consortium behind UML, SysML, CORBA, DDS and other modeling and interoperability specifications. OMG specifications are named by an acronym plus a free-form version string — e.g. \"OMG UML 2.5.1\", \"OMG DDS 5 beta 3\".",
   website: "https://www.omg.org",
   syntaxNotes: "OMG identifiers follow: OMG {Acronym}[ {Version}]. The version is free-form and stored verbatim (\"1.0\", \"2.5.1\", \"5 beta 3\", \"1.1\"); an identifier without a version (\"OMG CORBA\") names the specification as a whole.",
+  urnPattern: "urn:pubid:omg:spec:{acronym}[:v-{version}][:part-{part}]  (no flavor UrnGenerator exists — the shared base emits the degenerate urn:omg, which identifies nothing beyond the publisher; the pubid scheme carries the identity, acronym first, no core)",
+  urnDocs: "/specs/omg-urn",
   relatedFlavors: ["iso"],
   docTypes: [
     {

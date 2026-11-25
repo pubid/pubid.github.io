@@ -8,7 +8,8 @@ export const gb: Publisher = {
   description: "GB standards are China's national standards (Guobiao), issued by SAC (Standardization Administration of China). The prefix encodes the issuing body — GB (national), GB/T (recommended), GB/Z (guideline), GBn (formerly-prescribed internal), plus industry codes such as JB (machinery), HB (aviation), and social-group codes (T/{ORG}).",
   website: "https://www.sac.gov.cn",
   syntaxNotes: "Chinese standards follow: {Body}[/{Mandate}] {Number}[-{Part}]:-{Year}. The mandate letter after the slash states the legal force: T = recommended (推荐), Z = guideline (指导), none = mandatory (强制性). Social-group standards print the organization after T/ (T/GZAEPI 1-2020). Chinese typography uses an em-dash before the year (—2010); the ASCII hyphen is accepted.",
-  urnPattern: "urn:pubid:gb:std:{number}:pub-{body}:mandate-{mandate}:year-{year}",
+  urnPattern: "urn:pubid:gb:std:{number}:pub-{body}:mandate-{mandate}:year-{year}  (the to_urn emission is the base fallback urn:gb:{body}:{number}:[-part]:{year} — no round-trip; the lossless pubid scheme carries the body and the mandate letter as atoms, which the fallback drops)",
+  urnDocs: "/specs/gb-urn",
   relatedFlavors: ["jis", "iso", "iec"],
   docTypes: [
     {

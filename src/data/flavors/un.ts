@@ -8,6 +8,8 @@ export const un: Publisher = {
   description: "PubID parses United Nations document symbols — the slash-separated designations used across UN organs and bodies, such as General Assembly resolutions (\"A/RES/78/1\") and the UN/CEFACT trade documents (\"TRADE/CEFACT/2004/32\").",
   website: "https://www.un.org",
   syntaxNotes: "UN document symbols follow the UN Editorial Manual pattern {Series}/{Body}[/{Year}]/{Number}, e.g. A/RES/78/1 (General Assembly resolution 78/1). The \"UN \" prefix is optional and normalized away (\"UN A/RES/78/1\" renders \"A/RES/78/1\"). Working-party documents carry annex/recommendation letters (TRADE/WP.4/R.1068).",
+  urnPattern: "urn:pubid:un:document:{path-A,RES,78}:{number}  (no flavor UrnGenerator exists — the shared base emits the number-only urn:un:1 for A/RES/78/1, which any same-numbered document would share; the pubid scheme carries the symbol path as an atom and is the lossless form)",
+  urnDocs: "/specs/un-urn",
   relatedFlavors: ["iso"],
   docTypes: [
     {

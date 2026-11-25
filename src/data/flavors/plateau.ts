@@ -9,6 +9,8 @@ export const plateau: Publisher = {
   description: "PLATEAU is a project by Japan's Ministry of Land, Infrastructure, Transport and Tourism (MLIT) that promotes the use of 3D city models for urban planning and management. Editions are cited in the Japanese form (第X.X版); Handbook #00 edition 5.0 was published twice on one date — as 本編 (main volume) and 本編＋付録 (main volume and appendix, one PDF) — and the volume label after the edition distinguishes the two.",
   website: "https://www.mlit.go.jp/plateau",
   syntaxNotes: "PLATEAU identifiers follow: PLATEAU [Type] #[Number][-Annex] 第X.X版 [本編|本編＋付録]. Types include Handbook, Technical Report, Annex. The Handbook volume label rides after the edition, separated by an ASCII or full-width (U+3000) space, with ＋ or ASCII + (the builder normalizes + to ＋, and to_s writes one ASCII space before it); the label prints only after an edition, so excluding the edition still renders a parseable string. A \"Handbook #11\" reference with edition 1–3 and a part suffix (（民間活用編） / （公共活用編）) is rewritten to the handbook that actually existed for those editions: #06 and #04 respectively.",
+  urnPattern: "urn:plateau:[handbook|tr|annex]:[number]:[annex|letter]  (the number zero-pads to two digits — urn:plateau:handbook:00, urn:plateau:tr:00; a handbook annex number is its own segment — urn:plateau:handbook:03:01; the edition and the volume label never enter, so every edition of a handbook carries one URN)",
+  urnDocs: "/specs/plateau-urn",
   relatedFlavors: ["jis"],
   docTypes: [
     {

@@ -42,6 +42,21 @@ Every PubID maps to a canonical URN (Uniform Resource Name) for machine intercha
 | [CEN-CENELEC URN scheme (urn:cen)](/specs/cen_cenelec-urn) | `urn:cen:` | PubID-invented to_urn emission (no IANA namespace) |
 | [CalConnect URN scheme (urn:calconnect)](/specs/calconnect-urn) | `urn:calconnect:` | PubID-invented to_urn emission (not `urn:cc`) |
 | [EASC URN scheme (urn:easc)](/specs/easc-urn) | `urn:easc:` | PubID-invented to_urn emission (perfect round-trip sheet) |
+| [PLATEAU URN scheme (urn:plateau)](/specs/plateau-urn) | `urn:plateau:` | PubID-invented to_urn emission (no IANA namespace) |
+| [OIML URN scheme (urn:oiml)](/specs/oiml-urn) | `urn:oiml:` | PubID-invented to_urn emission (bulletin and OIML-CS special shapes) |
+| [IDF URN scheme (urn:idf)](/specs/idf-urn) | `urn:idf:` | PubID-invented to_urn emission (empty trailing type segment) |
+| [AMCA URN scheme (urn:amca)](/specs/amca-urn) | `urn:amca:` | PubID-invented to_urn emission (perfect round-trip sheet) |
+| [EVS URN scheme (urn:evs)](/specs/evs-urn) | `urn:evs:` | PubID-invented to_urn emission (adoptions reuse the CEN path) |
+| [JCGM URN scheme (urn:jcgm)](/specs/jcgm-urn) | `urn:jcgm:` | PubID-invented to_urn emission (meeting and GUM-guide shapes) |
+| [IANA URN scheme (urn:iana)](/specs/iana-urn) | `urn:iana:` | PubID-invented to_urn emission (perfect round-trip sheet) |
+| [W3C URN scheme (urn:w3c)](/specs/w3c-urn) | `urn:w3c:` | PubID-invented to_urn emission (perfect round-trip sheet) |
+| [OMG URN scheme (urn:omg)](/specs/omg-urn) | `urn:omg` | PubID-invented base emission (no generator; the pubid scheme covers it) |
+| [SAE URN scheme (urn:sae)](/specs/sae-urn) | `urn:sae:` | PubID-invented to_urn emission (literal-list attestation) |
+| [EU URN scheme (urn:eu)](/specs/eu-urn) | `urn:eu:` | PubID-invented convenience shape (the ELI is the EU's official identifier) |
+| [arXiv URN scheme (urn:pubid:arxiv)](/specs/arxiv-urn) | `urn:pubid:arxiv:eprint:` | to_urn IS the pubid scheme (no `urn:arxiv:` fallback) |
+| [GB URN scheme (urn:gb)](/specs/gb-urn) | `urn:gb:` | PubID-invented base fallback (no round-trip) |
+| [UN URN scheme (urn:un)](/specs/un-urn) | `urn:un:` | PubID-invented base fallback (final number only) |
+| [Adobe URN scheme (urn:adobe)](/specs/adobe-urn) | `urn:adobe:` | PubID-invented to_urn emission (literal-list attestation) |
 
 ## Reference Documents
 
@@ -59,7 +74,7 @@ These URN specifications are maintained as part of the PubID project. Each speci
 - **Resolution** mechanisms
 - **Gap analysis** against prior specifications (where applicable)
 
-The ISO and IEC specifications are authored in AsciiDoc and rendered on this site using Asciidoctor; the per-flavor URN scheme pages (IALA, IHO, IEEE, ETSI, ITU, IETF, CCSDS, 3GPP, XSF, ISBN, DOI, OASIS, OGC, BIPM, WMO, NIST, JIS, ASHRAE, BSI, ECMA, ASME, CIE, ASTM, CSA, GOST, ANSI, API, CEN-CENELEC, CalConnect and EASC) are reference pages in Markdown. Source files are available in the [PubID repository](https://github.com/pubid/pubid/tree/main/references).
+The ISO and IEC specifications are authored in AsciiDoc and rendered on this site using Asciidoctor; the per-flavor URN scheme pages (IALA, IHO, IEEE, ETSI, ITU, IETF, CCSDS, 3GPP, XSF, ISBN, DOI, OASIS, OGC, BIPM, WMO, NIST, JIS, ASHRAE, BSI, ECMA, ASME, CIE, ASTM, CSA, GOST, ANSI, API, CEN-CENELEC, CalConnect, EASC, PLATEAU, OIML, IDF, AMCA, EVS, JCGM, IANA, W3C, OMG, SAE, EU, arXiv, GB, UN and Adobe) are reference pages in Markdown. Source files are available in the [PubID repository](https://github.com/pubid/pubid/tree/main/references).
 
 ## Implementation
 

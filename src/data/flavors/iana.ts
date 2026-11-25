@@ -9,7 +9,8 @@ export const iana: Publisher = {
   description: "IANA is the organization responsible for coordinating the global Internet's unique identifiers — domain names, IP address numbers, protocol parameter values — under contract to ICANN (Internet Corporation for Assigned Names and Numbers) since 1998. IANA maintains the registries that define protocol parameters used across the Internet's core standards: HTTP, DNS, TLS, MIME, URI schemes, character sets, and hundreds of others. Each registry is the authoritative source of truth for the values that make the Internet interoperable.",
   website: "https://www.iana.org",
   syntaxNotes: "IANA identifiers are protocol registries, not numbered standards. The identifier is a hierarchical registry slug: 'IANA <registry>[/<sub_registry>]'. The leading underscore in registry names (e.g. '_6lowpan-parameters') is part of the canonical form.",
-  urnPattern: "urn:iana:[registry]:[sub_registry]",
+  urnPattern: "urn:iana:[registry]:[sub_registry]  (the slugs are verbatim, leading underscore and dots kept — urn:iana:_6lowpan-parameters:lowpan_nhc; the / sub-registry separator becomes a segment boundary)",
+  urnDocs: "/specs/iana-urn",
   relatedFlavors: ["iso", "itu"],
   docTypes: [
     {
