@@ -101,6 +101,11 @@ describe('integration: build output has content pages', () => {
     'specs/iso-urn/index.html',
     'specs/iala-urn/index.html',
     'specs/iho-urn/index.html',
+    'specs/ieee-urn/index.html',
+    'specs/etsi-urn/index.html',
+    'specs/itu-urn/index.html',
+    'specs/ietf-urn/index.html',
+    'specs/ccsds-urn/index.html',
     'library/api/index.html',
     'adopt/guide/index.html',
   ]
@@ -146,6 +151,41 @@ describe('integration: URN scheme pages carry their schemes', () => {
       'urn:mrn:iho:pub:spec:s158-102:1.0.0',
       '128 bytes',
       'IHO URN scheme',
+    ],
+    'specs/ieee-urn/index.html': [
+      'urn:ieee:std',
+      'urn:ieee:ieee:802.11ah:2016',
+      'urn:ieee:ansi/ieee:802.5:1998',
+      'urn:ieee:ire:7.S2:1952',
+      'RFC 8069',
+      'IEEE URN scheme',
+    ],
+    'specs/etsi-urn/index.html': [
+      'urn:etsi:en:300 831:v1.2.1:1999-10',
+      'urn:etsi:etr:145:ed.1:1994-10',
+      'urn:etsi:gs:MEC 026:v2.1.1:2019-01',
+      'RFC 8515',
+      'ETSI URN scheme',
+    ],
+    'specs/itu-urn/index.html': [
+      'urn:itu:t:X.680:1997:3:02/2001',
+      'urn:itu:r:report:BT.2020-1:2000',
+      'urn:itu:itu:OB.1:annex',
+      'ITU URN scheme',
+    ],
+    'specs/ietf-urn/index.html': [
+      'urn:ietf:rfc:1',
+      'urn:ietf:bcp:184',
+      'urn:ietf:id:draft-ietf-dnsop-svcb-https:04',
+      'RFC 2648',
+      'IETF URN scheme',
+    ],
+    'specs/ccsds-urn/index.html': [
+      'urn:ccsds:100.0-G-1-S',
+      'urn:ccsds:123.0-B-2:cor.1',
+      'urn:ccsds:652.1-M-2',
+      'RFC 7738',
+      'CCSDS URN scheme',
     ],
   }
 

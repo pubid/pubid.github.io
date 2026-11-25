@@ -9,6 +9,7 @@ export const etsi: Publisher = {
   description: "ETSI produces globally applicable standards for Information and Communications Technologies (ICT), including fixed, mobile, radio, converged, broadcast, and internet technologies.",
   website: "https://www.etsi.org",
   syntaxNotes: "ETSI identifiers follow the pattern: ETSI [Type] [Number] V[Version] ([Date]). Types include EG (Guide), EN (Standard), ES (Specification), ET (Technical Report), GS (Group Specification), TS (Technical Specification), TR (Technical Report).",
+  urnPattern: "urn:etsi:[type]:[code]:[version]:[date]",
   relatedFlavors: ["cen-cenelec", "itu", "iec"],
   docTypes: [
     {

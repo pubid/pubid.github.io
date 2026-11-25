@@ -10,6 +10,7 @@ export const iec: Publisher = {
   website: "https://www.iec.ch",
   syntaxNotes: "IEC identifiers follow the pattern: IEC [Type] [Number]-[Part]:[Year]. Many IEC identifiers include CISPR (Comité International Spécial des Perturbations Radioélectriques) designations. Value-added products (CSV, CMV, RLV, etc.) use suffixes. IEC EE (System for Certification to Standards Relating to Electrical Equipment) publishes technical group TRFs — e.g. IECEE TRF 60335-2-4;7F:2012 — which are normalised to ampersand form. Undated references (\":--\") are accepted. Serialization note: wrapper types (VAP, Consolidated, Sheet, Fragment) carry the wrapped document's date (month/day/undated) only once — inside the nested base — never as a duplicated top-level key in to_hash or the pubid-scheme URN (pubid #692). The legacy ballot faces print the stage before the base designation (IEC/FDAM 60038-1, ISO/IEC PDAM 2 10646:2012, ISO/IEC FPDAM 9075/1) and decode onto the modern on-base identity, the old slash-part spelling carrying the base's part.",
   urnPattern: "urn:iec:std:iec:[number]:[edition]:[language]",
+  urnDocs: "/specs/iec-urn",
   relatedFlavors: ["iso", "ieee", "bsi", "cen-cenelec", "csa"],
   docTypes: [
     {

@@ -10,6 +10,7 @@ export const iso: Publisher = {
   website: "https://www.iso.org",
   syntaxNotes: "ISO identifiers follow the pattern: [Copublisher/]ISO [Type] [Number][-Part]:[Year]. Joint publications use copublishers like ISO/IEC, ISO/ASTM, etc. Undated references use \":--\" or \":—\" for the year placeholder.",
   urnPattern: "urn:iso:std:iso[:copublisher]:[number]:[edition]:[language]",
+  urnDocs: "/specs/iso-urn",
   relatedFlavors: ["iec", "astm", "bsi", "cen-cenelec", "ieee"],
   docTypes: [
     {

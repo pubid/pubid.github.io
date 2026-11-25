@@ -49,6 +49,13 @@ export default defineConfig({
             { label: 'Overview', link: '/specs/' },
             { label: 'ISO URN (RFC 5141-bis)', link: '/specs/iso-urn' },
             { label: 'IEC URN', link: '/specs/iec-urn' },
+            { label: 'IEEE URN scheme', link: '/specs/ieee-urn' },
+            { label: 'ETSI URN scheme', link: '/specs/etsi-urn' },
+            { label: 'ITU URN scheme', link: '/specs/itu-urn' },
+            { label: 'IETF URN scheme', link: '/specs/ietf-urn' },
+            { label: 'CCSDS URN scheme', link: '/specs/ccsds-urn' },
+            { label: 'IALA URN scheme', link: '/specs/iala-urn' },
+            { label: 'IHO URN scheme', link: '/specs/iho-urn' },
           ],
         },
         {

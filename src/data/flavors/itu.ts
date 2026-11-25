@@ -9,6 +9,7 @@ export const itu: Publisher = {
   description: "The ITU is the United Nations specialized agency for information and communication technologies. ITU standards (Recommendations) are fundamental to the operation of global telecommunications networks and services. ITU also publishes Implementers' Guides, Operational Bulletins, common-text joint Recommendations (co-published with ISO/IEC), and edition-suffixed (bis/ter/quater) and errata (Err.) forms.",
   website: "https://www.itu.int",
   syntaxNotes: "ITU Recommendations follow the pattern: ITU-[Sector] [Series][Number]-[Year]. Sectors include R (Radiocommunication), T (Telecommunication Standardization), and D (Telecommunication Development). The long-form \"Recommendation ITU-[Sector] ...\" prefix is accepted. Editions may be suffixed bis/ter/quater. Common-text identifiers co-published with ISO/IEC use the pipe separator: \"Recommendation ITU-T X.1234 | ISO/IEC 5678-1\".",
+  urnPattern: "urn:itu:{t|r|itu}:[series.code][:report|resolution|annex|cor.[n]][:date]",
   relatedFlavors: ["iso", "iec"],
   docTypes: [
     {
