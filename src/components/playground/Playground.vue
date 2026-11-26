@@ -24,6 +24,7 @@ const manualFlavor = ref('')
 const engineVersion = ref('')
 const engineState = ref<'loading' | 'ready' | 'failed'>('loading')
 const engineError = ref('')
+const engineFleet = ref(0)
 const verdict = ref<ParseVerdict | null>(null)
 const detected = ref<string[]>([])
 const examples = ref<ExampleSet>({})
@@ -40,6 +41,7 @@ onMounted(async () => {
   try {
     wasm = await loadPubidWasm()
     engineVersion.value = wasm.pubid_version()
+    engineFleet.value = wasm.pubid_flavors().length
     receipts.value = wasm.pubid_artifacts()
     examples.value = wasm.pubid_examples()
     engineState.value = 'ready'
@@ -148,7 +150,8 @@ watch(exampleFlavors, flavors => {
         aria-hidden="true"
       />
       <span v-if="engineState === 'ready'" class="text-[var(--color-text-2)]">
-        pubid-wasm engine ready — pubid-core v{{ engineVersion }}, grammar artifacts checksum-verified
+        pubid-wasm engine ready — pubid-core v{{ engineVersion }}, {{ engineFleet }} ported
+        flavors, grammar artifacts checksum-verified
       </span>
       <span v-else-if="engineState === 'failed'" class="text-red-500">
         the wasm engine failed to load: {{ engineError }}
@@ -162,7 +165,7 @@ watch(exampleFlavors, flavors => {
         v-model="input"
         type="text"
         class="w-full font-mono text-base px-4 py-3 rounded-md bg-[var(--color-bg-inset)] border border-[var(--color-border)] focus:border-[var(--color-accent)] outline-none"
-        placeholder="Type any identifier — ISO 9001:2015, IHO B-1 1.0.0, ISBN 978-0-306-40615-7, arXiv:math.GT/0309136…"
+        placeholder="Type any identifier — IHO B-1 1.0.0, ISBN 978-0-306-40615-7, arXiv:math.GT/0309136, RFC 2616, WMO-No. 8…"
         data-testid="playground-input"
         :disabled="engineState !== 'ready'"
         aria-label="Identifier input"
