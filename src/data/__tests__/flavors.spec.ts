@@ -128,6 +128,23 @@ describe('specific flavor invariants', () => {
     expect(keys).toContain('s4_specification')
   })
 
+  it('IHO B/C series carry the honest guidance names (pubid #785, gem 2.0.56)', () => {
+    const iho = publishers.find(p => p.flavor === 'iho')
+    const keys = iho?.docTypes.map(d => d.key) || []
+    // the renamed wire types: bibliographic → bathymetric, circular_letter → capacity_building
+    expect(keys).toContain('bathymetric')
+    expect(keys).toContain('capacity_building')
+    expect(keys).not.toContain('bibliographic')
+    expect(keys).not.toContain('circular_letter')
+    // the guidance MRN codes ride the descriptions (S-11 Part C section 1.2)
+    const bathy = iho?.docTypes.find(d => d.key === 'bathymetric')
+    expect(bathy?.description).toContain('bathy')
+    expect(bathy?.description).toContain('S-11 Part C')
+    const cb = iho?.docTypes.find(d => d.key === 'capacity_building')
+    expect(cb?.description).toContain('cb')
+    expect(cb?.description).toContain('S-11 Part C')
+  })
+
   it('WMO has the six doc types of the widened flavor (pubid #763 + the 2.0.49 widening)', () => {
     const wmo = publishers.find(p => p.flavor === 'wmo')
     expect(wmo).toBeDefined()

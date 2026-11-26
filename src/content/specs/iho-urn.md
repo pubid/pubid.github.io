@@ -44,13 +44,17 @@ urn:mrn:iho:pub:<type>:<name-or-number>:<edition>[:<correction>[:<clarification>
 
 ### Publication type codes
 
-| Code | Publication type |
-|---|---|
-| `bathy` | Bathymetric Publications |
-| `cb` | Capacity Building Publications |
-| `reg` | Miscellaneous (Base Regulatory Publications) |
-| `per` | Periodic Publications |
-| `spec` | Standards and Specifications — IHO standards and specifications, including the whole S-series |
+The five publication groups S-11 Part C names in its Preface (§1.2) map
+1:1 onto the guidance codes — the series letters and the codes are two
+spellings of the same list:
+
+| Series (S-11 Part C §1.2) | Code | Publication type |
+|---|---|---|
+| B — "Bathymetric Publications (Mainly related to GEBCO)" | `bathy` | Bathymetric Publications |
+| C — "Capacity Building Publications" | `cb` | Capacity Building Publications |
+| M — "Miscellaneous Publications (including Basic Documents)" | `reg` | Miscellaneous (Base Regulatory Publications) |
+| P — "Periodic Publications" | `per` | Periodic Publications |
+| S — "Standards and Specifications" | `spec` | Standards and Specifications — IHO standards and specifications, including the whole S-series |
 
 ### Examples
 
@@ -62,6 +66,8 @@ urn:mrn:iho:pub:<type>:<name-or-number>:<edition>[:<correction>[:<clarification>
 | `urn:mrn:iho:pub:spec:s158-102:1.0.0` | S-158:102 (validation checks for S-102), Ed 1.0.0 | member publication of the S-158 series; attested in the pubid testsuite corpus (testsuite #124) |
 | `urn:mrn:iho:pub:reg:m2:sup-1` | M-2 Sup 1 | attested in the pubid testsuite corpus — the `reg` type on the M series (Miscellaneous) |
 | `urn:mrn:iho:pub:per:p5:vol-2024` | P-5 Vol. 2024 | attested in the pubid testsuite corpus — the `per` type on the P series (Periodic); the yearbook year is the volume |
+| `urn:mrn:iho:pub:bathy:b12:3.0.0` | B-12 3.0.0 | the `bathy` type on the B series (Bathymetric) — emitted since gem 2.0.56 (pubid#785) |
+| `urn:mrn:iho:pub:cb:c51:6.0.0` | C-51 6.0.0 | the `cb` type on the C series (Capacity Building) — emitted since gem 2.0.56 (pubid#785) |
 
 **Compound publication numbers.** The S-158 series is a framework
 publication defining a series of separate check specifications, each named
@@ -114,19 +120,25 @@ IHO product specifications.
 
 The PubID `iho` flavor emits this scheme on `to_urn` — the migration is
 **landed** (gem 2.0.52, pubid#776, with the grammar artifact in
-pubid-grammar#147): every S/P/M identifier (the series the guidance gives
-a publication type) emits the guidance form
+pubid-grammar#147): every S/P/M identifier emits the guidance form
 `urn:mrn:iho:pub:<type>:<name>:…` with `spec` (S series),
 `reg` (M series) and `per` (P series). The S-158 series model (framework
 publication plus `s158-NNN` member check specifications) ships in the
 same release. The corpus round froze at that gem (testsuite #124): all
 S/P/M corpus URN rows — 164 across standard (133), publication (18) and
 miscellaneous (13) — emit the guidance form, and the S-158 compound
-number rides the hyphenated name segment (`s158-102`). The B series
-(bibliographic) and C series (circular letters) have no guidance type
-code, so they keep the legacy positional scheme
-(`urn:iho:<type>:<number>:…`, e.g. `urn:iho:b:4:ed-2.19.0`) — decodable
-for every series, never emitted for S/P/M.
+number rides the hyphenated name segment (`s158-102`). The B series and
+the C series completed the scheme in gem 2.0.56 (pubid#785): their
+publication groups read out of S-11 Part C Preface §1.2 — "Bathymetric
+Publications" (`bathy`) and "Capacity Building Publications" (`cb`) — so
+every series now emits the guidance form
+(`urn:mrn:iho:pub:bathy:b12:3.0.0`,
+`urn:mrn:iho:pub:cb:c51:6.0.0`). The pre-2.0.56 positional scheme
+(`urn:iho:<type>:<number>:…`, e.g. `urn:iho:b:4:ed-2.19.0`) is
+decode-only: identifiers in it keep parsing, and re-emit in the guidance
+MRN form; the pubid-URN wire types renamed with the same release
+(`pubid:iho:bibliographic` → `pubid:iho:bathymetric`,
+`pubid:iho:circular-letter` → `pubid:iho:capacity_building`).
 
 ## See Also
 
