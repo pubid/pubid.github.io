@@ -62,21 +62,23 @@ export const iho: Publisher = {
     ],
     },
     {
-      key: "bibliographic",
-      title: "Bibliographic Publication",
+      key: "bathymetric",
+      title: "Bathymetric Publication",
       abbr: ["B"],
-      description: "IHO Bibliographic Publications (B series) — bibliographies and reference catalogues. A bare three-digit B number in the 100–600 S-4 section range is a spec citation instead ('IHO B-401' → the S-4 B-401 specification); the bibliographic series keeps the other shapes (e.g. 'IHO B-4 2.19.0', 'IHO B-12').",
+      description: "IHO Bathymetric Publications (B series) — S-11 Part C Preface section 1.2 names the group: \"B - Bathymetric Publications (Mainly related to GEBCO)\", the guidance's `bathy` publication type. A bare three-digit B number in the 100–600 S-4 section range is a spec citation instead ('IHO B-401' → the S-4 B-401 specification); the series keeps the other shapes ('IHO B-4 2.19.0', 'IHO B-12 3.0.0'). URN faces — MRN: 'urn:mrn:iho:pub:bathy:b12:3.0.0'; pubid-scheme: 'urn:pubid:iho:b:12:ed-3.0.0' (wire type 'pubid:iho:bathymetric'); the legacy positional 'urn:iho:b:…' scheme is decode-only and re-emits as the MRN (gem 2.0.56, pubid#785).",
       examples: [
         { input: "IHO B-4 2.19.0" },
+        { input: "IHO B-12 3.0.0" },
     ],
     },
     {
-      key: "circular_letter",
-      title: "Circular Letter",
+      key: "capacity_building",
+      title: "Capacity Building Publication",
       abbr: ["C"],
-      description: "IHO Circular Letters (C series) — official correspondence from the IHO Secretariat to Member States.",
+      description: "IHO Capacity Building Publications (C series) — S-11 Part C Preface section 1.2 names the group: \"C - Capacity Building Publications\", the guidance's `cb` publication type (official capacity-building works such as C-13, the Manual on Hydrography). URN faces — MRN: 'urn:mrn:iho:pub:cb:c51:6.0.0'; pubid-scheme: 'urn:pubid:iho:cl:13:ed-1.0.0' (wire type 'pubid:iho:capacity_building'); the legacy positional 'urn:iho:c:…' scheme is decode-only and re-emits as the MRN (gem 2.0.56, pubid#785).",
       examples: [
         { input: "IHO C-13 1.0.0" },
+        { input: "IHO C-51 6.0.0" },
     ],
     },
 ],
@@ -93,7 +95,7 @@ export const iho: Publisher = {
       description: "Single-letter series code (S, P, M, B, C)",
       attribute: "type_letter",
       dataType: "enum",
-      values: ["S (Standard/Specification)", "P (Publication)", "M (Miscellaneous)", "B (Bibliographic)", "C (Circular Letter)"],
+      values: ["S (Standard/Specification)", "P (Publication)", "M (Miscellaneous)", "B (Bathymetric)", "C (Capacity Building)"],
       example: "S",
     },
     {
