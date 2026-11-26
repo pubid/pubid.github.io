@@ -11,7 +11,6 @@ import Playground from '~/components/playground/Playground.vue'
 import { publishers } from '~/data'
 import wasmBundle from '~/data/wasm-bundle.json'
 
-const flavorCount = publishers.length
 const docLinkCount = publishers.filter(p => p.urnDocs).length
 ---
 
@@ -45,7 +44,7 @@ const docLinkCount = publishers.filter(p => p.urnDocs).length
         </span>
         <span class="px-3 py-1.5 rounded-md bg-[var(--color-bg-raised)] border border-[var(--color-border)]">
           <span class="text-[var(--color-text-3)] uppercase tracking-wide mr-1.5">Bundle</span>
-          {(wasmBundle.files['pubid_wasm_bg.wasm'].bytes / 1024 / 1024).toFixed(2)} MB wasm ({flavorCount} flavors)
+          {(wasmBundle.files['pubid_wasm_bg.wasm'].bytes / 1024 / 1024).toFixed(2)} MB wasm — the ported fleet rides the engine (the ready line shows the count)
         </span>
       </div>
     </header>
