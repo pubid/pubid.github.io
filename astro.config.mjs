@@ -18,6 +18,10 @@ export default defineConfig({
       ],
       sidebar: [
         {
+          label: 'Playground',
+          link: '/playground',
+        },
+        {
           label: 'Concepts',
           items: [
             { label: 'Anatomy of a PubID', link: '/concepts/anatomy' },

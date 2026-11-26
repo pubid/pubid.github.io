@@ -1,0 +1,27 @@
+{
+  "source": {
+    "repo": "pubid/pubid-rs",
+    "crate": "pubid-wasm",
+    "crate_version": "0.1.0",
+    "commit": "df673a55ded1c3b9d0d4068eff889d73da76a922",
+    "pr": 25,
+    "issue": 22
+  },
+  "build": {
+    "command": "wasm-pack build crates/pubid-wasm --target web --release",
+    "toolchain": "rustc 1.94.0, wasm-pack 0.13.1, wasm-bindgen 0.2.129",
+    "target": "web",
+    "built_at": "2026-11-26T21:34:00Z"
+  },
+  "files": {
+    "pubid_wasm.js": {
+      "bytes": 14398,
+      "sha256": "03f548a279c317daff02275a0ec4758a461f2e85ea818eb212078a9df0d4254e"
+    },
+    "pubid_wasm_bg.wasm": {
+      "bytes": 2590385,
+      "sha256": "3f16d201e24955358a51ddf93cc4def3aeaa152b1aadcc7f46b18c2ac8199b44"
+    }
+  },
+  "notes": "The vendored PARG artifacts ship inside the wasm binary (checksum-verified at load); the corpus fixtures stay linker-GC'd out. Regenerate the pair from the pinned pubid-rs commit with the build command above and update this file — the playground's engine version line reads source.crate_version and source.commit."
+}
